@@ -40,7 +40,7 @@
                 $weekSel = date_format(date_create($dateSel),"W");
             }
             
-            
+            echo "alor";
             for ($i=$startWeek; $i <= $weekNow ; $i++) { 
                     
                 echo "<option value = \"". $startdate->format('Y-m-d')."\"";
