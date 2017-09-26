@@ -1,0 +1,115 @@
+.container {
+  position: relative;
+  height: 30px;
+  width:130px;
+  
+  overflow: hidden;
+}
+.overlay{
+    background-color: white;
+    height: 100%;
+    position: absolute;
+    left: 130px;
+    padding-top: 5px;
+    width: 180px;
+    transition: 0.7s ease;
+}
+.container:hover  div.ten_boi{
+    width: 80px;
+}
+.container:hover div.overlay{
+    left: 80px;
+}
+.layer_1_tenBoi{
+    position: absolute;
+}
+.ten_boi{
+    height: 30px;
+    width: 130px;
+    text-align: center;
+    padding-top: 5px;
+    -webkit-transition: width 0.5s ease-in-out 0.1s;
+    -moz-transition: width 0.5s ease-in-out 0.1s;
+    transition: width 0.5s ease-in-out 0.1s;
+}
+div.tb_Boi_Page{
+    height: 180px;
+    width: 130px;
+}
+div.tb_Boi_Page_chieu{
+    height: 90px;
+    width: 130px;
+}
+.overlay button{
+    background-color: cadetblue;
+}
+.day_container {
+  position: relative;
+  height: 15px;
+  width:130px;
+  background-color: antiquewhite;
+  overflow: hidden;
+  transition: 0.7s ease;
+}
+.day_Mon{
+    background-color: powderblue;
+}
+.day_Tue{
+    background-color: aquamarine;
+}
+.day_Wed{
+    background-color: turquoise;
+
+}
+.day_Thur{
+    background-color: darkturquoise;
+}
+.day_Fri{
+    background-color: darkturquoise;
+}
+.day_Sat{
+    background-color: powderblue;
+}
+.day_Sun{
+    background-color: powderblue;
+}
+.day_adj_overlay{
+    background-color: gray;
+    position: absolute;
+    height: 30px;
+    width:130px;
+    top:-30px;
+    left:0;
+    transition: 0.7s ease;
+}
+.day_time_hover{
+    position: absolute;
+    font-size :11px;
+    padding-left: 40%;
+}
+.day_container:hover{
+    height: 30px;
+}
+.day_container:hover  div.day_adj_overlay{
+    top:0;
+    
+}
+.day_container:hover  div.day_layer_1{
+    z-index: -1;
+}
+.day_layer_1{
+    
+    height: 24px;
+    width:130px;
+    padding-top: 5px;
+}
+.day_adj_overlay input{
+    width: 70px;
+    font-size: 10px;
+    margin: 5px 0 0 5px;
+}
+.day_adj_overlay button{
+    width: 40px;
+    font-size: 10px;
+    
+}

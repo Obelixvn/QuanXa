@@ -1,0 +1,25 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue128;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs22 \cf2 Sub\cf0  Changedate()\
+    \cf2 Dim\cf0  i \cf2 As\cf0  \cf2 Integer\
+\cf0     \cf2 Dim\cf0  Arr \cf2 As\cf0  \cf2 Variant\
+\cf0     \cf2 Dim\cf0  WorkRng \cf2 As\cf0  \cf2 Variant\
+\cf0     \cf2 Set\cf0  WorkRng = Application.Selection\
+    \cf2 Set\cf0  WorkRng = Application.InputBox("Range", "Test", WorkRng.Address, Type:=8)\
+    \cf2 ReDim\cf0  Arr(1 \cf2 To\cf0  WorkRng.Cells.Count, 1 \cf2 To\cf0  2)\
+    \cf2 For\cf0  i = 1 \cf2 To\cf0  WorkRng.Cells.Count\
+        Arr(i, 1) = Left(WorkRng.Cells(i).Value, 11)\
+        Arr(i, 2) = Mid(WorkRng.Cells(i).Value, 13, 9)\
+    \cf2 Next\
+\cf0     WorkRng.EntireColumn.Insert\
+    WorkRng.NumberFormat = "hh:mm"\
+    WorkRng.Offset(0, -1).Resize(\cf2 UBound(\cf0 Arr, 1\cf2 )\cf0 , 2).Value = Arr\
+    WorkRng.Offset(0, -1).NumberFormat = "YYYY-MM-DD"\
+    \
+\
+\
+\cf2 End\cf0  \cf2 Sub}

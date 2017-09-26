@@ -1,0 +1,13 @@
+fieldset#expense_field legend{
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+fieldset#income_field legend{
+    background-color: deepskyblue;
+    color: white;
+    padding: 5px;
+}
+fieldset{
+    margin-bottom: 20px;
+}

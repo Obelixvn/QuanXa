@@ -1,0 +1,84 @@
+.tb_sale_items{
+    width: 130px;
+    height: 40px;
+    display: flex;
+    
+    align-items: center;
+}
+.tb_sale_colums .item{
+    justify-content: flex-end;
+}
+.tb_sale_colums .item_button{
+    justify-content: center;
+}
+.tb_sale_colums .item input{
+    width: 97%;
+    border: none;
+    height: 23px;
+    font-size: 14px;
+}
+.tb_sale_colums{
+    width: 130px;
+    float: left;
+    margin-right: 4px;
+}
+.tb_sale_colums .thu{
+    border: 1px solid whitesmoke;
+    justify-content: center;
+    
+}
+.tb_sale_colums .tong_tien{
+    text-decoration: overline;
+    font-style: italic;
+}
+.tb_sale_colums .item_tong{
+    
+    font-weight: bolder;
+}
+div#sale_tb{
+    font-size: 15px;
+    
+    
+    position: absolute;
+    
+}
+div.sale_container{
+    height: 400px;
+    width: 100%;
+    position: relative;
+    overflow: scroll;
+    margin: 10px;
+}
+.tb_sale_colums .cash{
+    background-color: rgb(114, 204, 239);
+}
+.tb_sale_colums .card{
+    background-color: #80d3f3;
+}
+.tb_sale_colums .uber{
+    background-color: rgb(52, 189, 243);
+}
+.tb_sale_colums .roo{
+    background-color: rgb(27, 183, 245);
+}
+.tb_sale_colums .jeat{
+    background-color: rgb(72, 195, 243);
+}
+fieldset#income_field legend{
+    background-color: deepskyblue;
+    color: white;
+    padding: 5px;
+}
+fieldset{
+    margin-bottom: 20px;
+}
+table#tb_income{
+    margin-top: 10px;
+    width: 400px;
+}
+table#tb_income td{
+    text-align: center;
+}
+table#tb_income input{
+    text-align: right;
+}

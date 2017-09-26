@@ -1,0 +1,77 @@
+
+<html>
+<head>
+<style>
+.day_container {
+  position: relative;
+  height: 15px;
+  width:130px;
+  background-color: red;
+  overflow: hidden;
+  transition: 0.7s ease;
+}
+.day_adj_overlay{
+    background-color: cadetblue;
+    position: absolute;
+    height: 30px;
+    width:130px;
+    top:-30px;
+    left:0;
+    transition: 0.7s ease;
+}
+.day_time_hover{
+    position: absolute;
+    font-size :11px;
+}
+.day_container:hover{
+    height: 30px;
+}
+.day_container:hover  div.day_adj_overlay{
+    top:0;
+    
+}
+.day_container:hover  div.day_layer_1{
+    z-index: -1;
+}
+.day_layer_1{
+    background-color: yellow;
+    height: 30px;
+    width:130px;
+    transform: 0.7 ease;
+}
+.day_adj_overlay input{
+    width: 70px;
+    font-size: 10px;
+    margin: 5px 0 0 5px;
+}
+.day_adj_overlay button{
+    width: 40px;
+    font-size: 10px;
+    
+}
+
+</style>
+</head>
+<body>
+<script>
+       
+            
+</script>
+<div class = "day_layer_1">
+            Mon
+</div>
+<div title = "test" class = "day_container">
+        
+        
+        <div class = "day_time_hover">
+            10h
+        </div>
+        <div class = "day_adj_overlay">
+            <input type = "time"/>
+            <button>Save</button>
+        </div>    
+    </div>
+
+
+</body>
+</html>

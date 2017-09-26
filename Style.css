@@ -1,0 +1,376 @@
+.fl{
+    float:Left;
+}
+
+.fr{
+
+    float: right;
+}
+.txt_green{
+    color: green;
+}
+.txt_red{
+    color: red;
+}
+.closebtn {
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.closebtn:hover {
+  color:white;
+}
+.w50{
+    width: 50% !important;
+}
+.w100{
+    width: 100%;
+}
+.w90{
+    width: 90%;
+}
+.w33{
+    width: 33%;
+}
+.w25{
+    width: 25%;
+}
+.w10{
+    width: 10%;
+}
+.w_10{
+    width: 10px;
+}
+.w_20{
+    width: 20px;
+}
+.w_30{
+    width: 30px;
+}
+.w_40{
+    width: 40px;
+}
+.w_100{
+    width: 100px;
+}
+.w_150{
+    width: 150px;
+}
+.w_200{
+    width: 200px;
+}
+.h_20{
+    height: 20px;
+}
+.h_30{
+    height: 30px;
+}
+.h_40{
+    height: 40px;
+}
+.mar_r_5{
+    margin-right: 5px;
+}
+.mar_r_10{
+    margin-right: 10px;
+}
+.mar_r_15{
+    margin-right: 15px;
+}
+.mar_b_10{
+    margin-bottom: 10px;
+}
+.mar_b_15{
+    margin-bottom: 15px;
+}
+.mar_b_20{
+    margin-bottom: 20px;
+}
+.mar_10{
+    margin: 10px;
+}
+.txt_c{
+    text-align: center;
+}
+.txt_l{
+    text-align: left;
+}
+.pad_t10{
+    padding-top: 10px;
+}
+.pad_b10{
+    padding-bottom: 10px;
+}
+.pad_20{
+    padding: 20px;
+}
+.pad_10{
+    padding: 10px;
+}
+.tieude{
+    text-align: left;
+  
+}
+.txt_l{
+    text-align: left;
+}
+.txt_r{
+    text-align: right;
+}
+.txt_c{
+    text-align: center;
+}
+.bor_t1{
+    border-top: 1px solid black;
+}
+.head_frame{
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+.body_frame{
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+.foot_frame{
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+div.headLine {
+    width: 100%;
+    margin-bottom: 15px;
+    height: 20px;
+}
+div.headLine div.left_contain{
+    float: left;
+    width: 3%;
+}
+div.headLine div.right_contain{
+    float: left;
+    width: 72%;
+}
+div.headLine div.mid_contain{
+    float: left;
+    width: 25%;
+}
+#boi_adj_div_1{
+    display: none;
+}
+#boi_adj_button_2{
+    display: none;
+}
+
+#mainBar{
+    height: 50px;
+}
+#mainBar .itemBar{
+    margin: 10px 10px 20px 20px;
+    float: left;
+}
+#Main_contain{
+    margin: 10px 20px;
+
+}
+#Main_contain input{
+    height: 20px;
+    margin: 5px;
+    width: 100px;
+}
+
+table#sale_tb td{
+    width: 80px;
+    text-align: right;
+    height: 40px;
+}
+table#sale_tb input{
+    text-align: right;
+}
+table#sale_tb td.tongtuan{
+    border-top: 3px;
+    border-top-color: black;
+}
+div.BoiData{
+    float: left;
+    width: 14%;
+    margin: 5px;
+}
+div.BoiData p input{
+  width: 100%;  
+}
+table#boi_tb input.nhap_ten{
+    width: 130px;
+    text-align: center;
+    height: 16px;
+    border: none;
+    background-color: whitesmoke;
+    margin-bottom: 3px;
+}
+div#div_gioLam{
+    margin-top: 15px;
+    height: 40px;
+}
+table#boi_tb th{
+    width: 130px;
+}
+table#boi_tb td{
+    vertical-align: top;
+}
+
+p.tb_Boi_Page{
+    height: 66px;
+    text-align: center;
+}
+table#boi_tb div.button{
+    height: 30px;
+    text-align: center;
+}
+div#luong_boi_boiPage table{
+    width: 63%;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-left: 40px;
+
+}
+div#luong_boi_boiPage table td{
+    margin-bottom: 5px;
+    width: 80px;
+}
+div#luong_boi_boiPage table .ten_boi{
+   text-align: left;
+    
+}
+td.sum_tong {
+    border-top: 1px solid black;
+    text-align: left;
+}
+td.tong_tien{
+    border-top: 1px solid black;
+    text-align: right;
+}
+table#giolam_detailt{
+    width: 100%;
+    float: right;
+    text-align: center;
+    
+}
+table.Maintb_datDoPage{
+    width: 100%;
+}
+table.tb_datDoPage {
+    width: 100%;
+    
+}
+td#Thit_supplier{
+    text-align: center;
+    background-color: pink;
+}
+td#Rau_supplier{
+    text-align: center;
+    background-color: green;
+}
+td#Cook_Delight_supplier{
+    text-align: center;
+    background-color: brown;
+}
+td#Hung_Nghia_supplier{
+    text-align: center;
+    background-color: yellow;
+}
+table td{
+     vertical-align: top;
+}
+table.tb_datDoPage .datDo_ten{
+    text-align: left;
+    
+    text-transform: capitalize;
+}
+table.tb_datDoPage .datDo_unit{
+    text-align: right;
+    font-variant: small-caps;
+}
+table.tb_datDoPage .datDo_quality{
+    text-align: center;
+}
+table.tb_datDoPage .datDo_gia{
+    text-align: center;
+}
+table.tb_datDoPage .datDo_tien{
+    text-align: right;
+}
+table.tb_datDoPage th {
+    font-size: 14px;
+    text-decoration: underline;
+}
+.Do_them_datDoPage table{
+    width: 100%;
+    background-color: aqua;
+}
+table.tb_them_do input.them_do_ten{
+    width: 230px;
+}
+table.tb_them_do input.them_do_q{
+    width: 55px;
+}
+table.tb_them_do input.them_do_tien{
+    width: 55px;
+}
+table.tb_them_do td{
+    text-align: center;
+}
+.Other_supplier_dat_do{
+    padding: 10px;
+    border: 2px double darkgrey;
+    text-align: center;
+    font-variant: small-caps;
+    font-weight: bolder;
+    
+}
+
+.tb_thongKe td.tien_thongKe{
+    padding: 5px;
+    
+    text-align: center;
+}
+.tb_thongKe td.tien_thongKe_selected{
+    padding: 5px;
+    border: 1px solid cadetblue;
+    text-align: center;
+    background-color: cadetblue;
+}
+.tb_thongKe td.sup_name_thongKe{
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-align: center;
+    font-size: larger;
+    
+}
+table#tb_thong_ke{
+    width: 100%;
+    margin: 10px;
+    border-collapse: collapse;
+}
+table#thong_ke_theo_tuan{
+    padding-bottom: 50px;
+    border-collapse: collapse;
+}
+table.tb_thongKe_detail{
+    padding: 20px 0 20px 0;
+}
+div#list_items_thong_ke{
+    padding: 25px 0 0 25px;
+}
+div#list_items_thong_ke input{
+    margin-bottom: 10px;
+}
+tr.tr_detailt_thongKe{
+    display: none;
+    background-color: blanchedalmond;
+}
+
+
+
+
+
