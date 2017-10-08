@@ -9,7 +9,7 @@
 <body> 
 <?php
         include 'Mainbar.php';
-        
+        include 'global.php';
 ?> 
 
 <script src="java_functions_NN.js">

@@ -13,6 +13,8 @@
         </script>
         <?php
         include 'Mainbar.php';
+        include 'global.php';
+        include 'DB_functions_NN.php';
         $_GET["ngay_dat_do"] = $Ngay_hom_nay->format('Y-m-d');
         ?>
 <div class = "headLine">

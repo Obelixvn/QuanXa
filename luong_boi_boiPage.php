@@ -1,4 +1,4 @@
-<?
+<?php
     include "functions_NN.php";
     include "global.php";
     global $Gio_lam_cua_quan;
@@ -9,12 +9,15 @@
         $date_1 = new Datetime($_GET["Date_1"]);
     }
     
-    $ten_boi = array();
-    $luong_boi = array();
-    $ngay_sang = array();
-    $ngay_chieu = array();
-    $ngay_full = array();
-    $rate = array();
+    $ten_boi = array_fill(0,20.,"0");
+    $luong_boi = array_fill(0,20.,0);
+    $ngay_sang = array_fill(0,20.,0);
+    $ngay_chieu = array_fill(0,20.,0);
+    $ngay_full = array_fill(0,20.,0);
+    $rate = array_fill(0,20.,0);
+    $ngay_chieu = array_fill(0,20.,0);
+    $ngay_sang = array_fill(0,20.,0);
+    $ngay_full = array_fill(0,20.,0);
     $sql = "
         Select Name, Shift, tb_boi_hour.Date,Adj,Sang, Chieu 
         From `NN`.`tb_boi_hour` 
@@ -25,14 +28,19 @@
         Order By Name       
             ";
     
-    $index = 0;       
+    $index = 0;   
+    $tong_tienLuong = 0;    
     $result = DB_run_query($sql);
     
+    $tong_gio = 0;
     if ($result->num_rows > 0){
             while($row = $result->fetch_assoc()) {
                 if ($ten_boi[$index] != $row["Name"]){
                     $index = $index + 1;
+                    
                     $ten_boi[$index] = $row["Name"];
+                    
+                    
                     $luong_boi[$index] = 0;
                     $sql_rate = "
                         SELECT
@@ -91,10 +99,11 @@
             }
             
     }
+    
+   
 
-?><style>
+?>
 
-</style>
 <table>
     <tbody>
         <tr>
@@ -104,10 +113,11 @@
             <th></th>
         </tr>
         <?php
+       
             setlocale(LC_MONETARY, 'en_GB.UTF-8');
             $date = new Datetime($_GET["Date"]);
             $date_1 = new Datetime($_GET["Date_1"]);
-            for ($i=1; $i <= count($ten_boi); $i++) {
+            for ($i=1; $i <= $index; $i++) {
                 $str = '';
                 if ($ngay_full[$i] != ''){
                     $str = $ngay_full[$i]." full,";

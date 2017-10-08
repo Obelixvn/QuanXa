@@ -1,6 +1,6 @@
 <?php
 
-include 'global.php';
+#include 'global.php';
 
 $Ngay_bat_dau = '2017-04-24';
 

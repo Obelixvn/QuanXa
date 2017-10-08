@@ -1,6 +1,7 @@
 <?php
 
     include "DB_functions_NN.php";
+    include "global.php";
     $date = new Datetime($_GET["date"]);
 
     $supplier = $_GET["supplier"];
@@ -40,7 +41,7 @@
 ?>
                 <tr>
                     <td class = "datDo_ten"><?php echo ($row["name"]) ; ?></td>
-                    <td class = "datDo_quality"><?php echo ($row["soluong"]." x ".$row["unit"]) ; ?></td>
+                    <td class = "datDo_quality"><?php echo (round($row["soluong"],2)." x ".$row["unit"]) ; ?></td>
                     <td class = "datDo_tien"><?php echo money_format('%#10n',$row["tien"]) ; ?></td>
                     <td><button onclick = "get_detail_thong_keItem(<?php echo ("'".$monday."',".$row["item_id"].",'".$supplier."'"); ?>)">Xem</button></td>
                 </tr>    

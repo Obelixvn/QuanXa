@@ -4,8 +4,19 @@
     include "compare_functions_NN.php";
     $date = new Datetime($_GET["Date"]);
     
-    $items = $_GET["items"];
-    $suppliers = $_GET["suppliers"];
+    if (isset($_GET["items"])){
+        $items = $_GET["items"];
+    }
+    else{
+        $items = '';
+    }
+    if (isset($_GET["suppliers"])){
+        $suppliers = $_GET["suppliers"];
+    }
+    else{
+        $suppliers = '';
+    }
+    $list_thong_ke = '';
     $week_no = $date->format("W");
     
     $str_date = $date->format('Y-m-d');
@@ -16,6 +27,10 @@
     if ($items != ''){
         $list_thong_ke = $items;
         $kieu_thong_ke = 'Item Name' ;
+    }
+    if ($list_thong_ke == ''){
+        echo "Khong co du lieu";
+        exit;
     }
     $sql_selected = " 
                     SELECT sum(cost) as tong_tuan from tb_purchase

@@ -1,5 +1,6 @@
 <?php 
 include "DB_functions_NN.php";
+include 'global.php';
 $date = new datetime($_GET["date"]);
 $money_style = '%.2n';
 $tong_net = 0;

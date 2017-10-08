@@ -3,23 +3,19 @@
     <a href="/~Trang" >Home</a>
 </div>
 <div class= "itemBar"> 
-    <a href="/~Trang/Sale.php" >Sale</a>
+    <a href="/Sale.php" >Sale</a>
 </div>
 <div class="itemBar">
-    <a href="/~Trang/Expense.php">Expense</a>
+    <a href="/Expense.php">Expense</a>
 </div>
 <div class="itemBar">
-    <a href="/~Trang/Boi.php">Boi</a>
+    <a href="/Boi.php">Boi</a>
 </div>
 <div class="itemBar">
-    <a href="/~Trang/Bep.php">Bep</a>
+    <a href="/Bep.php">Bep</a>
 </div>
 <div class="itemBar">
-    <a href="/~Trang/Do.php">Dat Do</a>
+    <a href="/Do.php">Dat Do</a>
 </div>
 </div>
 
-<?php
- include "functions_NN.php";
-
- ?>

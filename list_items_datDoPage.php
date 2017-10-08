@@ -16,5 +16,8 @@ if ($result->num_rows > 0){
         <br>
 <?php
     }
+}
+else{
+    echo "Khong co du lieu";
 }       
  ?>

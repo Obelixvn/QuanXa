@@ -9,6 +9,7 @@
 <body onload = "salePage_onload()"> 
 <?php
         include 'Mainbar.php';
+        include 'global.php';
         
 ?> 
 

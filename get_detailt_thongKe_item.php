@@ -1,5 +1,6 @@
 <?php 
 include "DB_functions_NN.php";
+include "global.php";
 $date = new Datetime ($_GET["date"]);
 $id = $_GET["item"];
 $monday = $date->format('Y-m-d');

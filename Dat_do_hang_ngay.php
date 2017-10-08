@@ -1,5 +1,10 @@
 <?php 
-    $cat = $_GET["cat"];
+    if (isset($_GET["cat"])){
+        $cat = $_GET["cat"];
+    }
+    else {
+        $cat = '';
+    }
     $supplier = $_GET["supplier"]; 
     if ($cat == ''){
         $cat = $supplier;

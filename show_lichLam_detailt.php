@@ -19,16 +19,7 @@
     echo "Tuan ".$date->format('W').":<br>";
     $tong_gio = 0;
 ?>
-<table id = "giolam_detailt">
-    <tbody>
-        <tr>
-            <th class = "w10 tieude">Ngay</th>
-            <th class = "w10">Ca lam</th>
-            <th class = "w10">Gio lam</th>
-            <th class = "w10">Adj</th>
-            <th>Note</th>
-        </tr>
-    
+
 
 <?php
 
@@ -47,7 +38,20 @@
     $result = DB_run_query($sql);
     
     if ($result->num_rows > 0){
-            while($row = $result->fetch_assoc()) {
+            
+
+                ?>
+                <table id = "giolam_detailt">
+                <tbody>
+                    <tr>
+                        <th class = "w10 tieude">Ngay</th>
+                        <th class = "w10">Ca lam</th>
+                        <th class = "w10">Gio lam</th>
+                        <th class = "w10">Adj</th>
+                        <th>Note</th>
+                    </tr>
+                <?php 
+                while($row = $result->fetch_assoc()) {
                 echo "<tr>";
                 $ngay = new Datetime($row["Date"]);
                 $thu = $ngay->format('D');
@@ -105,15 +109,15 @@
 
     }
     else{
-        echo "Khong tim thay";
+        echo "Khong tim thay<br>";
     }          
             
     
 ?>
 </tbody>    
 </table> 
-
-<?
+<hr>
+<?php
 $date->modify('+1 day');
 }
 while ($date < $date_1);?>

@@ -1,5 +1,5 @@
 <?php
-    include 'global.php';
+    
 
     $Ngay_bat_dau = '2017-04-24';
 
@@ -20,6 +20,7 @@ function DBConn()
     return $conn;
 
 }
+
 function Get_insertIDQuery($sql){
     $conn = DBConn();
     $result =  $conn->query($sql);

@@ -1,7 +1,9 @@
 <?php
+    include 'windowns_php_functions.php';
     date_default_timezone_set("Europe/London");
     setlocale(LC_MONETARY, 'en_GB.UTF-8');
     $Ngay_bat_dau = "2017-04-24";
+    
     $Gio_lam_cua_quan  = array(
 
         array(),
@@ -41,5 +43,7 @@
         "Dung ten"=>"200",
         "Other"=>"0",
         
-    )
+    );
+
+   
 ?>
