@@ -1,5 +1,6 @@
 <?php 
 include "DB_functions_NN.php";
+include "Global.php";
 $date = new Datetime($_POST["ngay"]);
 
 $net = $_POST["net"];
