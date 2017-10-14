@@ -21,7 +21,7 @@
         
 </script>    
 <fieldset id = "expense_field">
-    <legend>Expenses incured</legend>
+    <legend>Expenses </legend>
     <table id = "tb_expense">
         <thead>
             <tr>
@@ -50,6 +50,12 @@
     <button type = "button" onclick = "them_item_expense()">Them</button>
     <button type = "button" onclick = "update_expense()">Confirm</button>
 </fieldset>
+
+<fieldset >
+    <legend>Expenses incured</legend>
+    <div id = "expense_table">
+    </div>
+</fieldset>    
 
 </body>
 </html>

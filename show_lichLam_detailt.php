@@ -55,7 +55,7 @@
                 echo "<tr>";
                 $ngay = new Datetime($row["Date"]);
                 $thu = $ngay->format('D');
-                echo "<td class = \"tieude\">".$thu."</td>";
+                echo "<td class = \"tieude\">".$thu." - ".$ngay->format('d')."</td>";
                 $thu = $ngay->format('N');
                 switch ($row["Shift"]) {
                     case 1:

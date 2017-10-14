@@ -50,3 +50,13 @@ function update_expense(){
     phpFile = "update_expense.php";
     Java_ajax_Post(str_ajax,'tbody_expense',phpFile);
 }
+function load_expenseTB(orderBy){
+    str_ajax ="show_expenseTB.php?orderBy=";
+    if(orderBy = 'Newest'){
+        str_ajax += orderBy;
+    }
+    else{
+        str_ajax += 'week';
+    }
+    Java_ajax('expense_table',str_ajax);
+}
