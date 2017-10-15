@@ -6,7 +6,7 @@
     
 </head>
 
-<body> 
+<body onload = "expensePage_onload()"> 
 <?php
         include 'Mainbar.php';
         
@@ -22,7 +22,7 @@
 </script>    
 <fieldset id = "expense_field">
     <legend>Expenses </legend>
-    <table id = "tb_expense">
+    <table id = "tb_expense" class = "tb_input_expense">
         <thead>
             <tr>
                 <th>From</th>
@@ -53,6 +53,11 @@
 
 <fieldset >
     <legend>Expenses incured</legend>
+    <div>
+        <input onclick = "load_expenseTB('Week')" type = "radio" name = "orderBy" checked value = "Week">Week
+        <input onclick = "load_expenseTB('Newest')"type = "radio" name = "orderBy" value = "Newest">Moi nhap
+    </div>
+    <div id ="expense_input"></div>
     <div id = "expense_table">
     </div>
 </fieldset>    

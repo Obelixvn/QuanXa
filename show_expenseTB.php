@@ -1,7 +1,7 @@
 <?php 
 include "DB_functions_NN.php";
 include "global.php";
-
+setlocale(LC_MONETARY, 'en_GB.UTF-8');
 if (isset($_GET["orderBy"])){
 
     $orderby = $_GET["orderBy"];
@@ -24,12 +24,13 @@ if ($result->num_rows > 0){
     <table>
     <thead>
         <tr>
+            <th colspan = "2">Ten</th>
+            
+            <th>Amount</th>
+            
             <th>From</th>
             <th>To</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>Amount</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -37,11 +38,13 @@ if ($result->num_rows > 0){
     while($row = $result->fetch_assoc()) {
 ?>
     <tr>
-        <td><?php echo $row["From"]; ?></td>
-        <td><?php echo $row["To"]; ?></td>
-        <td><?php echo $row["From"]; ?></td>
-        <td><?php echo $row["From"]; ?></td>
-        <td><?php echo $row["Amount"]; ?></td>
+        <td><?php echo $row["Name"]; ?></td>
+        <td><?php echo $row["Cat 1"]; ?></td>
+        <td><?php echo money_format('%#10.2n',$row["Amount"]);  ?></td>
+        <td><?php $date = new Datetime ($row["From"]); echo $date->format("d M Y"); ?></td>
+        <td><?php $date = new Datetime ($row["To"]); echo $date->format("d M Y");?></td>
+        
+        
     </tr>
 
 <?php

@@ -7,6 +7,26 @@ $cat_3 = $_POST["cat_3"];
 $tien = $_POST["tien"];
 $ten = $_POST["ten"];
 include "DB_functions_NN.php";
+include "global.php";
+
+?>
+<table class = "tb_input_expense">
+    <thead>
+            <tr>
+                <th></th>
+                <th>From</th>
+                <th>To</th>
+                <th>Name</th>
+                <th>Cat 1</th>
+                <th>Cat 2</th>
+                <th>Cat 3</th>
+                <th>Amount</th>
+            </tr>
+        
+    </thead>
+    <tbody>
+
+<?php
 
 for ($i=0; $i < count($ten); $i++) { 
     $date_from = $date_0[$i];
@@ -44,6 +64,9 @@ for ($i=0; $i < count($ten); $i++) {
 ?>
 <tr>
                 <td>
+                    <i>Updated</i>
+                </td>
+                <td>
                     <?php 
                     $d = new Datetime($date_0[$i]);
                     echo $d->format('d M Y');
@@ -65,4 +88,7 @@ for ($i=0; $i < count($ten); $i++) {
 <?php
     }
 }
- ?>
+?>
+</tbody>
+</table>
+<button onclick = "done_updateExpense()">Done</button>

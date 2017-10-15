@@ -1,3 +1,8 @@
+function expensePage_onload(){
+    load_expenseTB('Week');
+}
+
+
 function them_item_expense(){
     var table = document.getElementById('tb_expense');
     var row = table.insertRow(-1);
@@ -48,15 +53,24 @@ function update_expense(){
         str_ajax += "&tien[]="+e.value;
     }, this);
     phpFile = "update_expense.php";
-    Java_ajax_Post(str_ajax,'tbody_expense',phpFile);
+    Java_ajax_Post(str_ajax,'expense_input',phpFile);
+    
+    ;
+    document.getElementById('tbody_expense').innerHTML = '';
 }
 function load_expenseTB(orderBy){
     str_ajax ="show_expenseTB.php?orderBy=";
-    if(orderBy = 'Newest'){
+    if(orderBy == 'Newest'){
         str_ajax += orderBy;
     }
     else{
-        str_ajax += 'week';
+        str_ajax += 'Week';
+        
     }
     Java_ajax('expense_table',str_ajax);
+}
+function done_updateExpense(){
+    document.getElementsByName('orderBy')[1].checked = true
+    document.getElementById('expense_input').innerHTML = '';
+    load_expenseTB('Newest');
 }

@@ -11,3 +11,27 @@ fieldset#income_field legend{
 fieldset{
     margin-bottom: 20px;
 }
+div#expense_table table thead tr th:first-of-type{
+    width: 240px;
+}
+div#expense_table table thead tr th:nth-of-type(2){
+    width: 200px;
+}
+div#expense_table table thead tr th:nth-of-type(3){
+    width: 100px;
+}
+div#expense_table table thead tr th:nth-of-type(4){
+    width: 100px;
+}
+div#expense_table table tbody tr td{
+    text-align: center;
+}
+div#expense_table table tbody tr td:first-of-type{
+    text-align: left;
+} 
+table.tb_input_expense th{
+    width: 140px;
+}
+
+    
+

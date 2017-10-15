@@ -2,6 +2,7 @@
     
 
     $Ngay_bat_dau = '2017-04-24';
+    
 
 function DBConn()
 {
