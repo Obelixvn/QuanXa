@@ -17,14 +17,29 @@
     include "Global.php";
     $date = new Datetime($_GET["Date"]);
     $week = $date->format("W");
+    
     $sql_nv = "
-        SELECT Name,ID 
-        FROM tb_nhanVien
-        Where Role = 'Bep'
-            and Status = 1
+        SELECT d_o_w, Name, nv_ID as ID
+        FROM `tb_bep` 
+        INNER JOIN tb_nhanvien ON tb_bep.nv_ID = tb_nhanvien.ID 
+        WHERE tb_bep.Week = ".$week."
     ";
     $result_nv = DB_run_query($sql_nv);
+    if ($result_nv->num_rows == 0){
+        $sql_nv = "
+            SELECT Name,ID 
+            FROM tb_nhanVien
+            Where Role = 'Bep'
+                and Status = 1
+        ";
+        $result_nv = DB_run_query($sql_nv);
+        $sql_lich = "Yes";
+        
+    }else{
+        $sql_lich = "No";
+    }
     while ($row_nv = $result_nv->fetch_assoc()){
+    
 ?>
         <tr>
             <td class = "ten_bep">
@@ -33,15 +48,21 @@
             </td>
             
             <?php 
-            $sql_lich = "
-                        SELECT d_o_w, ID 
-                        FROM tb_Bep
-                        WHERE Week = ".$week."
-                            and nv_ID = ".$row_nv["ID"]."
-            ";
-            $result_lich = DB_run_query($sql_lich);
-            $row_lich = $result_lich->fetch_assoc();
-            if ($row_lich["d_o_w"] != null){
+            if ($sql_lich == "Yes" ){
+                $sql_lich = "
+                SELECT d_o_w, ID 
+                FROM tb_Bep
+                WHERE Week = ".$week."
+                    and nv_ID = ".$row_nv["ID"]."
+                ";
+                $result_lich = DB_run_query($sql_lich);
+                $row_lich = $result_lich->fetch_assoc();
+            }else{
+                $row_lich = $row_nv;
+            }
+            
+            $arr = array_fill(0,7,0);
+            if (isset($row_lich["d_o_w"])){
                 $arr = str_split($row_lich["d_o_w"]);
             }
             for ($i=0; $i < 7; $i++) {
@@ -105,7 +126,7 @@
 ?>
     <tr>
         <td colspan = "8">
-            <?php if ($row_lich["d_o_w"] == null){ ?>
+            <?php if (!isset($row_lich["d_o_w"])){ ?>
            <button onclick = "save_lichBep()"id = "btn_save_lichBep">Save</button>
             <?php } ?>
         </td>

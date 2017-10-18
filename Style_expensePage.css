@@ -11,6 +11,14 @@ fieldset#income_field legend{
 fieldset{
     margin-bottom: 20px;
 }
+div#expense_input{
+    background-color: cyan;
+}
+div#expense_input button{
+    background-color: cyan;
+    color: white;
+    border: none;
+}
 div#expense_table table thead tr th:first-of-type{
     width: 240px;
 }
