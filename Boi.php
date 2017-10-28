@@ -19,7 +19,7 @@
         
 
     <div class = "mid_contain">
-        [ Lich Lam : ]
+        [ Lich  Lam : ]
         <select name ="Date_selected" onchange = "showLichBoi(this.value)">        
         <?php
             date_default_timezone_set("Europe/London");

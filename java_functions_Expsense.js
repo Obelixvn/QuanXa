@@ -1,5 +1,6 @@
 function expensePage_onload(){
     load_expenseTB('Week');
+    Java_ajax('Boi_outstanding','list_boi_payable.php');
 }
 
 
@@ -73,4 +74,38 @@ function done_updateExpense(){
     document.getElementsByName('orderBy')[1].checked = true
     document.getElementById('expense_input').innerHTML = '';
     load_expenseTB('Newest');
+}
+function pay_individual_weekly(ten){
+    Java_ajax('Boi_paying_tb','list_payable_boi_individual.php')
+}
+function add_week_to_pay(x){
+    var week = x.value;
+    var gio = parseFloat(document.getElementById('tong_gion_week_'+week).innerHTML);
+    var tong_gio = parseFloat(document.getElementById('tong_gio_pay').innerHTML);
+    var tip = parseFloat(document.getElementById('tip_pay').value);
+    var rate = parseFloat(document.getElementById('rate_pay').innerHTML);
+
+    if (!x.checked){
+        document.getElementById('tong_gio_pay').innerHTML = (tong_gio*100 - gio*100)/100;
+       
+        
+    }else{
+        document.getElementById('tong_gio_pay').innerHTML = tong_gio + gio;
+        
+        
+
+    }
+    var tong_gio = parseFloat(document.getElementById('tong_gio_pay').innerHTML);
+    var luong_pay = parseFloat(rate*tong_gio).toFixed(2);
+    document.getElementById('luong_pay').innerHTML = luong_pay;
+    var luong_pay = parseFloat(document.getElementById('luong_pay').innerHTML);
+    document.getElementById('tong_pay').innerHTML = luong_pay + tip;
+    
+    
+}
+function add_tip_payable(){
+    var tong_gio = parseFloat(document.getElementById('luong_pay').innerHTML);
+    var tip = parseFloat(document.getElementById('tip_pay').value);
+    var tong_pay = parseFloat(tong_gio + tip).toFixed(2)
+    document.getElementById('tong_pay').innerHTML = tong_pay;
 }

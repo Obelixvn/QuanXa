@@ -60,7 +60,22 @@
     <div id ="expense_input"></div>
     <div id = "expense_table">
     </div>
-</fieldset>    
+</fieldset>
+<fieldset class = "fl w25" >
+    <legend>Boi</legend>
+    
+    <div id = "Boi_outstanding"></div>
+</fieldset>
+<fieldset class = "fl w25" >
+    <legend>Bep</legend>
+    
+    <div id = "Bep_outstanding"></div>
+</fieldset> 
+<fieldset class = "fl w25 " >
+    <legend>Do</legend>
+    
+    <div id = "Do_outstanding"></div>
+</fieldset>     
 
 </body>
 </html>

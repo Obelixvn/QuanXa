@@ -40,6 +40,8 @@ div#expense_table table tbody tr td:first-of-type{
 table.tb_input_expense th{
     width: 140px;
 }
-
+table.tb_payable{
+    color: deeppink;
+}
     
 

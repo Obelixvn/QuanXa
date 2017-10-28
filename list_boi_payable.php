@@ -1,18 +1,10 @@
-<?php
-    include "functions_NN.php";
-    include "global.php";
-    global $Gio_lam_cua_quan;
-    $date = new Datetime($_GET["Date"]);
-    if ($_GET["Date_1"] == null){
-        $date_1 = $date;
-    }else{
-        $date_1 = new Datetime($_GET["Date_1"]);
-    }
-    
-    $ten_boi = array_fill(0,20.,"0");
+<?php 
+include "Global.php";
+include "DB_functions_NN.php";
+
+
+$ten_boi = array_fill(0,20.,"0");
     $luong_boi = array_fill(0,20.,0);
-    
-    
     
     $rate = array_fill(0,20.,0);
     $ngay_chieu = array_fill(0,20.,0);
@@ -22,8 +14,7 @@
         Select Name, Shift, tb_boi_hour.Date,Adj,Sang, Chieu 
         From `NN`.`tb_boi_hour` 
         Left Join `NN`.`tb_gioLam` On tb_boi_hour.Date = tb_gioLam.Date
-        Where   tb_boi_hour.Date >= '".$date->format('Y-m-d')."' and
-                tb_boi_hour.Date <= '".$date_1->modify('+6 day')->format('Y-m-d')."'
+        Where   Paid = 0
                 
         Order By Name       
             ";
@@ -99,50 +90,30 @@
             }
             
     }
-    
-   
-
 ?>
-
-<table>
+<table class = "tb_payable">
     <tbody>
-        <tr>
-            <th class = "ten_boi">Ten</th>
-            <th style ="width:60px">Gio lam</th>
-            <th>Luong</th>
-            <th></th>
-        </tr>
-        <?php
-       
-            setlocale(LC_MONETARY, 'en_GB.UTF-8');
-            $date = new Datetime($_GET["Date"]);
-            $date_1 = new Datetime($_GET["Date_1"]);
-            for ($i=1; $i <= $index; $i++) {
-                $str = '';
-                if ($ngay_full[$i] != ''){
-                    $str = $ngay_full[$i]." full,";
-                }
-                if ($ngay_sang[$i] != ''){
-                    $str = $str." ".$ngay_sang[$i]." sang,";
-                }
-                if ($ngay_chieu[$i] != ''){
-                    $str = $str." ".$ngay_chieu[$i]." toi";
-                }
-                echo "<tr>"; 
-                echo "<td class =\"ten_boi\">".ucwords(strtolower($ten_boi[$i]))."</td>";
-                echo "<td title =\"".$str."\">".$luong_boi[$i]."</td>";
-                $tien_luong = $luong_boi[$i]* $rate[$i];
-                $tong_tienLuong += $tien_luong;
-                echo "<td>".money_format('%#10.2n',$tien_luong)."</td>";
-                echo "<td><button type =\"button\" onclick = \"show_lichLam_detailt('".$ten_boi[$i]."','".$date->format('Y-m-d')."','".$date_1->format('Y-m-d')."')\">Chi tiet</button></td>";
-                echo "</tr>";
-                $tong_gio = $tong_gio + $luong_boi[$i];
-            }
-        ?>
-        <tr>
-            <td>Tong Gio:</td>
-            <td class = "sum_tong"><?php echo $tong_gio; ?></td>
-            <td class = "sum_tong"><?php echo money_format('%(#10.2n',$tong_tienLuong); ?></td>
-        </tr>
+
+<?php    
+
+for ($i=1; $i <= $index; $i++) {
+?> 
+    <tr>
+        <td><?php echo ucwords(strtolower($ten_boi[$i])); ?></td>
+        <td><?php echo $luong_boi[$i]; ?></td>
+        <td title = "<?php echo $rate[$i]; ?>"><?php echo money_format('%#10.2n',($luong_boi[$i]* $rate[$i])); ?></td>
+        <td><button onclick = "pay_individual_weekly('<?php echo $ten_boi[$i];?>')">PAY</button></td>
+    </tr>
+
+<?php    
+}    
+
+?>    
+
     </tbody>
 </table>
+
+   
+    
+
+

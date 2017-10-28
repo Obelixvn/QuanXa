@@ -10,7 +10,7 @@ include "DB_functions_NN.php";
 include "global.php";
 
 ?>
-<table class = "tb_input_expense">
+<table class = "tb_input_expense ">
     <thead>
             <tr>
                 <th></th>
@@ -24,7 +24,7 @@ include "global.php";
             </tr>
         
     </thead>
-    <tbody>
+    
 
 <?php
 
