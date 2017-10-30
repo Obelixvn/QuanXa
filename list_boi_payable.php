@@ -70,19 +70,19 @@ $ten_boi = array_fill(0,20.,"0");
                 switch ($row["Shift"]) {
                     case 1 :
                         $luong_boi[$index] += $giolam_sang;
-                        $ngay_sang[$index] +=1 ;
+                        
                         break;
                     
                     case 2 :
                         $luong_boi[$index] += $giolam_chieu;
-                        $ngay_chieu[$index] += 1;
+                        
                         break;
 
                     case 3 :
                         $luong_boi[$index] += $giolam_sang;
                         $luong_boi[$index] += $giolam_chieu;
                         $luong_boi[$index] += 1;
-                        $ngay_full[$index] += 1;
+                       
                         break;    
                 }
                 $luong_boi[$index] = $luong_boi[$index] + $row["Adj"];

@@ -43,5 +43,41 @@ table.tb_input_expense th{
 table.tb_payable{
     color: deeppink;
 }
+table#payable_boi_individual{
+    color: rgba(39, 117, 206, 0.753);
+    position: absolute;
     
+    
+}
+table#payable_boi_individual tr{
+    height: 25px;
+}
+div.pay_range_control{
+    clear: both;
+    height: 40px;
+    padding: 10px 0;
+}
+div.pay_range_control .pay_range_control_P1{
+    float: left;
+    margin-right: 10px;
+    width: 100px;
+}
+div.pay_range_control .pay_range_control_P2{
+    float: left;
+}
+div.pay_range_control button{
+    float: left;
+    margin: 20px 20px;
+}
+div.week_select_overlay{
+    width: 100%;
+    height: 25px;
+    position: relative;
+    overflow: hidden;
+}
+div.week_select_container{
+    position: absolute;
+    top:60px;
+    width: 100%;
+}
 

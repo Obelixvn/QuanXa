@@ -109,3 +109,19 @@ function add_tip_payable(){
     var tong_pay = parseFloat(tong_gio + tip).toFixed(2)
     document.getElementById('tong_pay').innerHTML = tong_pay;
 }
+function pay_action_boi(ten){
+    var week_pay = document.getElementsByName('pay_week');
+    str_ajax = 'pay_boi_action.php?ten='+ten;
+    week_pay.forEach(function(element) {
+        if (element.checked){
+            str_ajax += "&week_pay[]="+element.value;
+        }
+    }, this);
+    Java_ajax('tong_pay',str_ajax);
+}
+
+function week_pay_change(x){
+    var h = x.value;
+    h = h *25;
+    document.getElementById('week_select_overlay_boi').style.height = h+"px";
+}

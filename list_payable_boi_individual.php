@@ -5,13 +5,23 @@ include "DB_functions_NN.php";
 if (isset($_GET["ten"])){
     $name = $_GET["ten"];
 }
+else{
+    echo "No Name !";
+    exit;
+}
 
 ?>
 <script src="java_functions_Expsense.js">
         
         
 </script> 
-<b><?php echo $name; ?></b>
+<head>
+    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="Style_expensePage.css">
+    
+</head>
+
+
 <?php 
 
 $sql_rate = "
@@ -39,18 +49,26 @@ if($result_rate->num_rows > 0){
     
 $tuan = 0; 
 $tong_tuan = 0; 
+$first_week = 0;
+
 $date = new DateTime();            
     $result = DB_run_query($sql);
     
     if ($result->num_rows > 0){
+        
 ?>
-        <table>
-            <tbody>
+    <div class = "week_select_container">
+    <div class = "week_select_overlay" id = "week_select_overlay_boi">
+        <table id = "payable_boi_individual" >
+            <tbody id = "tb_weekly_hour">
             <?php 
             while($row = $result->fetch_assoc()) {
                 $ngay = new Datetime($row["Date"]);
                 
                 $week_no = $ngay->format('W');
+                if ($first_week == 0) {
+                    $first_week = $week_no;
+                }
                 if ($tuan != $week_no){
                     if ($tong_tuan != 0){
 
@@ -65,7 +83,7 @@ $date = new DateTime();
                             <td><?php echo $date->modify('+6 day')->format('d M Y'); ?></td>
                             <td id = "tong_gion_week_<?php echo $tuan; ?>"><?php echo $tong_tuan; ?></td>
                             
-                            <td><input onclick = "add_week_to_pay(this)" type="checkbox" name="pay_week[]" value="<?php echo $tuan;?>"></td>
+                            <td><input onclick = "add_week_to_pay(this)" type="checkbox" name="pay_week" value="<?php echo $tuan;?>"></td>
                             <td></td>
                         </tr>
                         <?php
@@ -122,7 +140,7 @@ $date = new DateTime();
                 <td><?php echo $date->format('d M Y'); ?></td>
                 <td><?php echo $date->modify('+6 day')->format('d M Y'); ?></td>
                 <td id = "tong_gion_week_<?php echo $tuan; ?>"><?php echo $tong_tuan; ?></td>
-                <td><input onclick = "add_week_to_pay(this)" type="checkbox" name="pay_week[]" value="<?php echo $tuan;?>"></td>
+                <td><input onclick = "add_week_to_pay(this)" type="checkbox" name="pay_week" value="<?php echo $tuan;?>"></td>
                 
                 <td></td>
             </tr>
@@ -154,7 +172,23 @@ $date = new DateTime();
                     <td id = "tong_pay">0</td>
                 </tr>
             </tfoot>
-        </table> 
+        </table>
+        </div>
+        </div>
+        <div class = "pay_range_control">
+            <div class = "pay_range_control_P1">
+                <span class = "fr">Week</span><br>
+                <b><?php echo $name; ?></b>
+            </div>
+            <div class = "pay_range_control_P2">
+                <span><?php echo $first_week; ?></span>
+                <span class = "fr"><?php echo $tuan; ?></span>
+                <br>
+                <input onchange = "week_pay_change(this)" type="range" id="week_select" min = "1" value = "1" max = "<?php echo $result->num_rows; ?>">
+            </div>
+            <button class = "fl" onclick ="pay_action_boi('<?php echo $name; ?>')">PAY</button> 
+        </div>
+        
         
         
 <?php
