@@ -65,6 +65,7 @@
     <legend>Boi</legend>
     
     <div id = "Boi_outstanding"></div>
+    <div id = "Boi_paying_tb"></div>
 </fieldset>
 <fieldset class = "fl w25" >
     <legend>Bep</legend>

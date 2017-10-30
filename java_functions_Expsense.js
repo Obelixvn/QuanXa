@@ -122,6 +122,6 @@ function pay_action_boi(ten){
 
 function week_pay_change(x){
     var h = x.value;
-    h = h *25;
+    h = h *27;
     document.getElementById('week_select_overlay_boi').style.height = h+"px";
 }

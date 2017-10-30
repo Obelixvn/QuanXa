@@ -50,6 +50,7 @@ if($result_rate->num_rows > 0){
 $tuan = 0; 
 $tong_tuan = 0; 
 $first_week = 0;
+$index = 0;
 
 $date = new DateTime();            
     $result = DB_run_query($sql);
@@ -72,7 +73,7 @@ $date = new DateTime();
                 if ($tuan != $week_no){
                     if ($tong_tuan != 0){
 
-                        
+                        $index++;
                         
                         $date->setISODate($year,$tuan);
                         
@@ -184,9 +185,27 @@ $date = new DateTime();
                 <span><?php echo $first_week; ?></span>
                 <span class = "fr"><?php echo $tuan; ?></span>
                 <br>
-                <input onchange = "week_pay_change(this)" type="range" id="week_select" min = "1" value = "1" max = "<?php echo $result->num_rows; ?>">
+                <input onchange = "week_pay_change(this)" type="range" id="week_select" min = "1" value = "1" max = "<?php echo $index+1; ?>">
             </div>
             <button class = "fl" onclick ="pay_action_boi('<?php echo $name; ?>')">PAY</button> 
+        </div>
+        <div class = "pay_display_control">
+            <div class= ""></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+
+            <div class = "pay_display_control_P2">
+                <span id = "hour_pay">0</span>x
+                <span id = "rate_pay">0</span>=
+                <span id = "luong_pay">0</span>
+                <input type = "number" id = "tip_pay"/>
+                £<span id = "total_pay">0</span>
+            </div>
         </div>
         
         

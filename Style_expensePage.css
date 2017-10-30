@@ -66,8 +66,7 @@ div.pay_range_control .pay_range_control_P2{
     float: left;
 }
 div.pay_range_control button{
-    float: left;
-    margin: 20px 20px;
+    
 }
 div.week_select_overlay{
     width: 100%;
@@ -77,7 +76,14 @@ div.week_select_overlay{
 }
 div.week_select_container{
     position: absolute;
-    top:60px;
+    top:140px;
     width: 100%;
+}
+div.pay_display_control span{
+    width: 40px;
+    float:  left;
+}
+div.pay_display_control_P1 {
+    height: 30px;
 }
 
