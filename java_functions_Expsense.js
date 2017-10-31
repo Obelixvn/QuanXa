@@ -122,6 +122,16 @@ function pay_action_boi(ten){
 
 function week_pay_change(x){
     var h = x.value;
+    var total_hour = 0 ;
+    var hour = 0;
     h = h *27;
     document.getElementById('week_select_overlay_boi').style.height = h+"px";
+    var num_week = x.value;
+    weekly_hours = document.getElementsByName('payable_hour');
+    for (var i = 0; i < num_week; i++) {
+            hour = parseFloat(weekly_hours[i].innerHTML);
+            total_hour = parseFloat(total_hour + hour);
+
+    }
+    
 }

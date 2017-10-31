@@ -82,7 +82,7 @@ $date = new DateTime();
                             <td>Tuan: <?php echo $tuan; ?></td>
                             <td><?php echo $date->format('d M Y'); ?></td>
                             <td><?php echo $date->modify('+6 day')->format('d M Y'); ?></td>
-                            <td id = "tong_gion_week_<?php echo $tuan; ?>"><?php echo $tong_tuan; ?></td>
+                            <td name = "payable_hour" id = "tong_gion_week_<?php echo $tuan; ?>"><?php echo $tong_tuan; ?></td>
                             
                             <td><input onclick = "add_week_to_pay(this)" type="checkbox" name="pay_week" value="<?php echo $tuan;?>"></td>
                             <td></td>
@@ -140,7 +140,7 @@ $date = new DateTime();
                 <td>Tuan: <?php echo $tuan; ?></td>
                 <td><?php echo $date->format('d M Y'); ?></td>
                 <td><?php echo $date->modify('+6 day')->format('d M Y'); ?></td>
-                <td id = "tong_gion_week_<?php echo $tuan; ?>"><?php echo $tong_tuan; ?></td>
+                <td name = "payable_hour" id = "tong_gion_week_<?php echo $tuan; ?>"><?php echo $tong_tuan; ?></td>
                 <td><input onclick = "add_week_to_pay(this)" type="checkbox" name="pay_week" value="<?php echo $tuan;?>"></td>
                 
                 <td></td>
@@ -190,22 +190,16 @@ $date = new DateTime();
             <button class = "fl" onclick ="pay_action_boi('<?php echo $name; ?>')">PAY</button> 
         </div>
         <div class = "pay_display_control">
-            <div class= ""></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-
-            <div class = "pay_display_control_P2">
-                <span id = "hour_pay">0</span>x
-                <span id = "rate_pay">0</span>=
-                <span id = "luong_pay">0</span>
-                <input type = "number" id = "tip_pay"/>
-                £<span id = "total_pay">0</span>
-            </div>
+            <div class= "hour_display">Hr<br><span id = "hour_pay">0</span></div>
+            <div><br>x</div>
+            <div class= "rate_display">Rate<br> <span id = "rate_pay">0</span></div>
+            <div><br>=</div>
+            <div class= "luong_display"><br><span id = "luong_pay">0</span></div>
+            <div><br>+</div>
+            <div class= "tip_display">Tip<br> <input type = "number" id = "tip_pay"/></div>
+            <div><br>=</div>
+            <div class= "total_display">£<br><span id = "total_pay">0</span></div>
+            
         </div>
         
         

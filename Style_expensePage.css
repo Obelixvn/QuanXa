@@ -79,9 +79,13 @@ div.week_select_container{
     top:140px;
     width: 100%;
 }
-div.pay_display_control span{
+div.pay_display_control div{
     width: 40px;
     float:  left;
+    text-align: center;
+}
+div.pay_display_control input{
+    width: 40px;
 }
 div.pay_display_control_P1 {
     height: 30px;
