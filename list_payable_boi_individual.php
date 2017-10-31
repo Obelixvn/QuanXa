@@ -84,8 +84,7 @@ $date = new DateTime();
                             <td><?php echo $date->modify('+6 day')->format('d M Y'); ?></td>
                             <td name = "payable_hour" id = "tong_gion_week_<?php echo $tuan; ?>"><?php echo $tong_tuan; ?></td>
                             
-                            <td><input onclick = "add_week_to_pay(this)" type="checkbox" name="pay_week" value="<?php echo $tuan;?>"></td>
-                            <td></td>
+                            
                         </tr>
                         <?php
                     }
@@ -141,38 +140,10 @@ $date = new DateTime();
                 <td><?php echo $date->format('d M Y'); ?></td>
                 <td><?php echo $date->modify('+6 day')->format('d M Y'); ?></td>
                 <td name = "payable_hour" id = "tong_gion_week_<?php echo $tuan; ?>"><?php echo $tong_tuan; ?></td>
-                <td><input onclick = "add_week_to_pay(this)" type="checkbox" name="pay_week" value="<?php echo $tuan;?>"></td>
                 
-                <td></td>
             </tr>
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan= "4">PAY</td>
-                    <td>Rate</td>
-                </tr>
-                <tr>
-                    <td colspan = "3">Tong Gio:</td>
-                    <td id = "tong_gio_pay">0</td>
-                    <td id = "rate_pay"><?php echo $rate; ?></td>
-                    
-                </tr>
-                <tr>
-                    <td colspan = "3">Thanh tien:</td>
-                    <td id = "luong_pay">0</td>
-                    
-                </tr>
-                
-                <tr>
-                    <td colspan = "3">Tip</td>
-                    <td ><input onkeyup = "add_tip_payable()" type = "number" id ="tip_pay" value = "0"/></td>
-
-                </tr>
-                <tr>
-                    <td colspan = "3">Tong Pay:</td>
-                    <td id = "tong_pay">0</td>
-                </tr>
-            </tfoot>
+            
         </table>
         </div>
         </div>
@@ -190,15 +161,15 @@ $date = new DateTime();
             <button class = "fl" onclick ="pay_action_boi('<?php echo $name; ?>')">PAY</button> 
         </div>
         <div class = "pay_display_control">
-            <div class= "hour_display">Hr<br><span id = "hour_pay">0</span></div>
-            <div><br>x</div>
-            <div class= "rate_display">Rate<br> <span id = "rate_pay">0</span></div>
-            <div><br>=</div>
-            <div class= "luong_display"><br><span id = "luong_pay">0</span></div>
-            <div><br>+</div>
-            <div class= "tip_display">Tip<br> <input type = "number" id = "tip_pay"/></div>
-            <div><br>=</div>
-            <div class= "total_display">£<br><span id = "total_pay">0</span></div>
+            <div class= "hour display">Hr<br><span id = "hour_pay">0</span></div>
+            <div class= "w_40"><br>x</div>
+            <div class= "rate w_40">Rate<br> <span id = "rate_pay"><?php echo $rate; ?></span></div>
+            <div class= "w_40"><br>=</div>
+            <div class= "luong display"><br><span id = "luong_pay">0</span></div>
+            <div class= "w_40"><br>+</div>
+            <div class= "tip display">Tip<br> <input type = "number" id = "tip_pay" value = "0" onchange = "add_tip_payable()"/></div>
+            <div class= "w_40"><br>=</div>
+            <div class= "total display">£<br><span id = "total_pay">0</span></div>
             
         </div>
         

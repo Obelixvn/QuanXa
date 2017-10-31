@@ -57,18 +57,24 @@ div.pay_range_control{
     height: 40px;
     padding: 10px 0;
 }
+div.pay_range_control button{
+    margin-top: 18px;
+}
 div.pay_range_control .pay_range_control_P1{
     float: left;
-    margin-right: 10px;
+    margin-right: 20px;
     width: 100px;
 }
 div.pay_range_control .pay_range_control_P2{
     float: left;
+    width: 200px;
+    margin-right: 65px;
+
 }
-div.pay_range_control button{
+div.pay_range_control .pay_range_control_P2 input{
     
-}
-div.week_select_overlay{
+    width: 200px;
+}div.week_select_overlay{
     width: 100%;
     height: 25px;
     position: relative;
@@ -79,15 +85,24 @@ div.week_select_container{
     top:140px;
     width: 100%;
 }
+div.tip_display input{
+    width: 60px;
+    text-align: right;
+}
+div.pay_display_control div.display{
+    width: 60px;
+}
 div.pay_display_control div{
-    width: 40px;
+    
     float:  left;
     text-align: center;
+    
+    
 }
-div.pay_display_control input{
-    width: 40px;
-}
-div.pay_display_control_P1 {
-    height: 30px;
+
+
+div.pay_display_control div.tip input{
+    width: 60px;
+    text-align: right;
 }
 

@@ -104,10 +104,12 @@ function add_week_to_pay(x){
     
 }
 function add_tip_payable(){
+    
     var tong_gio = parseFloat(document.getElementById('luong_pay').innerHTML);
     var tip = parseFloat(document.getElementById('tip_pay').value);
-    var tong_pay = parseFloat(tong_gio + tip).toFixed(2)
-    document.getElementById('tong_pay').innerHTML = tong_pay;
+    var tong_pay = parseFloat(tong_gio + tip);
+    
+    document.getElementById('total_pay').innerHTML = tong_pay.toFixed(2);
 }
 function pay_action_boi(ten){
     var week_pay = document.getElementsByName('pay_week');
@@ -133,5 +135,11 @@ function week_pay_change(x){
             total_hour = parseFloat(total_hour + hour);
 
     }
-    
+    document.getElementById('hour_pay').innerHTML = total_hour.toFixed(2);
+    var rate = parseFloat (document.getElementById('rate_pay').innerHTML);
+    var luong_pay = total_hour *rate;
+    document.getElementById('luong_pay').innerHTML = luong_pay.toFixed(2) ;
+    var tip = parseFloat(document.getElementById('tip_pay').value);
+    var total_pay = luong_pay + tip;
+    document.getElementById('total_pay').innerHTML = total_pay.toFixed(2);
 }
