@@ -88,12 +88,17 @@ div.week_select_container{
 div.tip_display input{
     width: 60px;
     text-align: right;
+    font-size: large;
+    font-family: monospace;
+    height: 19px;
 }
 div.pay_display_control div.display{
     width: 60px;
+  
 }
 div.pay_display_control div{
-    
+    font-family: monospace;
+    font-size: larger;
     float:  left;
     text-align: center;
     
