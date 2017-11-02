@@ -103,6 +103,10 @@ for ($i=1; $i <= $index; $i++) {
         <td><?php echo $luong_boi[$i]; ?></td>
         <td title = "<?php echo $rate[$i]; ?>"><?php echo money_format('%#10.2n',($luong_boi[$i]* $rate[$i])); ?></td>
         <td><button onclick = "pay_individual_weekly('<?php echo $ten_boi[$i];?>')">PAY</button></td>
+        
+    </tr>
+    <tr>
+    <td colspan = "4" id ="<?php echo $ten_boi[$i];?>_paying_tb"></td>
     </tr>
 
 <?php    

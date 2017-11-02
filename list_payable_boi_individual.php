@@ -10,24 +10,6 @@ else{
     exit;
 }
 
-?>
-<script src="java_functions_Expsense.js">
-        
-        
-</script> 
-<script src="java_functions_NN.js">
-        
-        
-</script> 
-<head>
-    <link rel="stylesheet" href="Style.css">
-    <link rel="stylesheet" href="Style_expensePage.css">
-    
-</head>
-
-
-<?php 
-
 $sql_rate = "
     SELECT
     `tb_nhanVien`.`Rate`

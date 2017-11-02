@@ -76,7 +76,7 @@ function done_updateExpense(){
     load_expenseTB('Newest');
 }
 function pay_individual_weekly(ten){
-    Java_ajax('Boi_paying_tb','list_payable_boi_individual.php')
+    Java_ajax('Boi_paying_tb','list_payable_boi_individual.php?ten='+ten)
 }
 function add_week_to_pay(x){
     var week = x.value;
@@ -119,7 +119,8 @@ function pay_action_boi(ten){
         str_ajax += '&monday_date[]='+week_pay[index].innerHTML;
         
     }
-    str_ajax += '&tip='+document.getElementById('tip_pay').value
+    str_ajax += '&tip='+document.getElementById('tip_pay').value;
+    str_ajax += '&hour_pay='+ document.getElementById('hour_pay').innerHTML;
     Java_ajax('test',str_ajax);
 }
 
