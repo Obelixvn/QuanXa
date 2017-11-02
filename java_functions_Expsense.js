@@ -112,14 +112,15 @@ function add_tip_payable(){
     document.getElementById('total_pay').innerHTML = tong_pay.toFixed(2);
 }
 function pay_action_boi(ten){
-    var week_pay = document.getElementsByName('pay_week');
+    var week_pay = document.getElementsByName('monday_date');
     str_ajax = 'pay_boi_action.php?ten='+ten;
-    week_pay.forEach(function(element) {
-        if (element.checked){
-            str_ajax += "&week_pay[]="+element.value;
-        }
-    }, this);
-    Java_ajax('tong_pay',str_ajax);
+    var num_weeks = document.getElementById('week_select').value;
+    for (var index = 0; index < num_weeks; index++) {
+        str_ajax += '&monday_date[]='+week_pay[index].innerHTML;
+        
+    }
+    str_ajax += '&tip='+document.getElementById('tip_pay').value
+    Java_ajax('test',str_ajax);
 }
 
 function week_pay_change(x){

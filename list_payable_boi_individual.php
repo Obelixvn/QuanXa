@@ -15,6 +15,10 @@ else{
         
         
 </script> 
+<script src="java_functions_NN.js">
+        
+        
+</script> 
 <head>
     <link rel="stylesheet" href="Style.css">
     <link rel="stylesheet" href="Style_expensePage.css">
@@ -80,7 +84,7 @@ $date = new DateTime();
                         ?>
                         <tr>
                             <td>Tuan: <?php echo $tuan; ?></td>
-                            <td><?php echo $date->format('d M Y'); ?></td>
+                            <td name = "monday_date"><?php echo $date->format('d M Y'); ?></td>
                             <td><?php echo $date->modify('+6 day')->format('d M Y'); ?></td>
                             <td name = "payable_hour" id = "tong_gion_week_<?php echo $tuan; ?>"><?php echo $tong_tuan; ?></td>
                             
@@ -137,7 +141,7 @@ $date = new DateTime();
             $date->setISODate($year,$tuan);
             ?><tr>
                 <td>Tuan: <?php echo $tuan; ?></td>
-                <td><?php echo $date->format('d M Y'); ?></td>
+                <td name = "monday_date"><?php echo $date->format('d M Y'); ?></td>
                 <td><?php echo $date->modify('+6 day')->format('d M Y'); ?></td>
                 <td name = "payable_hour" id = "tong_gion_week_<?php echo $tuan; ?>"><?php echo $tong_tuan; ?></td>
                 
@@ -173,7 +177,7 @@ $date = new DateTime();
             
         </div>
         
-        
+        <div id = "test"></div>
         
 <?php
         
