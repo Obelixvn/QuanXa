@@ -61,26 +61,18 @@
     <div id = "expense_table">
     </div>
 </fieldset>
-<div>
-<fieldset class = "fl w25" >
-    <legend>Boi</legend>
     
-    <div id = "Boi_outstanding"></div>
-    
-</fieldset>
-<div  class = "fl"id = "Boi_paying_tb"></div>
+
+<div class = "menu_select">
+    <div name = "menu_items" onclick = "paying_section_select(this,'boi_section')" class = "menu_item boi_section">Boi</div>
+    <div name = "menu_items"  onclick = "paying_section_select(this,'bep_section')"  class = "menu_item bep_section">Bep</div>
+    <div name = "menu_items"  onclick = "paying_section_select(this,'do_section')"  class = "menu_item do_section">Do</div>
 </div>
-<div></div>
-<fieldset class = "fl w25" >
-    <legend>Bep</legend>
-    
-    <div id = "Bep_outstanding"></div>
-</fieldset> 
-<fieldset class = "fl w25 " >
-    <legend>Do</legend>
-    
-    <div id = "Do_outstanding"></div>
-</fieldset>     
+<div class = "clearfix"></div>
+<div id = "select_contain"></div>
+
+
+
 
 </body>
 </html>

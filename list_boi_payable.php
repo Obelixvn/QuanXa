@@ -91,7 +91,7 @@ $ten_boi = array_fill(0,20.,"0");
             
     }
 ?>
-<table class = "tb_payable">
+<table class = "tb_payable fl">
     <tbody>
 
 <?php    
@@ -105,9 +105,7 @@ for ($i=1; $i <= $index; $i++) {
         <td><button onclick = "pay_individual_weekly('<?php echo $ten_boi[$i];?>')">PAY</button></td>
         
     </tr>
-    <tr>
-    <td colspan = "4" id ="<?php echo $ten_boi[$i];?>_paying_tb"></td>
-    </tr>
+    
 
 <?php    
 }    
@@ -116,6 +114,8 @@ for ($i=1; $i <= $index; $i++) {
 
     </tbody>
 </table>
+<div  id = "Boi_paying_tb"></div>
+</div>
 
    
     

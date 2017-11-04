@@ -44,7 +44,7 @@ $date = new DateTime();
     if ($result->num_rows > 0){
         
 ?>
-    <div class = "week_select_container">
+    <div>
     <div class = "week_select_overlay" id = "week_select_overlay_boi">
         <table id = "payable_boi_individual" >
             <tbody id = "tb_weekly_hour">
@@ -132,34 +132,35 @@ $date = new DateTime();
             
         </table>
         </div>
-        </div>
-        <div class = "pay_range_control">
-            <div class = "pay_range_control_P1">
-                <span class = "fr">Week</span><br>
-                <b><?php echo $name; ?></b>
+        <div class = "pay_control_panel">
+            <div class = "pay_range_control">
+                <div class = "pay_range_control_P1">
+                    <span class = "fr">Week</span><br>
+                    <b><?php echo $name; ?></b>
+                </div>
+                <div class = "pay_range_control_P2">
+                    <span><?php echo $first_week; ?></span>
+                    <span class = "fr"><?php echo $tuan; ?></span>
+                    <br>
+                    <input onchange = "week_pay_change(this)" type="range" id="week_select" min = "1" value = "1" max = "<?php echo $index+1; ?>">
+                </div>
+                <button class = "fl" onclick ="pay_action_boi('<?php echo $name; ?>')">PAY</button> 
             </div>
-            <div class = "pay_range_control_P2">
-                <span><?php echo $first_week; ?></span>
-                <span class = "fr"><?php echo $tuan; ?></span>
-                <br>
-                <input onchange = "week_pay_change(this)" type="range" id="week_select" min = "1" value = "1" max = "<?php echo $index+1; ?>">
+            <div class = "pay_display_control">
+                <div class= "hour display">Hr<br><span id = "hour_pay">0</span></div>
+                <div class= "w_40"><br>x</div>
+                <div class= "rate w_40">Rate<br> <span id = "rate_pay"><?php echo $rate; ?></span></div>
+                <div class= "w_40"><br>=</div>
+                <div class= "luong display"><br><span id = "luong_pay">0</span></div>
+                <div class= "w_40"><br>+</div>
+                <div class= "tip display">Tip<br> <input type = "number" id = "tip_pay" value = "0" onchange = "add_tip_payable()"/></div>
+                <div class= "w_40"><br>=</div>
+                <div class= "total display">£<br><span id = "total_pay">0</span></div>
+                
             </div>
-            <button class = "fl" onclick ="pay_action_boi('<?php echo $name; ?>')">PAY</button> 
-        </div>
-        <div class = "pay_display_control">
-            <div class= "hour display">Hr<br><span id = "hour_pay">0</span></div>
-            <div class= "w_40"><br>x</div>
-            <div class= "rate w_40">Rate<br> <span id = "rate_pay"><?php echo $rate; ?></span></div>
-            <div class= "w_40"><br>=</div>
-            <div class= "luong display"><br><span id = "luong_pay">0</span></div>
-            <div class= "w_40"><br>+</div>
-            <div class= "tip display">Tip<br> <input type = "number" id = "tip_pay" value = "0" onchange = "add_tip_payable()"/></div>
-            <div class= "w_40"><br>=</div>
-            <div class= "total display">£<br><span id = "total_pay">0</span></div>
-            
         </div>
         
-        <div id = "test"></div>
+    </div>    
         
 <?php
         

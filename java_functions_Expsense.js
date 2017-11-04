@@ -1,6 +1,6 @@
 function expensePage_onload(){
     load_expenseTB('Week');
-    Java_ajax('Boi_outstanding','list_boi_payable.php');
+    
 }
 
 
@@ -145,3 +145,30 @@ function week_pay_change(x){
     var total_pay = luong_pay + tip;
     document.getElementById('total_pay').innerHTML = total_pay.toFixed(2);
 }
+function paying_section_select(x,ten){
+    
+    var items = document.getElementsByName('menu_items');
+        items.forEach(function(e) {
+            if (e.classList.contains(ten)){
+                e.classList.toggle('selected');
+                
+            }else{
+                e.classList.remove('selected');
+            }
+        }, this);
+    if (x.classList.contains('selected')){
+        switch (ten) {
+            case 'boi_section':
+                Java_ajax('select_contain','list_boi_payable.php');
+                break;
+        
+            
+        }
+        
+    }else{
+        document.getElementById('select_contain').innerHTML = '';
+    }
+}
+    
+
+    

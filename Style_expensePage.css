@@ -41,13 +41,39 @@ table.tb_input_expense th{
     width: 140px;
 }
 table.tb_payable{
-    color: deeppink;
+    margin-left: 10px;
+    border-bottom: 2px solid darkslategray;
+    width: 304px;
+    padding-top: 20px;
+    color: white;
+    background-color: rgb(51, 108, 182);
+    border-collapse: collapse;
+    
+}
+table.tb_payable tr{
+    border-left: 2px solid darkslategray;
+    border-right: 2px solid darkslategray;
+    height: 30px;
 }
 table#payable_boi_individual{
-    color: rgba(39, 117, 206, 0.753);
+    width: 440px;
     position: absolute;
+    color: darkslategrey;
     
     
+}
+div#Boi_paying_tb{
+    float: left;
+    margin-left: 10px;
+    
+    border-width: 2px 2px 2px 0;
+    border-color: darkslategray;
+    border-style: solid;
+    
+    
+    color: white;
+    background-color: rgb(51, 108, 182);
+
 }
 table#payable_boi_individual tr{
     height: 25px;
@@ -75,16 +101,14 @@ div.pay_range_control .pay_range_control_P2 input{
     
     width: 200px;
 }div.week_select_overlay{
-    width: 100%;
+    width: 440px;
+    border: 2px solid darkslategray;
     height: 25px;
-    position: relative;
-    overflow: hidden;
-}
-div.week_select_container{
     position: absolute;
-    top:140px;
-    width: 100%;
+    overflow: hidden;
+    margin-top: 110px;
 }
+
 div.tip_display input{
     width: 60px;
     text-align: right;
@@ -110,4 +134,59 @@ div.pay_display_control div.tip input{
     width: 60px;
     text-align: right;
 }
+div.menu_select{
+    width: 100%;
+    margin-left: 10px;
+}
+div.menu_select .menu_item{
+    width: 220px;
+    padding: 10px 40px;
+    margin-right: 10px;
+    cursor: pointer;
+    float: left;
+    text-align: center;
+    font-size: 20px;
+    font-family: monospace;
+    background-color:rgb(92, 91, 91);
+}
+div.menu_select .menu_item:hover{
+    color:white;
+    border: 2px solid darkslategray;
+}
+div.menu_select .boi_section.selected{
+    border-bottom-color: rgb(51, 108, 182);
+    background-color: rgb(51, 108, 182);
+}
+div.menu_select .boi_section:hover{
+   
 
+    background-color: rgb(51, 108, 182);
+}
+div.menu_select .bep_section:hover,div.menu_select .bep_section.selected{
+    
+    
+    background-color: rgb(212, 92, 92)
+}
+div.menu_select .do_section:hover,div.menu_select .do_section.selected{
+    
+    
+    background-color: palevioletred;
+}
+div.menu_select .menu_item.selected{
+    color:white;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-top-color: darkslategray ;
+
+    border-left-width: 2px;
+    border-left-style: solid;
+    border-left-color: darkslategray ;
+
+    border-right-width: 2px;
+    border-right-style: solid;
+    border-right-color: darkslategray ;
+    
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    
+}
