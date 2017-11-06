@@ -19,13 +19,13 @@
     $week = $date->format("W");
     
     $sql_nv = "
-        SELECT d_o_w, Name, nv_ID as ID
+        SELECT d_o_w, Name, nv_ID as ID,tb_bep.ID as lich_id
         FROM `tb_bep` 
         INNER JOIN tb_nhanvien ON tb_bep.nv_ID = tb_nhanvien.ID 
         WHERE tb_bep.Week = ".$week."
     ";
     $result_nv = DB_run_query($sql_nv);
-    if ($result_nv->num_rows == 0){
+    if ($result_nv->num_rows == 0){//ko co du lieu
         $sql_nv = "
             SELECT Name,ID 
             FROM tb_nhanVien
@@ -49,6 +49,7 @@
             
             <?php 
             if ($sql_lich == "Yes" ){
+                
                 $sql_lich = "
                 SELECT d_o_w, ID 
                 FROM tb_Bep
@@ -68,7 +69,7 @@
             for ($i=0; $i < 7; $i++) {
                 
 ?>
-                <td class = "container" id = "lich_bep_<?php echo $row_lich["ID"];  ?>_<?php echo $i;  ?>">      
+                <td class = "container" id = "lich_bep_<?php echo $row_lich["lich_id"];  ?>_<?php echo $i;  ?>">      
 <?php    
                 if ($arr[$i] != null){
                     ?>
@@ -97,13 +98,13 @@
                             <button onclick ="show_change_BepPage(this,'bep_<?php echo $row_nv["ID"]; ?>_<?php echo $i; ?>')">Change</button>  
                         </div>
                         <div class = "layer_2" id= "bep_<?php echo $row_nv["ID"]; ?>_<?php echo $i; ?>">
-                            <select id = "select_ca_lam_<?php echo $row_lich["ID"];  ?>_<?php echo $i;  ?>">
+                            <select id = "select_ca_lam_<?php echo $row_lich["lich_id"];  ?>_<?php echo $i;  ?>">
                                 <option value = "1">Sang</option>
                                 <option value = "2">Chieu</option>
                                 <option value = "3">Full</option>
                                 <option value = "0">Off</option>
                             </select>
-                            <button onclick = "update_lichBep(<?php echo $row_lich["ID"];  ?>,<?php echo $i;  ?>)" class = "">Save</button>
+                            <button onclick = "update_lichBep(<?php echo $row_lich["lich_id"];  ?>,<?php echo $i;  ?>)" class = "">Save</button>
                         </div>
                     <?php
                 }else{

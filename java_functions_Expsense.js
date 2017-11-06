@@ -161,7 +161,9 @@ function paying_section_select(x,ten){
             case 'boi_section':
                 Java_ajax('select_contain','list_boi_payable.php');
                 break;
-        
+            case 'do_section':
+                Java_ajax('select_contain','list_do_payable.php');
+                break;
             
         }
         
