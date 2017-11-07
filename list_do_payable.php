@@ -1,3 +1,4 @@
+
 <div id = "do_payable_list">
 
 <?php 
@@ -15,7 +16,8 @@ if ($result->num_rows > 0 ){
     <div class = "supplier_payable">
         <span><?php echo $row["supplier"]; ?></span>
         <span><?php echo money_format('%#10.2n',$row["tong"]); ?></span>
-        <span> <button>PAY</button> </span>
+        <span> <button onclick = "show_supplier_payable('<?php echo $row["supplier"]; ?>')">PAY</button> </span>
+        <div class = "clearfix"></div>
     </div>
 
 <?php
@@ -27,3 +29,4 @@ if ($result->num_rows > 0 ){
 
 ?>
 </div>
+<div id = "supplier_payable_tb" ></div>

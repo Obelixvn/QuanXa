@@ -171,6 +171,13 @@ function paying_section_select(x,ten){
         document.getElementById('select_contain').innerHTML = '';
     }
 }
+function show_supplier_payable(sup){
+    Java_ajax('supplier_payable_tb','show_supplier_payable_action.php?sup='+sup);
+}
+function invoice_select_payabale(x){
+    var h = x.value * 26;
     
+    document.getElementById('payable_tb_supplier').style.height = h;
+}
 
     
