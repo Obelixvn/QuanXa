@@ -175,9 +175,27 @@ function show_supplier_payable(sup){
     Java_ajax('supplier_payable_tb','show_supplier_payable_action.php?sup='+sup);
 }
 function invoice_select_payabale(x){
-    var h = x.value * 26;
+    var h = x.value * 28;
     
     document.getElementById('payable_tb_supplier').style.height = h;
-}
+    var invoice = document.getElementsByName('supplier_invoice_amount') ;
+    var num = document.getElementById('invoice_select').value;
+    var amount = 0;
+    for (var index = 0; index < num; index++) {
+        
+        amount += parseFloat(invoice[index].innerHTML);
 
+    }
+    document.getElementById('tong_tien').innerHTML = amount.toFixed(2);
+}
+function pay_supplier(sup){
+
+    var invoce =  document.getElementsByName('invoce_date');
+    var num = document.getElementById('invoice_select').value;
+    str_ajax = "pay_supplier_action.php?date1="+invoce[0].innerHTML+ "&date2="+ invoce[num-1].innerHTML+"&supplier="+sup;
+    alert(str_ajax);
+
+    Java_ajax('select_contain',str_ajax);
+    
+}
     

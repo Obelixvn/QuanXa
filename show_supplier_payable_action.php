@@ -31,11 +31,11 @@ if ($result->num_rows > 0){
         }
 ?>
     <tr>
-        <td>
+        <td name = "invoce_date">
             <?php echo $date->format('d M Y'); ?>
         </td>
-        <td>
-        <?php echo $row["tong"]; ?>
+        <td name = "supplier_invoice_amount">
+             <?php echo number_format($row["tong"],2); ?>
         </td>
     </tr>
 <?php
@@ -50,6 +50,11 @@ if ($result->num_rows > 0){
         <span class = "fr"><?php echo $date->format('d M'); ?></span>
         <br>
         <input class = "w100" onchange = "invoice_select_payabale(this)"  type="range" id="invoice_select" min = "1" value = "1" max = "<?php echo $result->num_rows; ?>">
+        <div id = "total_payable">
+            <div >Tong : £<span id = "tong_tien">0</span> </div>
+            <div ><button onclick = "pay_supplier('<?php echo $sup; ?>')">PAY</button></div>
+            <div class = "clearFix"></div>
+        </div>
     </div>
     <?php
 
