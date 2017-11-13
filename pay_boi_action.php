@@ -55,7 +55,9 @@ foreach ($week_pay as $week) {
     Left Join `NN`.`tb_gioLam` On tb_boi_hour.Date = tb_gioLam.Date
     Where   tb_boi_hour.Date >= '".$monday."' and
             tb_boi_hour.Date <= '".$sunday."'and
-            Name = '".$name."'
+            Name = '".$name."' and 
+            Paid = 0
+
           
         ";
     $result = DB_run_query($sql);
@@ -184,6 +186,7 @@ foreach ($week_pay as $week) {
          
 }
 
-
+$length = count($week_pay);
 
 ?>
+ <i>Done !__</i>Tra Boi: <u><?php echo $name; ?></u> tu tuan <u><?php echo $week_pay[0]; ?></u> den tuan <u><?php echo $week_pay[$length-1]; ?></u>

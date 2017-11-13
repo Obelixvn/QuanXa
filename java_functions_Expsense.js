@@ -121,7 +121,7 @@ function pay_action_boi(ten){
     }
     str_ajax += '&tip='+document.getElementById('tip_pay').value;
     str_ajax += '&hour_pay='+ document.getElementById('hour_pay').innerHTML;
-    Java_ajax('test',str_ajax);
+    Java_ajax('Boi_paying_tb',str_ajax);
 }
 
 function week_pay_change(x){
@@ -195,7 +195,7 @@ function pay_supplier(sup){
     str_ajax = "pay_supplier_action.php?date1="+invoce[0].innerHTML+ "&date2="+ invoce[num-1].innerHTML+"&supplier="+sup;
     alert(str_ajax);
 
-    Java_ajax('select_contain',str_ajax);
+    Java_ajax('supplier_payable_tb',str_ajax);
     
 }
     
