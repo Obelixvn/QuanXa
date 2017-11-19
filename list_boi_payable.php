@@ -7,9 +7,7 @@ $ten_boi = array_fill(0,20.,"0");
     $luong_boi = array_fill(0,20.,0);
     
     $rate = array_fill(0,20.,0);
-    $ngay_chieu = array_fill(0,20.,0);
-    $ngay_sang = array_fill(0,20.,0);
-    $ngay_full = array_fill(0,20.,0);
+    
     $sql = "
         Select Name, Shift, tb_boi_hour.Date,Adj,Sang, Chieu 
         From `NN`.`tb_boi_hour` 
