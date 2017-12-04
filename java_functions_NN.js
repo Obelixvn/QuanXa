@@ -219,7 +219,7 @@ function item_selected_datDoPage(x){
                 }
 
             }else{
-                td_elements[1].innerHTML = "New";
+                td_elements[1].innerHTML = "<input class = \"them_do_unit\" type=\"text\" name=\"unit_item_"+sup+"\" >";
                 td_elements[3].innerHTML = "New";
             }
         }
@@ -317,9 +317,11 @@ function update_puchase(sup){
     var name = document.getElementsByName('item_dat_do_'+sup);
     var quality = document.getElementsByName('q_item_'+sup);
     var cost = document.getElementsByName('cost_item_'+sup);
+    var unit = document.getElementsByName('unit_item_'+sup);
     str_itemName ='';
     str_itemQuality ='';
     str_itemCost ='';
+    str_itemUnit = '';
     for (i = 0; i < name.length; i++) {
         if      (name[i].value != '' 
             && quality[i].value !=''
@@ -330,9 +332,15 @@ function update_puchase(sup){
             str_itemCost += '&cost[]='+cost[i].value;
         }
     }
-    str_ajax = 'update_purchase_action.php?Date='+date+'&supplier='+sup+str_itemName+str_itemQuality+str_itemCost;
-    Java_ajax(sup+'_do_them',str_ajax);
-    document.getElementById(sup+'_them_do').style.display = 'none';
+    for (var i = 0; i < unit.length; i++) {
+        if(unit[i] != ''){
+            str_itemUnit += '&unit[]='+unit[i].value;
+        }
+        
+    }
+    str_ajax = 'update_purchase_action.php?Date='+date+'&supplier='+sup+str_itemName+str_itemQuality+str_itemCost+str_itemUnit;
+    Java_ajax(sup+'_dat_do',str_ajax);
+    //document.getElementById(sup+'_them_do').style.display = 'none';
     document.getElementById('tb_datDo_'+sup).innerHTML = '';
 }
 function newItem_tb_update_puchase(){

@@ -45,5 +45,10 @@
         
     );
 
-   
+    $Credit_supplier = array(
+        "Meat",
+        "Cook Delight",
+        "Hung Nghia"
+
+    );
 ?>

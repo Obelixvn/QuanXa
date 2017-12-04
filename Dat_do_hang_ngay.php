@@ -66,3 +66,4 @@
 <button type = "button" onclick = "update_puchase('<?php echo $cat;?>')">Confirm</button>
 <span class = "tongTien_datDo"><b>Tong tien: £</b><i id = "tongTien_<?php echo $cat;?>">0</i>    </span>
 </div>
+

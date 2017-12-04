@@ -1,4 +1,4 @@
-<table class = "tb_datDoPage ">
+
 <?php
     include 'functions_NN.php';
     $date= $_GET["Date"];
@@ -6,10 +6,21 @@
     $item_name = $_GET["name"];
     $item_cost = $_GET["cost"];
     $supplier = $_GET["supplier"];
+    if (isset($_GET["unit"])){
+        $unit = $_GET["unit"];
+    }
+    
+    $newItem = 0;
     $item_unit = array();
     $item_id = array();
     $purchase_id = array(); 
-    $item_price = array();   
+    $item_price = array();  
+    if (in_array($supplier,$Credit_supplier)){
+        $status = 0;
+    }
+    else{
+        $status = 1;
+    } 
     for ($i=0; $i < count($item_name) ; $i++) { 
         $sql_item ="
                 Select id_item,unit from tb_items
@@ -37,22 +48,28 @@
             
         }
         else{
+            
             $sql_item ="
                 INSERT INTO `NN`.`tb_items`
                         (
                         `name`,
-                        `supplier`)
+                        `supplier`,
+                        `unit`
+                        )
                         VALUES
                         (
                         '".$item_name[$i]."',
-                        '".$supplier."'
+                        '".$supplier."',
+                        '".$unit[$newItem]."'
                         );
            
             ";
             $item_id[$i][0] = Get_insertIDQuery($sql_item);
-            $item_unit[$i][0] = null;
+            
+            $newItem++;
             
         }
+        
         $sql_purchase = "
             INSERT INTO `NN`.`tb_purchase`
                     (`item_id`,
@@ -67,7 +84,7 @@
                     ".$item_id[$i][0].",
                     '".$date."',
                     ".$item_q[$i].",
-                    0,
+                    ".$status.",
                     ".$item_cost[$i].",
                     ".$item_price[$i]."
                     )";
@@ -76,67 +93,20 @@
     }
  
 if (count($purchase_id) == 0){
-    ?>
-    <tr>
-        <td colspan = "5"> Khong co du lieu
-            </td>
-    </tr>    
-    <?php
+    echo "Khong nhap duoc vao database";
 }else{
-    ?>
+   
+    $Ngay_dat_do = $date;
+    $sql = "
+    SELECT name,price,quality,cost,unit From tb_purchase join tb_items on tb_purchase.item_id = tb_items.id_item
+    Where supplier = '".$supplier."'
+    and date = '".$Ngay_dat_do."'
     
-        <tr>
-            <th>Ten Item</th>
-            <th class = "w25">Unit</th>
-            <th class = "w10">Quatity</th>
-            <th class = "w10">Gia</th>
-            <th class = "w10">Tien</th>
-            <th></th>
-        </tr>
-    <?php
+
+    ";
+
+    $result = DB_run_query($sql);
+    if ($result->num_rows > 0){
+        include "show_listDatDo.php";
+    } 
 }
-$done_button = true;
-for ($i=0; $i < count($purchase_id) ; $i++) {?> 
-<tr>
-    <td class = "datDo_ten"><span class = "span_purchaseId" id = "span_purchanseId_<?php echo $purchase_id[$i]; ?>">[Updated]</span> 
-        <?php 
-            echo $item_name[$i];
-        ?>
-     </td>
-     <td class = "datDo_unit">   
-        <?php  
-            $save_button = true;  
-            if (count($item_unit[$i]) > 1){
-                $done_button = false;
-                echo "<select name = \"purchaseID_".$purchase_id[$i]."\">";
-                for ($u=0; $u < count($item_unit[$i]); $u++) { 
-                    echo "<option value = \"".$item_id[$i][$u]."\">".$item_unit[$i][$u]."</option>";
-                }
-                echo "</select>";
-            }else if ($item_unit[$i][0] ==null){
-                $done_button = false;
-                echo "<input type = \"text\" name = \"purchaseID_".$purchase_id[$i]."\" >";
-                echo "<input type = \"hidden\" name = \"itemID_".$purchase_id[$i]."\" value = \"".$item_id[$i][0]."\">";
-            }else{
-                $save_button = false;
-                
-                echo " [ ".$item_unit[$i][0]." ]";
-            }
-        ?>
-    
-    </td>
-    <td class = "datDo_quality"><?php echo $item_q[$i]; ?></td>
-    <td class = "datDo_gia"><?php echo $item_price[$i]; ?></td>
-    <td class = "datDo_tien"><?php echo $item_cost[$i]; ?></td>
-    <td>
-        <?php 
-            if ($save_button){
-                echo "<button name =\"save_button_".$purchase_id[$i]."\" type = \"button\" onclick =\"save_itemUnit_datDoPage(".$purchase_id[$i].")\">Save</button>";
-            }  
-        ?>
-    </td>
-</tr>
- 
-<?php }?> 
-</table>
-<button type = "button" <?php if (!$done_button){echo("disabled");} ?> onclick = "hoan_thanh_them_do('<?php echo ($supplier); ?>')">Done</button> 

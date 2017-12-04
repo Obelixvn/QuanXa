@@ -20,9 +20,9 @@ $ten_boi = array_fill(0,20.,"0");
     $index = 0;   
     $tong_tienLuong = 0;    
     $result = DB_run_query($sql);
-    
+    $payByDay = false;
     $tong_gio = 0;
-    if ($result->num_rows > 0){
+    if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 if ($ten_boi[$index] != $row["Name"]){
                     $index = $index + 1;
@@ -43,6 +43,9 @@ $ten_boi = array_fill(0,20.,"0");
                     if($result_rate->num_rows > 0){
                         $row_rate = $result_rate->fetch_assoc();
                         $rate[$index] = $row_rate["Rate"];
+                        if ($rate[$index] > 20){
+                            $payByDay = true;
+                        } 
                     }else{
                         $rate[$index] = 6.7;
                     }
@@ -52,38 +55,50 @@ $ten_boi = array_fill(0,20.,"0");
                 
                 $thu = $date->format('N');
                 
-                
-                if ($row["Sang"] == ''){
-                    $giolam_sang = $Gio_lam_cua_quan[$thu][0];
-                }else{
-                    $giolam_sang = $row["Sang"];
-                }
-                
-                if ($row["Chieu"] == ''){
-                    $giolam_chieu = $Gio_lam_cua_quan[$thu][1];
-                }else{
-                    $giolam_chieu = $row["Chieu"];
-                }
-                
-                switch ($row["Shift"]) {
-                    case 1 :
-                        $luong_boi[$index] += $giolam_sang;
-                        
-                        break;
-                    
-                    case 2 :
-                        $luong_boi[$index] += $giolam_chieu;
-                        
-                        break;
+                if ($payByDay){
 
-                    case 3 :
-                        $luong_boi[$index] += $giolam_sang;
-                        $luong_boi[$index] += $giolam_chieu;
-                        $luong_boi[$index] += 1;
-                       
-                        break;    
-                }
-                $luong_boi[$index] = $luong_boi[$index] + $row["Adj"];
+                    switch ($row["Shift"]) {
+                        case 3 :
+                            $luong_boi[$index] += 1;
+                        
+                            break;
+                        default:
+                            $luong_boi[$index] += 0.5;
+                            break;      
+                    }
+                }else{
+                        if ($row["Sang"] == ''){
+                            $giolam_sang = $Gio_lam_cua_quan[$thu][0];
+                        }else{
+                            $giolam_sang = $row["Sang"];
+                        }
+                        
+                        if ($row["Chieu"] == ''){
+                            $giolam_chieu = $Gio_lam_cua_quan[$thu][1];
+                        }else{
+                            $giolam_chieu = $row["Chieu"];
+                        }
+                        
+                        switch ($row["Shift"]) {
+                            case 1 :
+                                $luong_boi[$index] += $giolam_sang;
+                                
+                                break;
+                            
+                            case 2 :
+                                $luong_boi[$index] += $giolam_chieu;
+                                
+                                break;
+
+                            case 3 :
+                                $luong_boi[$index] += $giolam_sang;
+                                $luong_boi[$index] += $giolam_chieu;
+                                $luong_boi[$index] += 1;
+                            
+                                break;    
+                        }
+                }      
+                $luong_boi[$index] += $row["Adj"];
                 
             }
             

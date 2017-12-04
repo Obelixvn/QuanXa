@@ -314,6 +314,9 @@ table.tb_them_do input.them_do_ten{
 table.tb_them_do input.them_do_q{
     width: 55px;
 }
+table.tb_them_do input.them_do_unit{
+    width: 80px;
+}
 table.tb_them_do input.them_do_tien{
     width: 75px;
 }
