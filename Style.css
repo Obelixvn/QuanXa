@@ -315,7 +315,7 @@ table.tb_them_do input.them_do_q{
     width: 55px;
 }
 table.tb_them_do input.them_do_tien{
-    width: 55px;
+    width: 75px;
 }
 table.tb_them_do td{
     text-align: center;
@@ -327,6 +327,14 @@ table.tb_them_do td{
     font-variant: small-caps;
     font-weight: bolder;
     
+}
+.tb_them_do{
+    margin-bottom: 10px;
+}
+span.tongTien_datDo{
+    float: right;
+    margin-right: 55px;
+    margin-bottom: 15px;
 }
 
 .tb_thongKe td.tien_thongKe{

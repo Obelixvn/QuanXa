@@ -192,7 +192,87 @@ function show_lichLam_detailt(name,date,date_1){
     
     
 }
+function item_selected_datDoPage(x){
+    var td_elements =  x.parentElement.parentElement.children;
+    
+    var sup = x.name.substr(12);
+    var item = x.value;
 
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+        } else {
+                // code for IE6, IE5
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var str_return = this.responseText;
+            var e = str_return.split(',');
+            if (e[0] != "NULL"){
+                td_elements[1].innerHTML = e[0];
+                if (e[1] != "NULL"){
+                    td_elements[3].innerHTML = e[1];
+                }
+                else{
+                    td_elements[3].innerHTML = "New";
+                }
+
+            }else{
+                td_elements[1].innerHTML = "New";
+                td_elements[3].innerHTML = "New";
+            }
+        }
+        };
+            
+        xmlhttp.open("GET","getItemPrice.php?name="+item+"&sup="+sup ,true);
+        xmlhttp.send();
+
+
+    
+}
+
+function item_quality_selected_datDoPage(x){
+    var td_elements =  x.parentElement.parentElement.children;
+    if (td_elements[3].innerHTML != "New"){
+        var price = parseFloat(td_elements[3].innerHTML);
+        var q_item = x.value;
+        td_elements[4].children[0].value = (price * q_item).toFixed(2);
+    }
+    
+
+}
+
+function item_cost_input_datDoPage(x){
+    
+    var sup = x.name.substr(10);
+    var cost = document.getElementsByName('cost_item_'+sup);
+    var i = 0;
+    cost.forEach(function(e) {
+        if (e.value != ''){
+            i += parseFloat(e.value);
+        }
+        
+    }, this);
+    document.getElementById('tongTien_'+sup).innerHTML = i.toFixed(2);
+    
+    var td_elements =  x.parentElement.parentElement.children;
+    var oldPrice = parseFloat(td_elements[3].innerHTML);
+    var q_item = td_elements[2].children[0].value;
+
+    var newPrice = (x.value / q_item).toFixed(2);
+    
+    if (newPrice != oldPrice){
+        if (newPrice > oldPrice){
+            td_elements[3].style.color = 'red';
+                             
+        }else{
+            td_elements[3].style.color = 'green';    
+        }
+        td_elements[3].innerHTML = newPrice;
+    }
+
+}
 
 function datDoPage_onload(){
     change_date_datDoPage();
@@ -212,9 +292,9 @@ function them_item_datDo(index) {
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
-    cell1.innerHTML = "<input class = \"them_do_ten\" list=\"items_list_"+index+"\" name=\"item_dat_do_"+index+"\">";
-    cell3.innerHTML = "<input class = \"them_do_q\"value = \"1\" type = \"number\" name = \"q_item_"+index+"\">";
-    cell5.innerHTML = "<input class = \"them_do_tien\" type = \"number\" name = \"cost_item_"+index+"\">";
+    cell1.innerHTML = "<input onblur = \"item_selected_datDoPage(this)\" class = \"them_do_ten\" list=\"items_list_"+index+"\" name=\"item_dat_do_"+index+"\">";
+    cell3.innerHTML = "<input onblur = \"item_quality_selected_datDoPage(this)\" class = \"them_do_q\"value = \"1\" type = \"number\" name = \"q_item_"+index+"\">";
+    cell5.innerHTML = "<input onblur = \"item_cost_input_datDoPage(this)\" class = \"them_do_tien\" type = \"number\" name = \"cost_item_"+index+"\">";
 }
 function newItem_tb_them_item(){
     var table = document.getElementById("tb_newItem_datDoPage");

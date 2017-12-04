@@ -39,21 +39,21 @@
 <tbody >
     <tr>    
         <th>Ten</th>
-        <th></th>
+        <th>Unit</th>
         <th>So luong</th>
-        <th></th>
+        <th>Price</th>
         <th>Tien</th>
         </tr>
 
     <tr>
         
-        <td><input class = "them_do_ten" list="items_list_<?php echo $cat; ?>" name="item_dat_do_<?php echo $cat; ?>">
+        <td><input onblur = "item_selected_datDoPage(this)" class = "them_do_ten" list="items_list_<?php echo $cat; ?>" name="item_dat_do_<?php echo $cat; ?>">
             
         </td>
         <td></td>
-        <td><input class = "them_do_q" type = "number"  min = "0" name ="q_item_<?php echo $cat; ?>"></td>
+        <td><input onblur = "item_quality_selected_datDoPage(this)" class = "them_do_q" type = "number"  min = "0" name ="q_item_<?php echo $cat; ?>"></td>
         <td></td>
-        <td><input class = "them_do_tien" type = "number"  min = "0" name ="cost_item_<?php echo $cat; ?>"></td>
+        <td><input onblur = "item_cost_input_datDoPage(this)" class = "them_do_tien" type = "number"  min = "0" name ="cost_item_<?php echo $cat; ?>"></td>
         
     </tr>
     
@@ -64,4 +64,5 @@
 </table>
 <button type = "button" onclick = "them_item_datDo('<?php echo $cat;?>')">Them</button>
 <button type = "button" onclick = "update_puchase('<?php echo $cat;?>')">Confirm</button>
+<span class = "tongTien_datDo"><b>Tong tien: £</b><i id = "tongTien_<?php echo $cat;?>">0</i>    </span>
 </div>
