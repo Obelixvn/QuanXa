@@ -29,7 +29,7 @@ $ten_boi = array_fill(0,20.,"0");
                     
                     $ten_boi[$index] = $row["Name"];
                     
-                    
+                    $payByDay = false;
                     $luong_boi[$index] = 0;
                     $sql_rate = "
                         SELECT

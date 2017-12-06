@@ -40,7 +40,7 @@
                     
                     $ten_boi[$index] = $row["Name"];
                     
-                    
+                    $payByDay = false;
                     $luong_boi[$index] = 0;
                     $sql_rate = "
                         SELECT
@@ -54,6 +54,9 @@
                     if($result_rate->num_rows > 0){
                         $row_rate = $result_rate->fetch_assoc();
                         $rate[$index] = $row_rate["Rate"];
+                        if ($rate[$index] > 20){
+                            $payByDay = true;
+                        } 
                     }else{
                         $rate[$index] = 6.7;
                     }
@@ -63,36 +66,40 @@
                 
                 $thu = $date->format('N');
                 
-                
-                if ($row["Sang"] == ''){
-                    $giolam_sang = $Gio_lam_cua_quan[$thu][0];
-                }else{
-                    $giolam_sang = $row["Sang"];
-                }
-                
-                if ($row["Chieu"] == ''){
-                    $giolam_chieu = $Gio_lam_cua_quan[$thu][1];
-                }else{
-                    $giolam_chieu = $row["Chieu"];
-                }
-                
-                switch ($row["Shift"]) {
-                    case 1 :
-                        $luong_boi[$index] += $giolam_sang;
-                        $ngay_sang[$index] +=1 ;
-                        break;
-                    
-                    case 2 :
-                        $luong_boi[$index] += $giolam_chieu;
-                        $ngay_chieu[$index] += 1;
-                        break;
+                if($payByDay){
 
-                    case 3 :
-                        $luong_boi[$index] += $giolam_sang;
-                        $luong_boi[$index] += $giolam_chieu;
-                        $luong_boi[$index] += 1;
-                        $ngay_full[$index] += 1;
-                        break;    
+                }else{
+                    if ($row["Sang"] == ''){
+                        $giolam_sang = $Gio_lam_cua_quan[$thu][0];
+                    }else{
+                        $giolam_sang = $row["Sang"];
+                    }
+                    
+                    if ($row["Chieu"] == ''){
+                        $giolam_chieu = $Gio_lam_cua_quan[$thu][1];
+                    }else{
+                        $giolam_chieu = $row["Chieu"];
+                    }
+                    
+                    switch ($row["Shift"]) {
+                        case 1 :
+                            $luong_boi[$index] += $giolam_sang;
+                            $ngay_sang[$index] +=1 ;
+                            break;
+                        
+                        case 2 :
+                            $luong_boi[$index] += $giolam_chieu;
+                            $ngay_chieu[$index] += 1;
+                            break;
+    
+                        case 3 :
+                            $luong_boi[$index] += $giolam_sang;
+                            $luong_boi[$index] += $giolam_chieu;
+                            $luong_boi[$index] += 1;
+                            $ngay_full[$index] += 1;
+                            break;    
+                    }
+
                 }
                 $luong_boi[$index] = $luong_boi[$index] + $row["Adj"];
                 

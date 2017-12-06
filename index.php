@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="Style_indexPage.css">
     
 </head>
+
+<?php
+        include 'Mainbar.php';
+        
+?>
 <body>
 <script src="java_functions_NN.js">
         

@@ -40,6 +40,9 @@ $result_rate = DB_run_query($sql_rate);
 if($result_rate->num_rows > 0){
     $row_rate = $result_rate->fetch_assoc();
     $rate = $row_rate["Rate"];
+    if ($rate > 20){
+        $payByDay = true;
+    } 
 }else{
     $rate = 6.7;
 }
@@ -49,52 +52,80 @@ foreach ($week_pay as $week) {
     $week_day = new Datetime($week);
     $monday = $week_day->format('Y-m-d');
     $sunday = $week_day->modify('+6 day')->format('Y-m-d');
-    $sql = "
-    Select  Shift, tb_boi_hour.Date,Adj,Sang, Chieu 
-    From `NN`.`tb_boi_hour` 
-    Left Join `NN`.`tb_gioLam` On tb_boi_hour.Date = tb_gioLam.Date
-    Where   tb_boi_hour.Date >= '".$monday."' and
-            tb_boi_hour.Date <= '".$sunday."'and
-            Name = '".$name."' and 
-            Paid = 0
-
-          
-        ";
+    if ($payByDay){
+        $sql = "
+            Select  Shift, tb_boi_hour.Date,Adj
+            From `NN`.`tb_boi_hour` 
+            
+            Where   tb_boi_hour.Date >= '".$monday."' and
+                    tb_boi_hour.Date <= '".$sunday."'and
+                    Name = '".$name."' and 
+                    Paid = 0
+        
+                
+                ";
+    }else{
+        $sql = "
+        Select  Shift, tb_boi_hour.Date,Adj,Sang, Chieu 
+        From `NN`.`tb_boi_hour` 
+        Left Join `NN`.`tb_gioLam` On tb_boi_hour.Date = tb_gioLam.Date
+        Where   tb_boi_hour.Date >= '".$monday."' and
+                tb_boi_hour.Date <= '".$sunday."'and
+                Name = '".$name."' and 
+                Paid = 0
+    
+              
+            ";
+    }
+    
     $result = DB_run_query($sql);
     
     $tong_gio = 0;
     if ($result->num_rows > 0){
             while($row = $result->fetch_assoc()) { 
                 $date = new Datetime($row["Date"]);
-                
-                $thu = $date->format('N');  
-                if ($row["Sang"] == ''){
-                    $giolam_sang = $Gio_lam_cua_quan[$thu][0];
-                }else{
-                    $giolam_sang = $row["Sang"];
-                }
-                
-                if ($row["Chieu"] == ''){
-                    $giolam_chieu = $Gio_lam_cua_quan[$thu][1];
-                }else{
-                    $giolam_chieu = $row["Chieu"];
-                }
-                switch ($row["Shift"]) {
-                    case 1 :
-                        $tong_gio+= $giolam_sang;
-                        
-                        break;
-                    
-                    case 2 :
-                        $tong_gio += $giolam_chieu;
-                       
-                        break;
 
-                    case 3 :
-                        $tong_gio += $giolam_sang + $giolam_chieu +1;
+                if ($payByDay){
+                    switch ($row["Shift"]) {
+                        case 3 :
+                            $tong_gio += 1;
+                            break;
+                        default:
+                            $tong_gio += 0.5;
+                            break;        
+                    }
+                }
+                else{
+                    $thu = $date->format('N'); 
+                    
+                    if ($row["Sang"] == ''){
+                        $giolam_sang = $Gio_lam_cua_quan[$thu][0];
+                    }else{
+                        $giolam_sang = $row["Sang"];
+                    }
+                    
+                    if ($row["Chieu"] == ''){
+                        $giolam_chieu = $Gio_lam_cua_quan[$thu][1];
+                    }else{
+                        $giolam_chieu = $row["Chieu"];
+                    }
+                    switch ($row["Shift"]) {
+                        case 1 :
+                            $tong_gio+= $giolam_sang;
+                            
+                            break;
                         
-                        
-                        break;    
+                        case 2 :
+                            $tong_gio += $giolam_chieu;
+                           
+                            break;
+    
+                        case 3 :
+                            $tong_gio += $giolam_sang + $giolam_chieu +1;
+                            
+                            
+                            break;    
+                    }
                 }
                 $tong_gio += $row["Adj"];
             }
