@@ -140,19 +140,38 @@ $luongBoi = $row_luongBoi['luongBoi'];
 <div> <?php echo money_format('%#10n',$luongBoi);?></div>
 
 <?php
-
+$luongBep = 0;
 // Load luong Bep
-$sql_expense = "SELECT `tb_Bep`.`d_o_w`
-                    FROM `NN`.`tb_Bep`
+$sql_expense = "SELECT `tb_Bep`.`d_o_w`, Rate
+                    FROM `NN`.`tb_Bep`inner JOIN tb_nhanVien on nv_ID = tb_nhanVien.ID
                     WHERE Week = ".$week."
 ";
 $result_expense = DB_run_query($sql_expense);
-while ($row_luongBoi = $result_expense->fetch_assoc()){
-    
+while ($row_luongBep = $result_expense->fetch_assoc()){
+    $hr = 0;
+    $rate = $row_luongBep["Rate"];
+    $wk_hr = str_split($row_luongBep['d_o_w']);
+    foreach ($wk_hr as $e) {
+        switch ($e) {
+            case 0 :
+                
+                break;
+            case 3 :
+                $hr += 1;
+                break;
+            default:
+                $hr += 0.5;
+                break;
+        }
+    }
+    $luongBep += $hr * $rate;
 };
+?>
+<div> <?php echo money_format('%#10n',$luongBep);?></div>
+
+<?php
 
 
-$luongBoi = $row_luongBoi['luongBoi'];
 
 $week += 1;
 $date->modify('+1 day');

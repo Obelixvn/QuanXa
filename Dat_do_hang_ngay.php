@@ -51,7 +51,7 @@
             
         </td>
         <td></td>
-        <td><input onblur = "item_quality_selected_datDoPage(this)" class = "them_do_q" type = "number"  min = "0" name ="q_item_<?php echo $cat; ?>"></td>
+        <td><input onblur = "item_quality_selected_datDoPage(this)" class = "them_do_q" type = "number"  value = "1" min = "0" name ="q_item_<?php echo $cat; ?>"></td>
         <td></td>
         <td><input onblur = "item_cost_input_datDoPage(this)" class = "them_do_tien" type = "number"  min = "0" name ="cost_item_<?php echo $cat; ?>"></td>
         
