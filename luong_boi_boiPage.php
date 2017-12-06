@@ -1,6 +1,6 @@
 <?php
     include "functions_NN.php";
-    include "global.php";
+    //include "global.php";
     global $Gio_lam_cua_quan;
     $date = new Datetime($_GET["Date"]);
     if ($_GET["Date_1"] == null){
@@ -12,11 +12,11 @@
     $ten_boi = array_fill(0,20.,"0");
     $luong_boi = array_fill(0,20.,0);
     
-    
+    $payByDay = false;
     
     $rate = array_fill(0,20.,0);
-    $ngay_chieu = array_fill(0,20.,0);
-    $ngay_sang = array_fill(0,20.,0);
+    //$ngay_chieu = array_fill(0,20.,0);
+    //$ngay_sang = array_fill(0,20.,0);
     $ngay_full = array_fill(0,20.,0);
     $sql = "
         Select Name, Shift, tb_boi_hour.Date,Adj,Sang, Chieu 
@@ -40,7 +40,7 @@
                     
                     $ten_boi[$index] = $row["Name"];
                     
-                    
+                    $payByDay = false;
                     $luong_boi[$index] = 0;
                     $sql_rate = "
                         SELECT
@@ -54,6 +54,9 @@
                     if($result_rate->num_rows > 0){
                         $row_rate = $result_rate->fetch_assoc();
                         $rate[$index] = $row_rate["Rate"];
+                        if ($rate[$index] > 20){
+                            $payByDay = true;
+                        } 
                     }else{
                         $rate[$index] = 6.7;
                     }
@@ -63,6 +66,18 @@
                 
                 $thu = $date->format('N');
                 
+                if ($payByDay){
+                    
+                    switch ($row["Shift"]) {
+                        case 3 :
+                            $ngay_full[$index] += 1;
+                        
+                            break;
+                        default:
+                            $ngay_full[$index] += 0.5;
+                            break;      
+                    }
+                }
                 
                 if ($row["Sang"] == ''){
                     $giolam_sang = $Gio_lam_cua_quan[$thu][0];
@@ -79,19 +94,19 @@
                 switch ($row["Shift"]) {
                     case 1 :
                         $luong_boi[$index] += $giolam_sang;
-                        $ngay_sang[$index] +=1 ;
+                        //$ngay_sang[$index] +=1 ;
                         break;
                     
                     case 2 :
                         $luong_boi[$index] += $giolam_chieu;
-                        $ngay_chieu[$index] += 1;
+                        //$ngay_chieu[$index] += 1;
                         break;
 
                     case 3 :
                         $luong_boi[$index] += $giolam_sang;
                         $luong_boi[$index] += $giolam_chieu;
                         $luong_boi[$index] += 1;
-                        $ngay_full[$index] += 1;
+                        //$ngay_full[$index] += 1;
                         break;    
                 }
                 $luong_boi[$index] = $luong_boi[$index] + $row["Adj"];
@@ -118,20 +133,16 @@
             $date = new Datetime($_GET["Date"]);
             $date_1 = new Datetime($_GET["Date_1"]);
             for ($i=1; $i <= $index; $i++) {
-                $str = '';
-                if ($ngay_full[$i] != ''){
-                    $str = $ngay_full[$i]." full,";
-                }
-                if ($ngay_sang[$i] != ''){
-                    $str = $str." ".$ngay_sang[$i]." sang,";
-                }
-                if ($ngay_chieu[$i] != ''){
-                    $str = $str." ".$ngay_chieu[$i]." toi";
-                }
+                
                 echo "<tr>"; 
                 echo "<td class =\"ten_boi\">".ucwords(strtolower($ten_boi[$i]))."</td>";
-                echo "<td title =\"".$str."\">".$luong_boi[$i]."</td>";
-                $tien_luong = $luong_boi[$i]* $rate[$i];
+                echo "<td>".$luong_boi[$i]."</td>";
+                if ($rate[$i] > 20){
+                    $tien_luong = $ngay_full[$i]* $rate[$i];
+                } else{
+                    $tien_luong = $luong_boi[$i]* $rate[$i];
+                }
+                
                 $tong_tienLuong += $tien_luong;
                 echo "<td>".money_format('%#10.2n',$tien_luong)."</td>";
                 echo "<td><button type =\"button\" onclick = \"show_lichLam_detailt('".$ten_boi[$i]."','".$date->format('Y-m-d')."','".$date_1->format('Y-m-d')."')\">Chi tiet</button></td>";
