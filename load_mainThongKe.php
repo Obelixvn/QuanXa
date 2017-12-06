@@ -170,6 +170,15 @@ while ($row_luongBep = $result_expense->fetch_assoc()){
 <div> <?php echo money_format('%#10n',$luongBep);?></div>
 
 <?php
+//Fix Rate 
+$tienve1 = $net_taking  - $luongBep - $luongBoi - 1998 - 184;
+?>
+
+<div> <?php echo money_format('%#10n',1998);?></div>
+<div> <?php echo money_format('%#10n',$tienve1);?></div>
+<div> <?php echo money_format('%#10n',184);?></div>
+
+<?php
 
 
 

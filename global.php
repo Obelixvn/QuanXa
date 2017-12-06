@@ -25,8 +25,6 @@
         "Hung Nghia"
     );
     $Weekly_expense_cat1 = array(
-        "Boi" =>"0",
-        "Bep"=>"0",
         "Supplier"=>"0",
         "Rent&Rate"=>"1350",
         
