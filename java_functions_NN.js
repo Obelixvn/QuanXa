@@ -4,7 +4,8 @@ function change_date(){
 
         }
         
-function showLichBoi(date) {
+function showLichBoi() {
+    date = get_monday_from_inputWeek('week_boiPage');
     str_ajax ="getLichboi.php?date="+date;
     Java_ajax('Lich_Boi',str_ajax);
     luong_boi();
@@ -445,16 +446,20 @@ function get_monday_from_inputWeek(input){
     str_tuan = document.getElementById(input).value;
     str_tuan = str_tuan.split("-");
     var year = str_tuan[0];
-    
-    tuan = str_tuan[1].substr(1);
-    var day = parseInt(tuan*7  - 5);
+    var first_day = new Date(year,0,0);
+    t_day = first_day.getDay();
+    if (t_day >= 4){
+        t_day =  t_day - 7;
+    }
+    var tuan = parseInt(str_tuan[1].substr(1));
+    var day = parseInt(tuan*7  - 6 - t_day);
     var d = new Date(year,0,day);
     dd = d.getDate();
     mm = d.getMonth()+1;
     yy = d.getFullYear();
     MM = d.toDateString().substr(4,3);
     ngay_dat_do = yy+'-'+mm+'-'+dd;
-    return ngay_dat_do;
+   return ngay_dat_do;
 }
 function change_date_datDoPage(){
     var thu = document.getElementsByName('chon_thu_dat_do')[0].value;
@@ -462,8 +467,9 @@ function change_date_datDoPage(){
     str_tuan = str_tuan.split("-");
     var year = str_tuan[0];
     thu = parseInt(thu);
-    tuan = str_tuan[1].substr(1);
-    var day = parseInt(tuan*7 + thu - 5);
+    tuan = parseInt(str_tuan[1].substr(1));
+    
+    var day = parseInt(tuan*7 + thu - 6);
     var d = new Date(year,0,day);
     dd = d.getDate();
     mm = d.getMonth()+1;

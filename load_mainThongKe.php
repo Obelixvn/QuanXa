@@ -1,5 +1,5 @@
 <?php 
-include "Global.php";
+include "global.php";
 include "DB_functions_NN.php";
 
 if (isset($_GET["str_date"])) {
@@ -63,6 +63,23 @@ for ($i=0; $i < 7; $i++) {
         <?php
     }
     $tong_sale = $row["TongSale"];
+
+//Tien mat
+
+$sql = "SELECT sum(cash)  as cashTK
+FROM NN.tb_Sale 
+where   Date >= '".$monday."' 
+    and Date <= '".$sunday."'
+";
+
+$result = DB_run_query($sql);
+$row = $result->fetch_assoc();
+$cashTk = $row["cashTK"];
+
+?>
+<div> <?php echo money_format('%#10n',$cashTk);?></div>
+
+<?php
 //Load Tien Do
 
 $sql = "
@@ -81,7 +98,7 @@ $row = $result->fetch_assoc();
 <?php
 
 $tong_do = $row["tong_tuan"];
-if ($tong_do == 0) {
+if ($tong_sale == 0) {
     $gross_P = 0;
 }else{
     $gross_P = ($tong_sale - $tong_do)/$tong_sale * 100;
@@ -171,15 +188,68 @@ while ($row_luongBep = $result_expense->fetch_assoc()){
 
 <?php
 //Fix Rate 
-$tienve1 = $net_taking  - $luongBep - $luongBoi - 1998 - 184;
+$tienve1 = $net_taking  - $luongBep - $luongBoi - 1998 - 184-$Weekly_expense_cat1["Bank Holiday"];
 ?>
 
 <div> <?php echo money_format('%#10n',1998);?></div>
 <div> <?php echo money_format('%#10n',$tienve1);?></div>
 <div> <?php echo money_format('%#10n',184);?></div>
+<?php
+
+//Cash avaliable
+
+$sql = "
+SELECT sum(cost) as cashSupp from tb_purchase inner join tb_items on item_id = id_item
+WHERE   date >= '".$monday."' 
+        and date <= '".$sunday."'
+        and supplier = 'Jacky'";
+
+
+
+$result = DB_run_query($sql);
+$row = $result->fetch_assoc();
+$cashSupp = $row["cashSupp"];
+
+
+
+
+$sql_expense = "
+SELECT sum(amount) as luongCoVan
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Luong' and 
+        `Cat 2` = 'Boi' and
+        `Name` = 'Co Van'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_luongBoi = $result_expense->fetch_assoc();
+
+
+$luongCoVan = $row_luongBoi['luongCoVan'];
+
+//$cashAva = $cashTk - $cashSupp - $luongBep;
+$cashAva = $cashTk - $cashSupp - $luongBep - (400 * $luongCoVan/540);
+
+$cardTK = $tienve1 - $cashAva;
+?>
+<div> <?php echo money_format('%#10n',$cardTK);?></div>
 
 <?php
 
+?>
+<div> <?php echo money_format('%#10n',$cashAva);?></div>
+
+<?php
+
+$Vat_card = 0.9*0.2*($tong_sale - $cashTk);
+$prefect_income = $tienve1 - $Vat_card;
+?>
+<div> <?php echo money_format('%#10n',$prefect_income);?></div>
+
+<?php
+
+$Vat_claim_tier1 = $Weekly_expense_cat1["Rent&Rate"] + $Weekly_expense_cat1["Dien"];
 
 
 $week += 1;

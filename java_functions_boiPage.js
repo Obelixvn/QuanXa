@@ -66,7 +66,7 @@ function luong_boi(){
         
     }
     if (document.getElementById('luong_Choice1').checked){
-        var date_0 = document.getElementsByName('Date_selected')[0].value;
+        var date_0 = get_monday_from_inputWeek('week_boiPage');
         var date_1 = '';
     }
     str_ajax = "luong_boi_boiPage.php?Date="+date_0+"&Date_1="+date_1;
@@ -74,8 +74,8 @@ function luong_boi(){
     
 }
 function boiPage_onload(){
-    var e = document.getElementsByName('Date_selected')[0].value;
-    showLichBoi(e);
+    
+    showLichBoi();
 }
 function payBoi(ten,ngay_0,ngay_1){
     str = ten + " lam tu "+ngay_0+" den "+ngay_1+" .So tien tra:";

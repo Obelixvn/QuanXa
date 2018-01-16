@@ -40,13 +40,14 @@
         "Quandoo"=>"55",
         "Dung ten"=>"200",
         "Other"=>"0",
-        
-    );
+        "Bank Holiday" => "172"//10+42+26+35+31+28
+        );
 
     $Credit_supplier = array(
         "Meat",
         "Cook Delight",
-        "Hung Nghia"
+        "Hung Nghia",
+        "Wine"
 
     );
 ?>

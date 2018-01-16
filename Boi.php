@@ -8,7 +8,7 @@
 <body onload = "boiPage_onload()"> 
 <?php
         include 'Mainbar.php';
-        
+        include 'global.php';
 ?>
 <script src="java_functions_NN.js"></script>
 <script src="java_functions_boiPage.js"></script>
@@ -20,38 +20,9 @@
 
     <div class = "mid_contain">
         [ Lich  Lam : ]
-        <select name ="Date_selected" onchange = "showLichBoi(this.value)">        
-        <?php
-            date_default_timezone_set("Europe/London");
-            $startdate =  new Datetime("2017-04-24");
-            $startWeek = $startdate->format("W"); 
-                        
-            $dateNow = new Datetime("Now");
-            
-            $weekNow = $dateNow->format("W");
-                        
-            $dateSel = $_GET["Date_selected"];
-            if ($dateSel == null){
-                $weekSel = $weekNow;
-            }else{
-                $weekSel = date_format(date_create($dateSel),"W");
-            }
-            $weekNow = $dateNow->modify('+3 day')->format("W");
-            
-            for ($i=$startWeek; $i <= $weekNow ; $i++) { 
-                    
-                echo "<option value = \"". $startdate->format('Y-m-d')."\"";
-                if ($i == $weekSel ){
-                    echo "selected ";
-                }
-                echo ">Week: ".$i." { ".$startdate->format('d/m/y');
-                $startdate = $startdate->modify(' +6 day ');
-                echo      " - ".$startdate->format('d/m/y')."}</option>";
-                $startdate = $startdate->modify(' +1 day ');     
-            }
-            
-        ?>
-        </select>
+        <input type="week" id="week_boiPage" value="<?php echo($Ngay_hom_nay->format('Y-\WW')); ?>">
+        <button onclick = "showLichBoi('week_boiPage')" >Load</button>
+        
     </div>
     <div class = "right_contain" >
         <hr>
