@@ -5,7 +5,7 @@
 <tr>
 <?php
     include "functions_NN.php";
-    include "global.php";
+    //include "global.php";
     $date = new Datetime($_GET["date"]);
     $r = array("Mon","Tue","Wed","Thur","Fri","Sat","Sun");
     for ($j=1; $j <= count($r); $j++) { 

@@ -9,10 +9,10 @@ $sql = "
         SELECT
             
             
-            sum(`tb_Sale`.`Roo`) as Roo,
-            sum(`tb_Sale`.`Uber`) as Uber,
-            sum(`tb_Sale`.`JEat`) as JEat
-        FROM `NN`.`tb_Sale`
+            sum(`tb_sale`.`Roo`) as Roo,
+            sum(`tb_sale`.`Uber`) as Uber,
+            sum(`tb_sale`.`JEat`) as JEat
+        FROM `NN`.`tb_sale`
         WHERE   DATE >= '".$date->format('Y-m-d')."' and
                 DATE <= '".$date->modify('+6 day')->format('Y-m-d')."'
 
@@ -25,11 +25,11 @@ if ($result->num_rows > 0){
 
 $sql = "
          SELECT
-            `tb_Expense`.`Amount` as expense
+            `tb_expense`.`Amount` as expense
             
-        FROM `NN`.`tb_Expense`
-        WHERE   `tb_Expense`.`To` = '".$date->format('Y-m-d')."' and
-                `tb_Expense`.`From` = '".$date->modify('-6 day')->format('Y-m-d')."'
+        FROM `NN`.`tb_expense`
+        WHERE   `tb_expense`.`To` = '".$date->format('Y-m-d')."' and
+                `tb_expense`.`From` = '".$date->modify('-6 day')->format('Y-m-d')."'
         and Name = '";
 ?>
 <thead>

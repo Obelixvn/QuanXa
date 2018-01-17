@@ -61,6 +61,7 @@ function add_tong(x){
 function load_delivery_taking(){
     var monday = get_monday_from_inputWeek('delivery_week_input');
     str_ajax = 'load_delivery_action.php?date='+monday;
+    
     Java_ajax('tb_income',str_ajax);
 }
 function get_ratio_delivery(x,i){
