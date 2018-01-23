@@ -43,7 +43,7 @@ for ($i=0; $i < 7; $i++) {
 
 //Load Sale
     $sql = "SELECT sum(cash) + sum(Card) + sum(Roo) + sum(JEat) + sum(Uber) as TongSale 
-            FROM NN.tb_Sale 
+            FROM NN.tb_sale 
             where   Date >= '".$monday."' 
                 and Date <= '".$sunday."'
 ";
@@ -67,7 +67,7 @@ for ($i=0; $i < 7; $i++) {
 //Tien mat
 
 $sql = "SELECT sum(cash)  as cashTK
-FROM NN.tb_Sale 
+FROM NN.tb_sale 
 where   Date >= '".$monday."' 
     and Date <= '".$sunday."'
 ";
@@ -159,8 +159,8 @@ $luongBoi = $row_luongBoi['luongBoi'];
 <?php
 $luongBep = 0;
 // Load luong Bep
-$sql_expense = "SELECT `tb_Bep`.`d_o_w`, Rate
-                    FROM `NN`.`tb_Bep`inner JOIN tb_nhanVien on nv_ID = tb_nhanVien.ID
+$sql_expense = "SELECT `tb_bep`.`d_o_w`, Rate
+                    FROM `NN`.`tb_bep`inner JOIN tb_nhanVien on nv_ID = tb_nhanVien.ID
                     WHERE Week = ".$week."
 ";
 $result_expense = DB_run_query($sql_expense);
