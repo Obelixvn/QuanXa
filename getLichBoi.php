@@ -27,7 +27,7 @@
                             FROM `NN`.`tb_gioLam`
 
                             WHERE
-                                `tb_giolam`.`Date` = '".$date->format('Y-m-d')."'";
+                                `tb_gioLam`.`Date` = '".$date->format('Y-m-d')."'";
                                 
                             
                     $result = DB_run_query($sql);

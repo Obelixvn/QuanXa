@@ -10,7 +10,7 @@ $Boi_toi_1 = trim(strtoupper(  $_GET["Boi_toi_Dcthem"]) );
 //Boi sang
 //Xoa boi sang
 $sql = "
-        Select Shift from `NN`.`tb_Boi_hour`
+        Select Shift from `NN`.`tb_boi_hour`
         Where Date = '".$date."' and
               Name = '".$Boi_sang_0."'
 
@@ -26,7 +26,7 @@ if ($result->num_rows > 0){
         switch ($gio_lam) {
             case '1':
                 $sql = "
-                        DELETE FROM `NN`.`tb_Boi_hour`
+                        DELETE FROM `NN`.`tb_boi_hour`
                         Where Date = '".$date."' and
                         Name = '".$Boi_sang_0."'
                         ";
@@ -35,7 +35,7 @@ if ($result->num_rows > 0){
             case '3':
                 
                 $sql = "
-                        UPDATE `NN`.`tb_Boi_hour`
+                        UPDATE `NN`.`tb_boi_hour`
                         SET
                         `Shift` = 2
                         WHERE 
@@ -54,7 +54,7 @@ if ($result->num_rows > 0){
 //Them boi sang
 if ($Boi_sang_1!=""){
     $sql = "
-            Select Shift from `NN`.`tb_Boi_hour`
+            Select Shift from `NN`.`tb_boi_hour`
             Where Date = '".$date."' and
                 Name = '".$Boi_sang_1."'
 
@@ -68,7 +68,7 @@ if ($Boi_sang_1!=""){
             switch ($gio_lam) {
                 case '2':
                     $sql = "
-                            UPDATE `NN`.`tb_Boi_hour`
+                            UPDATE `NN`.`tb_boi_hour`
                             SET
                             `Shift` = 3
                             WHERE 
@@ -83,7 +83,7 @@ if ($Boi_sang_1!=""){
             $result = DB_run_query($sql);
             
     }else{
-        $sql = "INSERT INTO `NN`.`tb_Boi_hour`
+        $sql = "INSERT INTO `NN`.`tb_boi_hour`
                         (`Date`,
                         `Name`,
                         `Shift`,
@@ -104,7 +104,7 @@ if ($Boi_sang_1!=""){
 //Boi toi
 //Xoa boi toi
 $sql = "
-        Select Shift from `NN`.`tb_Boi_hour`
+        Select Shift from `NN`.`tb_boi_hour`
         Where Date = '".$date."' and
               Name = '".$Boi_toi_0."'
 
@@ -118,7 +118,7 @@ if ($result->num_rows > 0){
         switch ($gio_lam) {
             case '2':
                 $sql = "
-                        DELETE FROM `NN`.`tb_Boi_hour`
+                        DELETE FROM `NN`.`tb_boi_hour`
                         Where Date = '".$date."' and
                         Name = '".$Boi_toi_0."'
                         ";
@@ -127,7 +127,7 @@ if ($result->num_rows > 0){
             case '3':
                 
                 $sql = "
-                        UPDATE `NN`.`tb_Boi_hour`
+                        UPDATE `NN`.`tb_boi_hour`
                         SET
                         `Shift` = 1
                         WHERE 
@@ -145,7 +145,7 @@ if ($result->num_rows > 0){
 
 if ($Boi_toi_1!=""){
     $sql = "
-            Select Shift from `NN`.`tb_Boi_hour`
+            Select Shift from `NN`.`tb_boi_hour`
             Where Date = '".$date."' and
                 Name = '".$Boi_toi_1."'
 
@@ -159,7 +159,7 @@ if ($Boi_toi_1!=""){
             switch ($gio_lam) {
                 case '1':
                     $sql = "
-                            UPDATE `NN`.`tb_Boi_hour`
+                            UPDATE `NN`.`tb_boi_hour`
                             SET
                             `Shift` = 3
                             WHERE 
@@ -175,7 +175,7 @@ if ($Boi_toi_1!=""){
             
             
     }else{
-        $sql = "INSERT INTO `NN`.`tb_Boi_hour`
+        $sql = "INSERT INTO `NN`.`tb_boi_hour`
                         (`Date`,
                         `Name`,
                         `Shift`,

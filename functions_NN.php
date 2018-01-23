@@ -75,7 +75,7 @@ function show_BoiData_BoiPage($date){
     
     $sql_sel = 
         "
-        Select * from `NN`.`tb_Boi_hour`
+        Select * from `NN`.`tb_boi_hour`
         Where Date =' 
         ".$date."'and (Shift =1 or Shift = 3)";
        
@@ -132,7 +132,7 @@ function show_BoiData_BoiPage($date){
     echo "<hr>";
     $sql_sel = 
         "
-        Select * from `NN`.`tb_Boi_hour`
+        Select * from `NN`.`tb_boi_hour`
         Where Date =' 
         ".$date."'and (Shift =2 or Shift = 3)";
        
