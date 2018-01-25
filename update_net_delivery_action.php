@@ -9,10 +9,10 @@ $sql = "
         SELECT
             
             
-            sum(`tb_Sale`.`Roo`) as Roo,
-            sum(`tb_Sale`.`Uber`) as Uber,
-            sum(`tb_Sale`.`JEat`) as JEat
-        FROM `NN`.`tb_Sale`
+            sum(`tb_sale`.`Roo`) as Roo,
+            sum(`tb_sale`.`Uber`) as Uber,
+            sum(`tb_sale`.`JEat`) as JEat
+        FROM `NN`.`tb_sale`
         WHERE   DATE >= '".$date->format('Y-m-d')."' and
                 DATE <= '".$date->modify('+6 day')->format('Y-m-d')."'
 
@@ -32,7 +32,7 @@ $date_0 = new Datetime($_POST["ngay"]);
 $name = array ('Just Eat','Uber','Roo');
 for ($i=0; $i < 3; $i++) { 
     $sql = "
-        INSERT INTO `NN`.`tb_Expense`
+        INSERT INTO `NN`.`tb_expense`
             (`Amount`,
             `From`,
             `To`,

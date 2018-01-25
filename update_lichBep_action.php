@@ -6,7 +6,7 @@
     var_dump ($d_o_w);
     for ($i=0; $i < count($nv_id); $i++) { 
         $sql = "
-            INSERT INTO `NN`.`tb_Bep`
+            INSERT INTO `NN`.`tb_bep`
                         (`Week`,
                         `nv_ID`,
                         `d_o_w`

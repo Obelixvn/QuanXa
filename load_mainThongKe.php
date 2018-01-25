@@ -7,6 +7,7 @@ if (isset($_GET["str_date"])) {
 }
 $year = substr($str_date,0,4);
 $week = substr($str_date,-2);
+
 if ($week <= 3){
     $week += 49;
     $year -=1;
@@ -14,8 +15,11 @@ if ($week <= 3){
     $week -=3;
 }
 
+
 $date = new Datetime();
 $date->setISODate($year,$week);
+
+
 
 for ($i=0; $i < 7; $i++) {
     
@@ -43,14 +47,16 @@ for ($i=0; $i < 7; $i++) {
 
 //Load Sale
     $sql = "SELECT sum(cash) + sum(Card) + sum(Roo) + sum(JEat) + sum(Uber) as TongSale 
-            FROM NN.tb_Sale 
+            FROM NN.tb_sale 
             where   Date >= '".$monday."' 
                 and Date <= '".$sunday."'
 ";
 
     $result = DB_run_query($sql);
-    if ($result->num_rows > 0){
-        $row = $result->fetch_assoc();
+    $row = $result->fetch_assoc();
+    
+    if ($row["TongSale"] != NULL){
+        
         ?>
         <div> <?php echo money_format('%#10n',$row["TongSale"]);?></div>
         
@@ -58,16 +64,26 @@ for ($i=0; $i < 7; $i++) {
     }else{
 
         ?>
-        <div> 0</div>
-        
+        <div> Khong co du lieu Sale. Nen ko hien thi</div>
+        </div>
         <?php
+        if ($week == 52){
+            $week = 1;
+            
+        }
+        else{
+            $week += 1;
+        }
+        
+        $date->modify('+1 day');
+        continue;
     }
     $tong_sale = $row["TongSale"];
 
 //Tien mat
 
 $sql = "SELECT sum(cash)  as cashTK
-FROM NN.tb_Sale 
+FROM NN.tb_sale 
 where   Date >= '".$monday."' 
     and Date <= '".$sunday."'
 ";
@@ -159,8 +175,8 @@ $luongBoi = $row_luongBoi['luongBoi'];
 <?php
 $luongBep = 0;
 // Load luong Bep
-$sql_expense = "SELECT `tb_Bep`.`d_o_w`, Rate
-                    FROM `NN`.`tb_Bep`inner JOIN tb_nhanVien on nv_ID = tb_nhanVien.ID
+$sql_expense = "SELECT `tb_bep`.`d_o_w`, Rate
+                    FROM `NN`.`tb_bep`inner JOIN tb_nhanVien on nv_ID = tb_nhanVien.ID
                     WHERE Week = ".$week."
 ";
 $result_expense = DB_run_query($sql_expense);
@@ -239,6 +255,7 @@ $cardTK = $tienve1 - $cashAva;
 
 ?>
 <div> <?php echo money_format('%#10n',$cashAva);?></div>
+<div> <?php echo money_format('%#10n',$cashSupp);?></div>
 
 <?php
 
@@ -252,7 +269,14 @@ $prefect_income = $tienve1 - $Vat_card;
 $Vat_claim_tier1 = $Weekly_expense_cat1["Rent&Rate"] + $Weekly_expense_cat1["Dien"];
 
 
-$week += 1;
+if ($week == 52){
+    $week = 1;
+    
+}
+else{
+    $week += 1;
+}
+
 $date->modify('+1 day');
 ?>
 </div>

@@ -134,7 +134,7 @@ foreach ($week_pay as $week) {
         $tip_tuan = $tong_gio * $tip_rate;
         $sql_expense_luong  ="
             
-        INSERT INTO `NN`.`tb_Expense`
+        INSERT INTO `NN`.`tb_expense`
                     (`Amount`,
                     `From`,
                     `To`,
@@ -161,15 +161,15 @@ foreach ($week_pay as $week) {
         if ($paid_id > 0){
 
             $sql_update_BoiHr = "
-            UPDATE `NN`.`tb_Boi_hour`
+            UPDATE `NN`.`tb_boi_hour`
             SET
                 `Paid` = 1,
                 
                 `Paid_id` = ".$paid_id."
             WHERE 
                 
-            tb_Boi_hour.Date >= '".$monday."' and
-            tb_Boi_hour.Date <= '".$sunday."'and
+            tb_boi_hour.Date >= '".$monday."' and
+            tb_boi_hour.Date <= '".$sunday."'and
                 Name = '".$name."'
             
             ";
@@ -182,7 +182,7 @@ foreach ($week_pay as $week) {
             if($tip_rate > 0){
                 $sql_expense_tip  ="
                 
-                INSERT INTO `NN`.`tb_Expense`
+                INSERT INTO `NN`.`tb_expense`
                             (`Amount`,
                             `From`,
                             `To`,

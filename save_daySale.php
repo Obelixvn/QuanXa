@@ -5,7 +5,7 @@ $sale = $_GET["day_sale"];
 include "DB_functions_NN.php";
 include "global.php";
 $sql ="
-    INSERT INTO `NN`.`tb_Sale`
+    INSERT INTO `NN`.`tb_sale`
     (`Date`,
     `Card`,
     `Cash`,

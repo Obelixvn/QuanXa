@@ -7,7 +7,7 @@ include "DB_functions_NN.php";
 
 $sql_lich = "
                         SELECT d_o_w
-                        FROM tb_Bep
+                        FROM tb_bep
                         WHERE ID = ".$id."
                             
             ";
@@ -18,7 +18,7 @@ $d_o_w = substr_replace($row_lich["d_o_w"],$ca_lam,$x,1);
 
 
 $sql = "
-        UPDATE `NN`.`tb_Bep`
+        UPDATE `NN`.`tb_bep`
         SET
         `d_o_w` = '".$d_o_w."'
         

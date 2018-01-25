@@ -21,7 +21,7 @@
     $sql_nv = "
         SELECT d_o_w, Name, nv_ID as ID,tb_bep.ID as lich_id
         FROM `tb_bep` 
-        INNER JOIN tb_nhanvien ON tb_bep.nv_ID = tb_nhanvien.ID 
+        INNER JOIN tb_nhanVien ON tb_bep.nv_ID = tb_nhanVien.ID 
         WHERE tb_bep.Week = ".$week."
     ";
     $result_nv = DB_run_query($sql_nv);
@@ -52,7 +52,7 @@
                 
                 $sql_lich = "
                 SELECT d_o_w, ID 
-                FROM tb_Bep
+                FROM tb_bep
                 WHERE Week = ".$week."
                     and nv_ID = ".$row_nv["ID"]."
                 ";
