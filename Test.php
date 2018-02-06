@@ -1,16 +1,6 @@
-<html>
+<?php 
 
-    <script>
-        function change_date(){
-            
-            var i = document.getElementsByName('test');
-             
-            alert(i[0].value);
-        }
-            
-    </script>
+include "DB_functions_NN.php";
+include "global.php";
 
-    <input type = "text" name ="test" value ="lost"/>
-     <input type = "text" name ="test" value ="dont"/>
-    <button onclick = "change_date()"></button>
-    </html>
+?>

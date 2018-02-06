@@ -10,7 +10,7 @@
         $date= $date->modify('+'.$thu.' day');
         $sql_sel = 
                 "
-                Select * from `NN`.`tb_Boi_hour`
+                Select * from `NN`.`tb_boi_hour`
                 Where   Date    =  '".$date->format('Y-m-d')."' and 
                         Name    =  '".$ten_boi."'
                 

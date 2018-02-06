@@ -6,7 +6,7 @@
 
 
     $sql = "
-        UPDATE `NN`.`tb_Boi_hour`
+        UPDATE `NN`.`tb_boi_hour`
         SET
         
         `Adj` = ".$adj.",
@@ -20,7 +20,7 @@
     $result = DB_run_query($sql);
     
     $sql = "
-        SELECT * from tb_Boi_hour where id = ".$id."
+        SELECT * from tb_boi_hour where id = ".$id."
     ";
     $result = DB_run_query($sql);
     $row = $result->fetch_assoc();

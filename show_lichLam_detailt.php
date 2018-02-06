@@ -1,6 +1,6 @@
 <?php
     include "functions_NN.php";
-    include "global.php";
+    //include "global.php";
     $date = new Datetime ($_GET["Date"]);
     $date_1 = new Datetime ($_GET["Date_1"]);
     

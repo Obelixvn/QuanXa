@@ -9,7 +9,7 @@ foreach ($Boi_sang as $name ) {
     if ($name !=''){
         $sql_1 = 
         "
-        Select * from `NN`.`tb_Boi_hour`
+        Select * from `NN`.`tb_boi_hour`
         Where Date = '".$date."' and
               Name = '".$name."' and
               (Shift = 1 or Shift = 3) 
@@ -18,7 +18,7 @@ foreach ($Boi_sang as $name ) {
         if ($result->num_rows == 0){
             $sql_1 = 
             "
-            Select * from `NN`.`tb_Boi_hour`
+            Select * from `NN`.`tb_boi_hour`
             Where Date = '".$date."' and
                 Name = '".$name."' and
                 Shift = 2  
@@ -26,7 +26,7 @@ foreach ($Boi_sang as $name ) {
             $result = DB_run_query($sql_1);
             if ($result->num_rows == 0){
                 $sql_2 = "
-                    INSERT INTO `NN`.`tb_Boi_hour`
+                    INSERT INTO `NN`.`tb_boi_hour`
                     (`Date`,
                     `Name`,
                     `Shift`,
@@ -42,7 +42,7 @@ foreach ($Boi_sang as $name ) {
             }else{
                 $sql_2 = 
                 "
-                UPDATE `NN`.`tb_Boi_hour`
+                UPDATE `NN`.`tb_boi_hour`
                 SET
                     `Shift` = 3
                 WHERE 
@@ -62,7 +62,7 @@ foreach ($Boi_toi as $name) {
     if ($name !='') {
         $sql_1 = 
         "
-        Select * from `NN`.`tb_Boi_hour`
+        Select * from `NN`.`tb_boi_hour`
         Where Date = '".$date."' and
               Name = '".$name."' and
               (Shift = 2 or Shift = 3) 
@@ -71,7 +71,7 @@ foreach ($Boi_toi as $name) {
         if ($result->num_rows == 0){
             $sql_1 = 
             "
-            Select * from `NN`.`tb_Boi_hour`
+            Select * from `NN`.`tb_boi_hour`
             Where Date = '".$date."' and
                 Name = '".$name."' and
                 Shift = 1  
@@ -80,7 +80,7 @@ foreach ($Boi_toi as $name) {
             if ($result->num_rows > 0){
                 $sql_2 = 
                 "
-                UPDATE `NN`.`tb_Boi_hour`
+                UPDATE `NN`.`tb_boi_hour`
                 SET
                     `Shift` = 3
                 WHERE 
@@ -90,7 +90,7 @@ foreach ($Boi_toi as $name) {
             }else{
                 $sql_2 =
                 "
-                INSERT INTO `NN`.`tb_Boi_hour`
+                INSERT INTO `NN`.`tb_boi_hour`
                 (`Date`,
                 `Name`,
                 `Shift`,

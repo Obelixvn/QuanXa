@@ -38,7 +38,7 @@ for ($i=0; $i < count($ten); $i++) {
     $c3 = $cat_3[$i];
     if (!in_array('',array($date_from,$date_to,$name,$amount,$c1))){
         $sql = "
-            INSERT INTO `NN`.`tb_Expense`
+            INSERT INTO `NN`.`tb_expense`
                 (`Amount`,
                 `From`,
                 `To`,
