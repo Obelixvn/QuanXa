@@ -6,15 +6,15 @@ $Ngay_bat_dau = '2017-04-24';
 
 function DBConn()
 {
-    $servername = "35.197.197.7";
-    $username = "root";
-    $password = "ngon123456";
-    $db = "NN";
-
-    //$servername = "127.0.0.1";
+    //$servername = "35.197.197.7";
     //$username = "root";
-    //$password = "123456";
+    //$password = "ngon123456";
     //$db = "NN";
+
+    $servername = "127.0.0.1";
+    $username = "root";
+    $password = "123456";
+    $db = "NN";
     $conn = mysqli_connect($servername, $username, $password,$db);
 
 

@@ -383,6 +383,13 @@ tr.tr_detailt_thongKe{
 .clearfix{
     clear: both;
 }
+.invisibale_text_1{
+    color: white;
+    background: white;
+}
+.invisibale_text_1:focus{
+    color: black;
+}
 
 
 

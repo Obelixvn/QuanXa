@@ -1,0 +1,10 @@
+button.on_off_button{
+    width: 40px;
+    height: 20px;
+    color: red;
+    background-color: black;
+}
+button.on_button{
+    color: white;
+    background-color: green;
+}
