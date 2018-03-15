@@ -3,7 +3,7 @@
 //1. Doc du lieu tu tb_itemLine
 include "global.php";
 include "DB_functions_NN.php";
-$Log = "Item Line Vr1.0 run:";
+$Log = "Item Line Vr1.8 run:";
 set_time_limit(0);
 $sql_viewDate = "SELECT * FROM NN_itemLine.view_itemline_bydate";
 //List cac ngay co trong tb_itemLine
@@ -90,7 +90,7 @@ if ($result->num_rows > 0){
         
         //Doc du lieu co duoc tu tb_view
 
-        $sql_select_viewData = "SELECT Gio, soLuong,ID_item, tongTien ,view_item_thongke.Name as Name
+        $sql_select_viewData = "SELECT Gio, soLuong,ID_item, tongTien ,view_item_thongke.Name as Ten
                                 FROM `nn_itemline`.`view_item_thongke` 
                                 LEFT JOIN `nn_itemline`.`tb_alias_item`
                                 ON `view_item_thongke`.`Name` = `tb_alias_item`.`Name` 
@@ -105,38 +105,51 @@ if ($result->num_rows > 0){
             $ID_item = $row_select_viewData["ID_item"];
             
             if($ID_item == NULL){
-                $Log .= "<li> Mon moi - ".$row_select_viewData["Name"];
-                $sql_insert_monMoi = "INSERT INTO `nn_itemline`.`tb_mon`
-                                        (
-                                         `Name`   
-                                        )
-                                        VALUE
-                                        (
-                                         '".$row_select_viewData["Name"]."'   
-                                        )";
-                $ID_item = Get_insertIDQuery($sql_insert_monMoi);
 
-                $Log .= " - ID moi :".$ID_item."</li>";
-                $sql_insert_aliasMon = "INSERT INTO `nn_itemline`.`tb_alias_item`
-                                        (
-                                            `Name`,
-                                            `ID_item`
-                                        )
-                                        VALUE
-                                        (
-                                            '".$row_select_viewData["Name"]."',
-                                            ".$ID_item."
-                                        )
-                                        ";
-                $r = DB_run_query($sql_insert_aliasMon);                        
-                $Log .= "<li>Alias Item created</li>";
+                $sql_doubleCk = "   SELECT count(*),`ID_item` as ck 
+                                    FROM `nn_itemline`.`tb_alias_item`
+                                    WHERE `Name` = '".$row_select_viewData["Ten"]."'";
+
+                $r = DB_run_query($sql_doubleCk);
+                $row_tmp = $r->fetch_assoc();
+                $ck = $row_tmp["ck"];
+                if($ck == 0){
+                    $Log .= "<li> Mon moi - ".$row_select_viewData["Ten"];
+                    $sql_insert_monMoi = "INSERT INTO `nn_itemline`.`tb_mon`
+                                            (
+                                            `Name`   
+                                            )
+                                            VALUE
+                                            (
+                                            '".$row_select_viewData["Ten"]."'   
+                                            )";
+                    $ID_item = Get_insertIDQuery($sql_insert_monMoi);
+
+                    $Log .= " - ID moi :".$ID_item."</li>";
+                    $sql_insert_aliasMon = "INSERT INTO `nn_itemline`.`tb_alias_item`
+                                            (
+                                                `Name`,
+                                                `ID_item`
+                                            )
+                                            VALUE
+                                            (
+                                                '".$row_select_viewData["Ten"]."',
+                                                ".$ID_item."
+                                            )
+                                            ";
+                    $r = DB_run_query($sql_insert_aliasMon);                        
+                    $Log .= "<li>Alias Item created</li>";
+                }else{
+                    $ID_item = $row_tmp["ID_item"];
+                }                                    
+                
             }
             if($ID_item == 114){
                 // ID cua ky tu -----------
                 $notTOcount += $row_select_viewData["soLuong"] ;
-                
                 continue;
             }
+            
             // Tang tk_theoGio
             $sql_insert_itemTK = "INSERT INTO `nn_itemline`.`".$table_name."`
                                        (
@@ -188,7 +201,7 @@ if ($result->num_rows > 0){
 
         }
         echo "<li>Thong ke theo gio da duoc update</li>";
-        if (($count) == $row["tongItem"]){
+        if ($count == $row["tongItem"]){
             $sql_updateDate = "UPDATE  `nn_itemline`.`tb_Date_updated` SET `Status` = 9 WHERE `Date` = '".$newDate->format('Y-m-d')."'";
         }else{
             $sql_updateDate = "UPDATE  `nn_itemline`.`tb_Date_updated` SET `Status` = 8 WHERE `Date` = '".$newDate->format('Y-m-d')."'";
