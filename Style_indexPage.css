@@ -3,3 +3,6 @@ div.tB_ThongKe_items{
     width : 13%;
     text-align: center;
 }
+div.tB_ThongKe_items div{
+    height: 18px;
+}

@@ -10,7 +10,7 @@
         include 'Mainbar.php';
         
 ?>
-<body>
+<body onload = "load_mainTK()">
 <script src="java_functions_NN.js">
         
         

@@ -14,19 +14,51 @@ if ($week <= 3){
 }else{
     $week -=3;
 }
-
+$week = 6;
+$year = 2018;
 
 $date = new Datetime();
 $date->setISODate($year,$week);
 
-
+?>
+<div class = "fl">
+    <div>Week:</div>
+    <div class = "mar_l_20">From</div>
+    <div class = "mar_l_20">To</div>
+    <div>Sale</div>
+    <div class = "mar_l_20">Restuarant</div>
+    <div class = "mar_l_20">Cash</div>
+    <div class = "mar_l_20">Card</div>
+    <div class = "mar_l_20">Delivery</div>
+    <div class = "mar_l_20">Total Sale</div>
+    <div>Cost of Sale(List Suppliers)</div>
+    <div>Gross Profit</div>
+    <div>Margin</div>
+    <div>Operating Expenses</div>
+    <div>Delivery Charge</div>
+    <div>Salary(Boi/Bep)</div>
+    <div>Card provider</div>
+    <div>Electric</div>
+    <div>Gas</div>
+    <div>Waste</div>
+    <div>Internet/Phone</div>
+    <div>Quandoo</div>
+    <div>POS</div>
+    <div>Bank charge</div>
+    <div>License(Premise/Music)</div>
+    <div>Issurance</div>
+    <div>Water</div>
+    <div>Other</div>
+    <div>VAT</div>
+</div>
+<?php
 
 for ($i=0; $i < 7; $i++) {
     
 
     ?>
     <div class = "fl tB_ThongKe_items">
-    <div> Tuan: <?php echo $week;?></div>
+        <div> Tuan: <?php echo $week;?></div>
     
     <?php
     
@@ -46,23 +78,27 @@ for ($i=0; $i < 7; $i++) {
     <?php
 
 //Load Sale
-    $sql = "SELECT sum(cash) + sum(Card) + sum(Roo) + sum(JEat) + sum(Uber) as TongSale 
-            FROM NN.tb_sale 
-            where   Date >= '".$monday."' 
-                and Date <= '".$sunday."'
-";
+    $sql = "SELECT * FROM view_tk_sale 
+            WHERE WeekTK = ".$week." AND
+                  YearTK = ".$year; 
 
     $result = DB_run_query($sql);
-    $row = $result->fetch_assoc();
-    
-    if ($row["TongSale"] != NULL){
-        
+    if ($result->num_rows > 0){
+        $row = $result->fetch_assoc();
+        $sale_re = $row["TKCash"] + $row["TKCard"];
+        $sale_del = $row["TKRoo"] + $row["TKUber"] + $row["TKJEat"];
+        $tong_sale = $sale_re + $sale_del;
         ?>
-        <div> <?php echo money_format('%#10n',$row["TongSale"]);?></div>
+        <div></div>
+        <div class = "txt_l"> <?php echo money_format('%#10n',$sale_re);?> </div>
+        <div class = "txt_l"> <?php echo money_format('%#10n',$row["TKCash"]);?> </div>
+        <div class = "txt_l"> <?php echo money_format('%#10n',$row["TKCard"]);?> </div>
+        <div class = "txt_l"> <?php echo money_format('%#10n',$sale_del);?> </div>
+        <div class = "txt_r"> <?php echo money_format('%#10n',$tong_sale);?> </div>
+        
         
         <?php
     }else{
-
         ?>
         <div> Khong co du lieu Sale. Nen ko hien thi</div>
         </div>
@@ -78,53 +114,38 @@ for ($i=0; $i < 7; $i++) {
         $date->modify('+1 day');
         continue;
     }
-    $tong_sale = $row["TongSale"];
-
-//Tien mat
-
-$sql = "SELECT sum(cash)  as cashTK
-FROM NN.tb_sale 
-where   Date >= '".$monday."' 
-    and Date <= '".$sunday."'
-";
-
-$result = DB_run_query($sql);
-$row = $result->fetch_assoc();
-$cashTk = $row["cashTK"];
-
-?>
-<div> <?php echo money_format('%#10n',$cashTk);?></div>
-
-<?php
 //Load Tien Do
-
-$sql = "
-SELECT sum(cost) as tong_tuan from tb_purchase
-WHERE   date >= '".$monday."' 
-        and date <= '".$sunday."'";
-
-
+$tong_do = 0;
+$sql = "SELECT * from view_tk_purchase
+        WHERE   Week = ".$week." AND 
+                Year = ".$year;
 
 $result = DB_run_query($sql);
-$row = $result->fetch_assoc();
+while ($row = $result->fetch_assoc()){
 
+    ?>
+    <div class = "hide_true txt_r" name = "purchase_W"> 
+        <?php 
+            echo $row["supplier"]." : ".money_format('%#10n',$row["Cost"]);
+            $tong_do += $row["Cost"];
+        ?>
+    </div>
+    
+    <?php
+
+}
 ?>
-<div> <?php echo money_format('%#10n',$row["tong_tuan"]);?></div>
+<div class = "txt_r"> <?php echo money_format('%#10n',$tong_do);?></div>
 
 <?php
-
-$tong_do = $row["tong_tuan"];
-if ($tong_sale == 0) {
-    $gross_P = 0;
-}else{
-    $gross_P = ($tong_sale - $tong_do)/$tong_sale * 100;
-}
-
-
 //Gross Profit
-
+$Gross_Profit = $tong_sale - $tong_do;
+$gross_P = $Gross_Profit/$tong_sale  * 100;
 ?>
-<div> <?php echo number_format($gross_P,2);?>%</div>
+
+<div class = "txt_r"> <?php echo money_format('%#10n',$Gross_Profit);?></div>
+<div class = "txt_r"> <?php echo number_format($gross_P,2)."%";?></div>
+<div></div>
 
 <?php
 
@@ -143,14 +164,14 @@ $row_delCharge = $result_expense->fetch_assoc();
 
 $del_charge = $row_delCharge['expense'];
 ?>
-<div> (<?php echo money_format('%#10n',$del_charge);?>)</div>
+<div class = "txt_l"> <?php echo money_format('%#10n',$del_charge);?></div>
 
 <?php
 
 $net_taking = $tong_sale - $tong_do - $del_charge;
 
 ?>
-<div> <?php echo money_format('%#10n',$net_taking);?></div>
+<div> <?php //echo money_format('%#10n',$net_taking);?></div>
 
 <?php
 //Load Luong Boi
@@ -281,5 +302,6 @@ $date->modify('+1 day');
 ?>
 </div>
 <?php
+exit;
 }
 ?>

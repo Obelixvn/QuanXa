@@ -70,6 +70,18 @@
 .h_40{
     height: 40px;
 }
+.mar_l_5{
+    margin-left: 5px;
+}
+.mar_l_10{
+    margin-left: 10px;
+}
+.mar_l_15{
+    margin-left: 15px;
+}
+.mar_l_20{
+    margin-left: 20px;
+}
 .mar_r_5{
     margin-right: 5px;
 }
@@ -390,7 +402,8 @@ tr.tr_detailt_thongKe{
 .invisibale_text_1:focus{
     color: black;
 }
-
-
+.hide_true{
+    display: none;
+}
 
 
