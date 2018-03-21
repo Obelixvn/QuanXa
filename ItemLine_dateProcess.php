@@ -3,7 +3,7 @@
 //1. Doc du lieu tu tb_itemLine
 include "global.php";
 include "DB_functions_NN.php";
-$Log = "Item Line Vr1.8 run:";
+$Log = "Item Line Vr1.9 run:";
 set_time_limit(0);
 $sql_viewDate = "SELECT * FROM NN_itemLine.view_itemline_bydate";
 //List cac ngay co trong tb_itemLine
@@ -185,13 +185,13 @@ if ($result->num_rows > 0){
         while($row_viewTk_theoGio = $re_viewTk_theoGio->fetch_assoc()) {
             $sql_insertTK_theoGio = "INSERT INTO `nn_itemline`.`tb_tk_theogio`
                                     (
-                                        `Week`,
+                                        `Ngay`,
                                         `Gio`,
                                         `soTien`
                                     )
                                     VALUE
                                     (
-                                        '".$date_str."',
+                                        '".$newDate->format('Y-m-d')."',
                                         ".$row_viewTk_theoGio["Gio"].",
                                         ".$row_viewTk_theoGio["revenue"]."
                                     )

@@ -1,0 +1,124 @@
+div#sang_chieu_toi span{
+    margin-right: 70px;
+}
+div#sang_chieu_toi span.selected{
+    background: cornflowerblue;
+    font-family: monospace;
+    text-transform: uppercase;
+    color: white;
+    font-size: 14px;
+    padding: 2px;
+}
+input#input_range_sang_chieu_toi{
+    width: 237px;
+    margin-left: 13px;
+    margin-top: 5px;
+}
+div#control_panel{
+    margin-top: 20px;
+    padding-left: 10px;
+}
+div#cat_select{
+    float: left;
+    padding: 10px;
+    margin-top: 20px;
+    border: 1px solid lightslategrey;
+    margin-left: 3px;
+    width: 560px;
+}
+input#ten_mon{
+    text-align: right;
+    color: darkgray;
+    padding: 3px 10px;
+}
+
+div#tb_result{
+    float: left;
+    width: 50%;
+}
+div#button_cat_1{
+    float: left;
+    width: 375px;
+}
+div#button_cat_1 button:nth-child(1){
+    background-color: darkcyan;
+} 
+div#cat_selected div:nth-child(1){
+    color: darkcyan;
+    
+}
+div#button_cat_1 button:nth-child(2){
+    background-color: brown;
+}
+div#cat_selected div:nth-child(2){
+    color: brown;
+    
+} 
+div#button_cat_1 button:nth-child(3){
+    background-color: seagreen;
+}
+div#cat_selected div:nth-child(3){
+    color: seagreen;
+    
+} 
+div#button_cat_1 button {
+    display: inline-block;
+    border-radius: 40px;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 14px;
+    padding: 5px;
+    width: 110px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    box-shadow: 5px 5px #999;
+    outline: none;
+  }
+  div#button_cat_1 button:active {
+    box-shadow: 0 1px #666;
+    transform: translateY(4px);
+  }
+  div#button_cat_1 button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  div#button_cat_1 button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  div#button_cat_1 button:hover span {
+    padding-right: 25px;
+  }
+  
+  div#button_cat_1 button:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+div#cat_selected{
+    float: left;
+    border-left: 1px solid black;
+    width: 182px;
+    height: 200px;
+    padding-top: 5px;
+}
+div#cat_selected div{
+    display: none;
+    width: 100%;
+    margin-bottom: 5px;
+    text-align: center;
+    padding: 2px 0px;
+    background-color: wheat;
+}
+div#cat_selected div.show{
+    display: inline-block;
+}
