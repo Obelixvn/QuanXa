@@ -11,7 +11,7 @@
     <legend>
     Thong Ke Item Line
     </legend>
-    <div id = "control_panel">
+    <div id = "control_panel" class = "fl">
         <div id = "time_span">
             <div>
                 <input type="radio" checked = "checked" onclick = "select_time(0)"name="time_option" id=""> ALL
@@ -34,8 +34,74 @@
         
         </div>
     </div>
+    <div id = "Top_Sale" class = "Top_tb fr">
+        TOP SALE
+        <hr>
+        <table>
+            
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Pho tai</td>
+                    <td>10000</td>
+                    
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Pho tai</td>
+                    <td>10000</td>
+                    
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Pho tai</td>
+                    <td>10000</td>
+                    
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Pho tai</td>
+                    <td>10000</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id = "Top_Order" class = "Top_tb fr">
+        TOP ORDER
+        <hr>
+        <table>
+            
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Pho tai</td>
+                    <td>10000</td>
+                    
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Pho tai</td>
+                    <td>10000</td>
+                    
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Pho tai</td>
+                    <td>10000</td>
+                    
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Pho tai</td>
+                    <td>10000</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
     
-    
+    <div class = "clearFix"></div>
 </fieldset> 
 <div id = "cat_select">
         <div>
@@ -43,18 +109,67 @@
             <button>Xem tat ca</button>
             <hr>
         </div>
-        <div>
-            <div id = "button_cat_1">
+        <div class = "fl">
+            <div class = "button_cat cat_1">
                 <button onclick = "cat_select(1)"><span>Do Nuoc</span> </button>
                 <button onclick = "cat_select(2)"><span>Do xao</span> </button>
                 <button onclick = "cat_select(3)"><span>Goi&Nom</span></button>
                 
             </div>
-            <div id = "cat_selected">
+            <hr style = "margin-right: 10px;">
+            <div class = "button_cat cat_2">
+                <button onclick = "cat_select(11)"><span>Com</span> </button>
+                <button onclick = "cat_select(12)"><span>My</span> </button>
+                <button onclick = "cat_select(13)"><span>Bun</span></button>
+                <button onclick = "cat_select(14)"><span>Pho</span></button>
+                
+                
+            </div>
+            <hr style = "margin-right: 10px;">
+            <div class = "button_cat cat_3">
+                
+                <button onclick = "cat_select(21)"><span>Sofl Drink</span></button>
+                <button onclick = "cat_select(22)"><span>Wine</span></button>
+                <button onclick = "cat_select(23)"><span>Juice</span></button>
+                <button onclick = "cat_select(24)"><span>Dessert</span></button>
+                
+            </div>
+            <hr style = "margin-right: 10px;">
+            <div class = "button_cat cat_4">
+                
+                <button onclick = "cat_select(31)"><span>Thit Bo</span></button>
+                <button onclick = "cat_select(32)"><span>Thit Ga</span></button>
+                <button onclick = "cat_select(33)"><span>Tom</span></button>
+                <button onclick = "cat_select(34)"><span>Muc</span></button>
+                <button onclick = "cat_select(35)"><span>Ca</span></button>
+                <button onclick = "cat_select(36)"><span>Diep</span></button>
+                <button onclick = "cat_select(36)"><span>Tofu</span></button>
+                
+            </div>
+            
+        </div>
+        <div id = "cat_selected">
                 <div name = "cat_name" >Do nuoc</div>
                 <div name = "cat_name">Do xao</div>
                 <div name = "cat_name">Goi&nom</div>
-            </div>
+
+                <div class = "group_1"name = "cat_name_1">Com</div>
+                <div class = "group_1"name = "cat_name_1">My</div>
+                <div class = "group_1"name = "cat_name_1">Bun</div>
+                <div class = "group_1"name = "cat_name_1">Pho</div>
+
+                <div class = "group_2"name = "cat_name_2">Soft Drink</div>
+                <div class = "group_2"name = "cat_name_2">Wine</div>
+                <div class = "group_2"name = "cat_name_2">Juice</div>
+                <div class = "group_2"name = "cat_name_2">Dessert</div>
+
+                <div class = "group_3"name = "cat_name_3">Thit Bo</div>
+                <div class = "group_3"name = "cat_name_3">Thit Ga</div>
+                <div class = "group_3"name = "cat_name_3">Tom</div>
+                <div class = "group_3"name = "cat_name_3">Muc</div>
+                <div class = "group_3"name = "cat_name_3">Ca</div>
+                <div class = "group_3"name = "cat_name_3">Tofu</div>
+
         </div>
         
 </div>

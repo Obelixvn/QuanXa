@@ -9,6 +9,7 @@
 <body onload = "expensePage_onload()"> 
 <?php
         include 'Mainbar.php';
+        include 'global.php';
         
 ?> 
 
@@ -40,7 +41,17 @@
                 <td><input type ="date" name = "bat_dau"></td>
                 <td><input type ="date" name = "ket_thuc"></td>
                 <td><input type = "text" name = "ten"></td>
-                <td><input type = "text" name = "cat1"></td>
+                <td>
+                    <select name="cat1" id="">
+                    <?php
+                        foreach ($Weekly_expense_cat1 as $key => $value) {
+                            ?>
+                            <option value="<?php echo $key; ?>"><?php echo $key; ?></option>
+                            <?php
+                        }
+                    ?>
+                    </select>
+                </td>
                 <td><input type = "text" name = "cat2"></td>
                 <td><input type = "text" name = "cat3"></td>
                 <td><input type = "number" name = "tien"></td>

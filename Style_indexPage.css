@@ -1,8 +1,30 @@
 div.tB_ThongKe_items{
-    margin-right: 10px;
-    width : 13%;
+    padding: 0 16px;
+    width: 11%;
     text-align: center;
+    border-right: 1px solid;
+}
+div#tb_thongKe{
+    padding: 10px;
 }
 div.tB_ThongKe_items div{
     height: 18px;
+    color: white;
+}
+div.tongItem_1{
+    margin-top: 11px;
+    
+    font-style: italic;
+    /* text-transform: uppercase; */
+    font-weight: bold;
+}
+div.tongItem_1 span{
+    border-top: 1px solid gray;
+}
+div.tongItem_2{
+    
+    padding-bottom: 10px;
+}
+div.tongItem_2 span{
+    border-bottom: 1px solid gray;
 }

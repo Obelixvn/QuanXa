@@ -10,7 +10,7 @@
         include 'Mainbar.php';
         
 ?>
-<body onload = "load_mainTK()">
+<body >
 <script src="java_functions_NN.js">
         
         
@@ -23,7 +23,10 @@
 <input type="week"  id="week_thongKe">
 <button onclick = "load_mainTK()">Load</button>  
 
-<div id = "tb_thongKe"></div>
+<div id = "tb_thongKe">
+
+</div>
+
 
 </body>
 </html>

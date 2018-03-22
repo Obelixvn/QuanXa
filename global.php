@@ -27,19 +27,20 @@
     $Weekly_expense_cat1 = array(
         "Supplier"=>"0",
         "Rent&Rate"=>"1350",
-        
+        "Luong" => "0",
         "Rac"=>"80",
         "Dien"=>"400",
+        "Gas"=>"400",
         "Nuoc"=>"50",
         "Building Inssuare"=>"27",
         "Card Provider"=>"90",
         "Premise Lience"=>"21",
-        "Bank chager"=>"0",
+        "Bank chager"=>"20",
         "Internet"=>"12",
         "Clover"=>"27",
         "Quandoo"=>"55",
-        "Dung ten"=>"200",
-        "Other"=>"0",
+       
+        "Other"=>"200",//Dung ten
         "Bank Holiday" => "172"//10+42+26+35+31+28
         );
 

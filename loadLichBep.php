@@ -17,7 +17,8 @@
     include "Global.php";
     $date = new Datetime($_GET["Date"]);
     $week = $date->format("W");
-    
+    $year = $date->format("Y");
+    $week = $year *100 + $week;
     $sql_nv = "
         SELECT d_o_w, Name, nv_ID as ID,tb_bep.ID as lich_id
         FROM `tb_bep` 

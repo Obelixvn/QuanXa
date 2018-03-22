@@ -16,7 +16,11 @@ input#input_range_sang_chieu_toi{
 }
 div#control_panel{
     margin-top: 20px;
-    padding-left: 10px;
+    padding: 0px 10px;
+    border-right: 1px solid gray;
+}
+div.Top_tb{
+    padding: 0px 10px;
 }
 div#cat_select{
     float: left;
@@ -36,34 +40,52 @@ div#tb_result{
     float: left;
     width: 50%;
 }
-div#button_cat_1{
-    float: left;
+div.button_cat{
+    
     width: 375px;
 }
-div#button_cat_1 button:nth-child(1){
+div.button_cat.cat_1 button:nth-child(1){
     background-color: darkcyan;
+} 
+div.button_cat.cat_4 button{
+    background-color: deeppink;
+}
+div.button_cat.cat_3 button{
+    background-color: lightsalmon;
+}
+div.button_cat.cat_2 button{
+    background-color: darkslategray;
 } 
 div#cat_selected div:nth-child(1){
     color: darkcyan;
     
 }
-div#button_cat_1 button:nth-child(2){
+div.button_cat.cat_1 button:nth-child(2){
     background-color: brown;
 }
 div#cat_selected div:nth-child(2){
     color: brown;
     
 } 
-div#button_cat_1 button:nth-child(3){
+div#cat_selected div.group_1 {
+    color: darkslategray;
+}
+div#cat_selected div.group_2 {
+    color: lightsalmon;
+}
+div#cat_selected div.group_3 {
+    color: deeppink;
+}
+div.button_cat.cat_1 button:nth-child(3){
     background-color: seagreen;
 }
 div#cat_selected div:nth-child(3){
     color: seagreen;
     
 } 
-div#button_cat_1 button {
+div.button_cat button {
     display: inline-block;
-    border-radius: 40px;
+    
     border: none;
     color: #FFFFFF;
     text-align: center;
@@ -76,18 +98,21 @@ div#button_cat_1 button {
     box-shadow: 5px 5px #999;
     outline: none;
   }
-  div#button_cat_1 button:active {
+  div.cat_1 button{
+    border-radius: 10px;
+  }
+  div.button_cat button:active {
     box-shadow: 0 1px #666;
     transform: translateY(4px);
   }
-  div#button_cat_1 button span {
+  div.button_cat button span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
   }
   
-  div#button_cat_1 button span:after {
+  div.button_cat button span:after {
     content: '\00bb';
     position: absolute;
     opacity: 0;
@@ -96,11 +121,11 @@ div#button_cat_1 button {
     transition: 0.5s;
   }
   
-  div#button_cat_1 button:hover span {
+  div.button_cat button:hover span {
     padding-right: 25px;
   }
   
-  div#button_cat_1 button:hover span:after {
+  div.button_cat button:hover span:after {
     opacity: 1;
     right: 0;
   }
@@ -121,4 +146,37 @@ div#cat_selected div{
 }
 div#cat_selected div.show{
     display: inline-block;
+}
+div#Top_Sale table tr td:nth-child(1){
+    color: white;
+    background-color: deepskyblue;
+    padding: 1px 3px;
+}
+div#Top_Sale table tr td:nth-child(2){
+    
+    font-family: monospace;
+    padding: 2px 10px;
+}
+div#Top_Sale table tr td:nth-child(3){
+    color: gray;
+    
+    
+}
+div#Top_Sale{
+    border-right: 1px dashed black;
+}
+div#Top_Order table tr td:nth-child(1){
+    color: white;
+    background-color: crimson;
+    padding: 1px 3px;
+}
+div#Top_Order table tr td:nth-child(2){
+    
+    font-family: monospace;
+    padding: 2px 10px;
+}
+div#Top_Order table tr td:nth-child(3){
+    color: gray;
+    
+    
 }

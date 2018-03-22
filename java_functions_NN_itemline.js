@@ -26,12 +26,31 @@ function text_input_click(x){
     document.getElementById('ten_mon').value = "";
 }
 function cat_select(x){
-    var cat_names = document.getElementsByName('cat_name');
-    var i = 1;
-    cat_names.forEach(e => {
-        if (i == x){
-            e.classList.toggle('show');
-        }
-        i++;
+    var i = 0;
+    var group = ["cat_name","cat_name_1","cat_name_2","cat_name_3"]
+    var t = Math.floor(x/10);
+    var z = x%10;
+    
+    group.forEach(e => {
+        var j = 1;
+        div_cat_names = document.getElementsByName(e);
+        div_cat_names.forEach(element => {
+            
+            if(i!= t){
+                element.classList.remove('show');
+            }else{
+                
+                if(j == z){
+                    element.classList.toggle('show');
+                }
+                
+            }
+            j++
+        });
+    i++;
     });
+    
+    
+    
+    
 }

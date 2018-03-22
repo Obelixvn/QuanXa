@@ -8,14 +8,13 @@ if (isset($_GET["str_date"])) {
 $year = substr($str_date,0,4);
 $week = substr($str_date,-2);
 
-if ($week <= 3){
-    $week += 49;
+if ($week <= 2){
+    $week += 50;
     $year -=1;
 }else{
-    $week -=3;
+    $week -=2;
 }
-$week = 6;
-$year = 2018;
+
 
 $date = new Datetime();
 $date->setISODate($year,$week);
@@ -26,17 +25,23 @@ $date->setISODate($year,$week);
     <div class = "mar_l_20">From</div>
     <div class = "mar_l_20">To</div>
     <div>Sale</div>
-    <div class = "mar_l_20">Restuarant</div>
+    
     <div class = "mar_l_20">Cash</div>
     <div class = "mar_l_20">Card</div>
+    <div class = "mar_l_20">&nbsp</div>
     <div class = "mar_l_20">Delivery</div>
-    <div class = "mar_l_20">Total Sale</div>
-    <div>Cost of Sale(List Suppliers)</div>
-    <div>Gross Profit</div>
-    <div>Margin</div>
-    <div>Operating Expenses</div>
+    <div class = "mar_l_20 tongItem_1">Total Sale</div>
+    <div>Cost of Sale</div>
+    <div class = "mar_l_20">Total cost:</div>
+    <div class = "tongItem_1">Gross Profit</div>
+    <div class = "mar_l_20">Margin</div>
     <div>Delivery Charge</div>
-    <div>Salary(Boi/Bep)</div>
+    <div class = "tongItem_1">Operating Profit</div>
+    <div>Salary</div>
+    <div class = "mar_l_20">Boi</div>
+    <div class = "mar_l_20">Bep</div>
+    <div class = "mar_l_20 tongItem_1">Total:</div>
+    <div>Fixed Overhead Cost</div>
     <div>Card provider</div>
     <div>Electric</div>
     <div>Gas</div>
@@ -47,13 +52,18 @@ $date->setISODate($year,$week);
     <div>Bank charge</div>
     <div>License(Premise/Music)</div>
     <div>Issurance</div>
+    <div>Rent&Rate</div>
     <div>Water</div>
     <div>Other</div>
-    <div>VAT</div>
+    <div class = "tongItem_2">Tax</div>
+    <div >Operating Expense</div>
+    <div class = "tongItem_1">Net Profit</div>
+    <div>Cash AVA</div>
+    <div></div>
 </div>
 <?php
 
-for ($i=0; $i < 7; $i++) {
+for ($i=0; $i < 5; $i++) {
     
 
     ?>
@@ -85,16 +95,18 @@ for ($i=0; $i < 7; $i++) {
     $result = DB_run_query($sql);
     if ($result->num_rows > 0){
         $row = $result->fetch_assoc();
+        $cash_sale = $row["TKCash"];
         $sale_re = $row["TKCash"] + $row["TKCard"];
         $sale_del = $row["TKRoo"] + $row["TKUber"] + $row["TKJEat"];
         $tong_sale = $sale_re + $sale_del;
         ?>
         <div></div>
-        <div class = "txt_l"> <?php echo money_format('%#10n',$sale_re);?> </div>
+        
         <div class = "txt_l"> <?php echo money_format('%#10n',$row["TKCash"]);?> </div>
         <div class = "txt_l"> <?php echo money_format('%#10n',$row["TKCard"]);?> </div>
-        <div class = "txt_l"> <?php echo money_format('%#10n',$sale_del);?> </div>
-        <div class = "txt_r"> <?php echo money_format('%#10n',$tong_sale);?> </div>
+        <div class = "txt_r"> <?php echo money_format('%#10n',$sale_re);?> </div>
+        <div class = "txt_r"> <?php echo money_format('%#10n',$sale_del);?> </div>
+        <div class = "txt_r tongItem_1"><span><?php echo money_format('%#10n',$tong_sale);?></span>  </div>
         
         
         <?php
@@ -105,7 +117,7 @@ for ($i=0; $i < 7; $i++) {
         <?php
         if ($week == 52){
             $week = 1;
-            
+            $year+= 1;
         }
         else{
             $week += 1;
@@ -116,13 +128,16 @@ for ($i=0; $i < 7; $i++) {
     }
 //Load Tien Do
 $tong_do = 0;
+$cash_expense = 0;
 $sql = "SELECT * from view_tk_purchase
         WHERE   Week = ".$week." AND 
                 Year = ".$year;
 
 $result = DB_run_query($sql);
 while ($row = $result->fetch_assoc()){
-
+    if ($roW["supplier"] == 'Jacky'){
+        $cash_expense += $row["Cost"];
+    }
     ?>
     <div class = "hide_true txt_r" name = "purchase_W"> 
         <?php 
@@ -135,7 +150,8 @@ while ($row = $result->fetch_assoc()){
 
 }
 ?>
-<div class = "txt_r"> <?php echo money_format('%#10n',$tong_do);?></div>
+<div></div>
+<div class = "txt_r"> (<?php echo money_format('%#10n',$tong_do);?>)</div>
 
 <?php
 //Gross Profit
@@ -143,9 +159,9 @@ $Gross_Profit = $tong_sale - $tong_do;
 $gross_P = $Gross_Profit/$tong_sale  * 100;
 ?>
 
-<div class = "txt_r"> <?php echo money_format('%#10n',$Gross_Profit);?></div>
+<div class = "txt_r tongItem_1"><span><?php echo money_format('%#10n',$Gross_Profit);?></span> </div>
 <div class = "txt_r"> <?php echo number_format($gross_P,2)."%";?></div>
-<div></div>
+
 
 <?php
 
@@ -164,16 +180,16 @@ $row_delCharge = $result_expense->fetch_assoc();
 
 $del_charge = $row_delCharge['expense'];
 ?>
-<div class = "txt_l"> <?php echo money_format('%#10n',$del_charge);?></div>
+<div class = "txt_r">( <?php echo money_format('%#10n',$del_charge);?>)</div>
 
 <?php
 
-$net_taking = $tong_sale - $tong_do - $del_charge;
-
+$net_taking = $Gross_Profit  - $del_charge;
 ?>
-<div> <?php //echo money_format('%#10n',$net_taking);?></div>
-
+<div class = "txt_r tongItem_1"><span><?php echo money_format('%#10n',$net_taking);?></span> </div>
+<div></div>
 <?php
+
 //Load Luong Boi
 
 $sql_expense = "
@@ -189,109 +205,351 @@ $row_luongBoi = $result_expense->fetch_assoc();
 
 
 $luongBoi = $row_luongBoi['luongBoi'];
-
+if($luongBoi < 1000 ){
+    $sql_luongBoi = "SELECT sum(tienLuong) as luongBoi
+                    FROM NN.view_luongboi
+                    WHERE `year` = ".$year." AND
+                    `week` = ".$week;
+    $result_expense = DB_run_query($sql_luongBoi);
+    $row_luongBoi = $result_expense->fetch_assoc();                
+}
+$luongBoi = $row_luongBoi['luongBoi'];
 ?>
-<div> <?php echo money_format('%#10n',$luongBoi);?></div>
+<div  class = "txt_l"> <?php echo money_format('%#10n',$luongBoi);?></div>
 
 <?php
 $luongBep = 0;
 // Load luong Bep
-$sql_expense = "SELECT `tb_bep`.`d_o_w`, Rate
-                    FROM `NN`.`tb_bep`inner JOIN tb_nhanVien on nv_ID = tb_nhanVien.ID
-                    WHERE Week = ".$week."
-";
-$result_expense = DB_run_query($sql_expense);
-while ($row_luongBep = $result_expense->fetch_assoc()){
-    $hr = 0;
-    $rate = $row_luongBep["Rate"];
-    $wk_hr = str_split($row_luongBep['d_o_w']);
-    foreach ($wk_hr as $e) {
-        switch ($e) {
-            case 0 :
-                
-                break;
-            case 3 :
-                $hr += 1;
-                break;
-            default:
-                $hr += 0.5;
-                break;
-        }
-    }
-    $luongBep += $hr * $rate;
-};
+$weekBep = $year*100 + $week;
+$sql_luongBep = "SELECT sum(Luong) as luongBep
+                FROM NN.view_luongbep
+                WHERE `Week` = ".$weekBep;
+$result_expense = DB_run_query($sql_luongBep);
+$row_luongBep = $result_expense->fetch_assoc();
+$luongBep = $row_luongBep['luongBep'];
+
+$cash_expense += $luongBep;
+
+$tonng_luong = $luongBep + $luongBoi;
 ?>
-<div> <?php echo money_format('%#10n',$luongBep);?></div>
-
+<div  class = "txt_l"> <?php echo money_format('%#10n',$luongBep);?></div>
+<div  class = "txt_l tongItem_1"><span><?php echo money_format('%#10n',$tonng_luong);?></span> </div>
+<div class = "">&nbsp</div>
 <?php
-//Fix Rate 
-$tienve1 = $net_taking  - $luongBep - $luongBoi - 1998 - 184-$Weekly_expense_cat1["Bank Holiday"];
-?>
-
-<div> <?php echo money_format('%#10n',1998);?></div>
-<div> <?php echo money_format('%#10n',$tienve1);?></div>
-<div> <?php echo money_format('%#10n',184);?></div>
-<?php
-
-//Cash avaliable
-
-$sql = "
-SELECT sum(cost) as cashSupp from tb_purchase inner join tb_items on item_id = id_item
-WHERE   date >= '".$monday."' 
-        and date <= '".$sunday."'
-        and supplier = 'Jacky'";
-
-
-
-$result = DB_run_query($sql);
-$row = $result->fetch_assoc();
-$cashSupp = $row["cashSupp"];
-
-
-
-
+//Card Provider
+$tong_expense_cat1 = 0;
 $sql_expense = "
-SELECT sum(amount) as luongCoVan
+SELECT sum(amount) as cardProvider
 FROM tb_expense
 WHERE   tb_expense.`To` = '".$sunday."' and
         tb_expense.`FROM` = '".$monday."' and
-        `Cat 1` = 'Luong' and 
-        `Cat 2` = 'Boi' and
-        `Name` = 'Co Van'
+        `Cat 1` = 'Card Provider'
 ";
 $result_expense = DB_run_query($sql_expense);
+$row_cardProvider = $result_expense->fetch_assoc();
+
+$expense_cardProvider = $row_cardProvider["cardProvider"];
+
+if (!$expense_cardProvider > 0 ){
+    $expense_cardProvider = $Weekly_expense_cat1["Card Provider"];
+}
+$tong_expense_cat1 += $expense_cat1;
+
+?>
+
+<div  class = "txt_l"> <?php echo money_format('%#10n',$expense_cardProvider);?></div>
+
+<?php
+//Electric
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Electric'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_expense["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Dien"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+
+<div  class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+
+<?php
+//Gas
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Gas'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Gas"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div  class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+<?php
+//Waste
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Waste'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Rac"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+<?php
+//Internet
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Internet'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Internet"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+<?php
+//Quandoo
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Quandoo'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Quandoo"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+<?php
+//POS
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Clover'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Clover"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+<?php
+//Bank Charge
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Bank chager'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Bank chager"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+<?php
+//Licenses
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Premise Lience'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Premise Lience"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+<?php
+//Issurance
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Inssuare'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Building Inssuare"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+<?php
+//Rent&Rate
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Rent_Rate'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Rent&Rate"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+<?php
+//Water
+
+?>
+<div class = "txt_l"> <?php echo money_format('%#10n',$Weekly_expense_cat1["Nuoc"]);?></div>
+<?php
+$tong_expense_cat1 += $Weekly_expense_cat1["Nuoc"];
+//Other
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Other'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+if (!$expense_cat1 > 0 ){
+    $expense_cat1 = $Weekly_expense_cat1["Other"];
+}
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>
+<?php
+
+//Tax
+$sql_expense = "
+SELECT sum(amount) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` = '".$sunday."' and
+        tb_expense.`FROM` = '".$monday."' and
+        `Cat 1` = 'Tax' 
+";
+$result_expense = DB_run_query($sql_expense);
+$row_expense = $result_expense->fetch_assoc();
+
+$expense_cat1 = $row_cardProvider["expense"];
+
+
+$tong_expense_cat1 += $expense_cat1;
+?>
+<div class = "txt_l tongItem_2"> <span><?php echo money_format('%#10n',$expense_cat1);?></span></div>
+<?php
+$tong_expense = $tonng_luong + $tong_expense_cat1;
+?>
+<div class = "txt_r"> (<?php echo money_format('%#10n',$tong_expense);?>)</div>
+<?php
+$net_profit = $net_taking - $tong_expense ;
+?>
+<div class = "txt_r tongItem_1"> <span><?php echo money_format('%#10n',$net_profit);?></span></div>
+<?php
+//Cash avaliable
+
+$sql_luongBoi = "SELECT sum(tienLuong) as luongBoi
+FROM NN.view_luongboi
+WHERE `Ten` = 'Co Van' AND `year` = ".$year." AND
+`week` = ".$week;
+$result_expense = DB_run_query($sql_luongBoi);
 $row_luongBoi = $result_expense->fetch_assoc();
 
+$cash_expense += $row_luongBoi['luongBoi'] - 140;
 
-$luongCoVan = $row_luongBoi['luongCoVan'];
 
 //$cashAva = $cashTk - $cashSupp - $luongBep;
-$cashAva = $cashTk - $cashSupp - $luongBep - (400 * $luongCoVan/540);
+$cashAva = $cash_sale - $cash_expense;
 
-$cardTK = $tienve1 - $cashAva;
+
 ?>
-<div> <?php echo money_format('%#10n',$cardTK);?></div>
+<div class = "txt_r"> <?php echo money_format('%#10n',$cashAva);?></div>
 
 <?php
 
+
+$Vat_card = $net_taking*0.2;
+$prefect_income = $net_profit - $Vat_card;
 ?>
-<div> <?php echo money_format('%#10n',$cashAva);?></div>
-<div> <?php echo money_format('%#10n',$cashSupp);?></div>
+<div class = "txt_r"> <?php echo money_format('%#10n',$prefect_income);?></div>
 
 <?php
 
-$Vat_card = 0.9*0.2*($tong_sale - $cashTk);
-$prefect_income = $tienve1 - $Vat_card;
-?>
-<div> <?php echo money_format('%#10n',$prefect_income);?></div>
 
-<?php
-
-$Vat_claim_tier1 = $Weekly_expense_cat1["Rent&Rate"] + $Weekly_expense_cat1["Dien"];
 
 
 if ($week == 52){
     $week = 1;
+    $year += 1;
     
 }
 else{
@@ -302,6 +560,7 @@ $date->modify('+1 day');
 ?>
 </div>
 <?php
-exit;
+
 }
 ?>
+<div class = "clearfix"></div>

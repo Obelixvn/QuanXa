@@ -24,7 +24,11 @@ function loadLichBep(){
 function save_lichBep(){
     str_tuan = document.getElementById('week_bepPage').value;
     str_tuan = str_tuan.split("-");
-    tuan = str_tuan[1].substr(1);
+    tuan = parseInt(str_tuan[1].substr(1));
+    year = parseInt(str_tuan[0]);
+    tuan = year *100 + tuan;
+    alert(tuan);
+    
     str_ajax = "update_lichBep_action.php?week="+tuan;
     
     var nv_id = document.getElementsByName('nv_Bep_ID');
