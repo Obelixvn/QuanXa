@@ -49,8 +49,25 @@ function cat_select(x){
         });
     i++;
     });
+}
+function load_TOP_item(){
+    str_ajax = "loadTK_itemline.php";
+    Java_ajax('tb_TOP_Order',str_ajax);
+    str_ajax +="?type=2";
+    Java_ajax('tb_TOP_Sale',str_ajax);
+}
+function load_TK_top(){
     
-    
-    
+    var sang_chieu = document.getElementById('input_range_sang_chieu_toi').value;
+    var time_option = document.getElementsByName('time_option');
+    if (time_option[0].checked){
+        time = 0;
+    }else{
+        time = 1;
+        week_0 = document.getElementById('input_week_0').value;
+        week_1 = document.getElementById('input_week_1').value;
+    }
+    str_ajax = "loadTK_itemline.php?sang_chieu="+sang_chieu+"?time="+time+"?week_0="+week_0+"?week_1="+week_1;
+    Java_ajax('tb_TK_top',str_ajax);
     
 }

@@ -2,7 +2,7 @@
 
 //1. Doc du lieu tu tb_itemLine
 include "global.php";
-include "DB_functions_NN.php";
+include "DB_functions_NN_itemline.php";
 $Log = "Item Line Vr1.9 run:";
 set_time_limit(0);
 $sql_viewDate = "SELECT * FROM NN_itemLine.view_itemline_bydate";

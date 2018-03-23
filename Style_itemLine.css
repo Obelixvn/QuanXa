@@ -162,7 +162,7 @@ div#Top_Sale table tr td:nth-child(3){
     
     
 }
-div#Top_Sale{
+div#Top_Order{
     border-right: 1px dashed black;
 }
 div#Top_Order table tr td:nth-child(1){

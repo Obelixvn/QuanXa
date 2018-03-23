@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="Style_itemLine.css">
 </head>
 
-<body>
+<body onload = "load_TOP_item()">
 <script src="java_functions_NN.js"></script>    
 <script src="java_functions_NN_itemline.js"></script>
 <fieldset >
@@ -14,10 +14,10 @@
     <div id = "control_panel" class = "fl">
         <div id = "time_span">
             <div>
-                <input type="radio" checked = "checked" onclick = "select_time(0)"name="time_option" id=""> ALL
+                <input type="radio" checked = "checked" onclick = "select_time(0)"name="time_option"  value = "0" id=""> ALL
             </div>
             <div>
-            <input type="radio" onclick = "select_time(1)" name="time_option" id="">
+            <input type="radio" onclick = "select_time(1)" name="time_option" value = "1" id="">
             From: <input type="week" id = "input_week_0" disabled = "disabled" >
             To: <input type="week" id = "input_week_1" disabled = "disabled">
             </div>
@@ -29,78 +29,35 @@
             <span  name = "sang_chieu_toi_select"class = "selected">Ca ngay</span>
         </div>
         <input type="range" name="" onchange ="sang_chieu_toi_select(this)" id="input_range_sang_chieu_toi" min = "1" max = "3" value = "3" >
-        <div id= "options_ratio">
-
-        
-        </div>
+        <button onclick = "load_TK_top()">Load Top</button>
     </div>
-    <div id = "Top_Sale" class = "Top_tb fr">
-        TOP SALE
-        <hr>
-        <table>
-            
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Pho tai</td>
-                    <td>10000</td>
-                    
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pho tai</td>
-                    <td>10000</td>
-                    
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pho tai</td>
-                    <td>10000</td>
-                    
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pho tai</td>
-                    <td>10000</td>
-                    
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id = "Top_Order" class = "Top_tb fr">
+    <div id = "TOP_Order" class = "Top_tb fr">
         TOP ORDER
         <hr>
         <table>
             
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Pho tai</td>
-                    <td>10000</td>
-                    
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pho tai</td>
-                    <td>10000</td>
-                    
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pho tai</td>
-                    <td>10000</td>
-                    
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Pho tai</td>
-                    <td>10000</td>
-                    
-                </tr>
+            <tbody id= "tb_TOP_Order">
+                
             </tbody>
         </table>
     </div>
-    
+    <div id = "TOP_Sale" class = "Top_tb fr">
+        TOP SALE
+        <hr>
+        <table>
+            
+            <tbody id= "tb_TOP_Sale">
+                
+            </tbody>
+        </table>
+    </div>
+    <div id = "TK_top" class ="fr" >
+        <table>
+            <tbody id = "tb_TK_top">
+                
+            </tbody>
+        </table>
+    </div>
     <div class = "clearFix"></div>
 </fieldset> 
 <div id = "cat_select">
