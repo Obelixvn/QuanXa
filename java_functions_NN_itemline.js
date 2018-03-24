@@ -57,17 +57,39 @@ function load_TOP_item(){
     Java_ajax('tb_TOP_Sale',str_ajax);
 }
 function load_TK_top(){
+    var title_tk = "TOP ";
+    var TOP_count = document.getElementById('TOP_count').value;
     
     var sang_chieu = document.getElementById('input_range_sang_chieu_toi').value;
+    switch (sang_chieu) {
+        case '1':
+            title_tk += "SANG -";
+            break;
+        case '2':
+            title_tk += "CHIEU TOI -";
+            break;
+        default:
+            break;
+    }
+    str_ajax = "loadTK_itemline.php?top_count="+TOP_count+"&sang_chieu="+sang_chieu;
+    var type_option = document.getElementsByName('type_option');
+    if (type_option[1].checked){
+        str_ajax += "&type=2";
+    }
     var time_option = document.getElementsByName('time_option');
     if (time_option[0].checked){
-        time = 0;
+        
+        str_ajax += "&time=0";
+        title_tk += "ALL TIME";
     }else{
-        time = 1;
         week_0 = document.getElementById('input_week_0').value;
         week_1 = document.getElementById('input_week_1').value;
+        str_ajax += "&time=1&week_0="+week_0+"&week_1="+week_1;
+        title_tk += "TUAN : "+ week_0 + " - " +week_1;
     }
-    str_ajax = "loadTK_itemline.php?sang_chieu="+sang_chieu+"?time="+time+"?week_0="+week_0+"?week_1="+week_1;
+
+    
+    document.getElementById('title_TK_top').innerHTML = title_tk;
     Java_ajax('tb_TK_top',str_ajax);
     
 }

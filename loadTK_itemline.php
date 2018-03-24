@@ -49,7 +49,11 @@ while($row_mon = $result_mon->fetch_assoc()){
 }
 
 if ($time == 1){
-    $sql_date_updated = "SELECT year(Date) as y, week(Date,1) as w FROM `tb_date_updated` WHERE y >=  GROUP BY y,w";
+    $year_week_0 = $year_0 * 100 + $week_0;
+    $year_week_1 = $year_1 * 100 + $week_1;
+    $sql_date_updated = "SELECT year(Date) as y, week(Date,1) as w  FROM `tb_date_updated` 
+                        WHERE (year(Date) *100 + week(Date,1))>= ".$year_week_0." AND (year(Date) *100 + week(Date,1)) <= ".$year_week_1." GROUP BY y,w";
+    
 }else{
     $sql_date_updated = "SELECT year(Date) as y, week(Date,1) as w FROM `tb_date_updated`  GROUP BY y,w";
 }
@@ -70,24 +74,36 @@ while ($row_date_updated = $result_date_updated->fetch_assoc()){
         $Tong[$row["ID_item"]] += $row[$str_type];
     }
 }
-$ThongKE = $Tong;
-if (isset($_GET["time"])){
-    switch ($_GET["time"]) {
-        case 1:
-            $ThongKE = $Sang;
-            break;
-        
-        case 2:
-            $ThongKE = $Toi;
-            break;
-        
-    }
+
+
+switch ($sang_chieu) {
+    case 1:
+        $ThongKE = $Sang;
+        break;
+    
+    case 2:
+        $ThongKE = $Toi;
+        break;
+    case 3:
+        $ThongKE = $Tong;
+        break;
+    
 }
 
-arsort($ThongKE);
+if($TOP_count > 0){
+    arsort($ThongKE);
+}else{
+    asort($ThongKE);
+    $TOP_count = $TOP_count * (-1);
+}
+
+
 $count = 1;
 foreach ($ThongKE as $key => $value) {
-    if($count > $TOP_count){
+    if(($count > $TOP_count) && ($TOP_count != 1)){
+        exit;
+    }
+    if($value == 0){
         continue;
     }
     ?>

@@ -12,6 +12,16 @@
     Thong Ke Item Line
     </legend>
     <div id = "control_panel" class = "fl">
+        <div id = "title_top">
+            TOP: <select name="TOP_count" id="TOP_count">
+                    <Option value = "10">10</Option>
+                    <Option value = "20">20</Option>
+                    <Option value = "1">ALL</Option>
+                    <Option value = "-10">(-10)</Option>
+                    <Option value = "-20">(-20)</Option>
+                    <Option value = "-1">(-ALL)</Option>
+                </select>
+        </div> 
         <div id = "time_span">
             <div>
                 <input type="radio" checked = "checked" onclick = "select_time(0)"name="time_option"  value = "0" id=""> ALL
@@ -30,6 +40,12 @@
         </div>
         <input type="range" name="" onchange ="sang_chieu_toi_select(this)" id="input_range_sang_chieu_toi" min = "1" max = "3" value = "3" >
         <button onclick = "load_TK_top()">Load Top</button>
+        <br>
+        <input type="radio"  checked = "checked"name="type_option" value = "1" id="">Theo so Luong
+        <input type="radio"  name="type_option" value = "2" id="">Theo Sale
+        
+        <hr>
+
     </div>
     <div id = "TOP_Order" class = "Top_tb fr">
         TOP ORDER
@@ -51,7 +67,9 @@
             </tbody>
         </table>
     </div>
-    <div id = "TK_top" class ="fr" >
+    <div id = "TK_top" class ="fl" >
+        <div id = "title_TK_top"></div>
+        <hr>
         <table>
             <tbody id = "tb_TK_top">
                 

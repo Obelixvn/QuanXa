@@ -19,6 +19,38 @@ div#control_panel{
     padding: 0px 10px;
     border-right: 1px solid gray;
 }
+div#control_panel button {
+    float: right;
+    margin-right: 2px;
+    border: none;
+    padding: 5px 25px;
+    border-radius: 10px;
+    background-color: bisque;
+    color: brown;
+    cursor: pointer;
+    transition: all 0.5s;
+    box-shadow: 1px 2.5px rosybrown;
+    outline: none;
+}
+div#control_panel button:active{
+    box-shadow: 0 0.5px darkgray;
+    transform: translateY(2px);
+}
+div#title_top{
+    text-align: center;
+    padding: 2px 0px;
+    background-color: bisque;
+    color: cadetblue;
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+div#title_top select{
+    height: 30px;
+    width: 65px;
+    border-radius: 8px;
+    border-color: white;
+    outline: none;
+}
 div.Top_tb{
     padding: 0px 10px;
 }
@@ -179,4 +211,22 @@ div#Top_Order table tr td:nth-child(3){
     color: gray;
     
     
+}
+div#TK_top{
+    font-family: sans-serif;
+    margin-left: 10px;
+}
+div#TK_top table{
+    width: 100%;
+    border-collapse: collapse;
+}
+div#TK_top table tr:nth-of-type(odd){
+    background-color: aliceblue;
+}
+div#TK_top table tr:nth-of-type(even){
+    
+    background-color: lightsteelblue;
+}
+div#TK_top table tr td:nth-child(1){
+    display: none;
 }
