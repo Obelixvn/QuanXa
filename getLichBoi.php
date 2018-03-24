@@ -65,8 +65,22 @@
         
         
         $date = new Datetime($_GET["date"]);
+        $sql_dataList_boi = "SELECT name FROM tb_nhanVien WHERE Status = 1 and Role = 'Boi'";
+        $r_dataList = DB_run_query($sql_dataList_boi);
+        ?>
+        <datalist id = "datalist_boi">
         
+        <?php
+        while ($row_dataList = $r_dataList->fetch_assoc()) {
+        ?>
+            <option value="<?php echo $row_dataList["name"]; ?>">
+
+        <?php    
+        } 
+        ?>
         
+        </datalist>
+        <?php
         for ($i=1; $i<=7 ; $i++) {
             echo "<td id = \"".$date->format('Y-m-d')."\">"; 
             show_BoiData_BoiPage($date->format('Y-m-d'));

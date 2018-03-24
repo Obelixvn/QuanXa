@@ -22,8 +22,7 @@
         "Meat",
         "Jacky",
         "Cook Delight",
-        "Hung Nghia",
-        "4 Season"
+        "Hung Nghia"
     );
     $Weekly_expense_cat1 = array(
         "Supplier"=>"0",
@@ -49,6 +48,7 @@
         "Meat",
         "Cook Delight",
         "Hung Nghia",
-        "Wine"
+        "Wine",
+        "4 Season"
     );
 ?>

@@ -6,8 +6,8 @@ $Ngay_bat_dau = '2017-04-24';
 
 function DBConn()
 {
-    include "local_BD.php";
-    //include "OnlineDB.php";
+    //include "local_BD.php";
+    include "OnlineDB.php";
     $conn = mysqli_connect($servername, $username, $password,$db);
 
 
@@ -115,7 +115,8 @@ function show_BoiData_BoiPage($date){
     else{
 
     for ($i=0; $i < 7; $i++) { 
-        echo "<input class = \"nhap_ten\" type = \"text\" name =\"Boi_sang[".$date_id."][]\">";
+        
+        echo "<input list = \"datalist_boi\" class = \"nhap_ten\" type = \"text\" name =\"Boi_sang[".$date_id."][]\">";
     }    
     
     
@@ -180,7 +181,8 @@ function show_BoiData_BoiPage($date){
     else{
 
     for ($i=0; $i < 3; $i++) { 
-        echo "<input class = \"nhap_ten\"  type = \"text\" name =\"Boi_toi[".$date_id."][]\">";
+        
+        echo "<input list = \"datalist_boi\" class = \"nhap_ten\"  type = \"text\" name =\"Boi_toi[".$date_id."][]\">";
     }    
     
     
