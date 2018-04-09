@@ -10,8 +10,8 @@ function DBConn()
 
     
 
-    include "local_BD.php";
-    //include "OnlineDB.php";
+    //include "local_BD.php";
+    include "OnlineDB.php";
     $conn = mysqli_connect($servername, $username, $password,$db);
 
 
