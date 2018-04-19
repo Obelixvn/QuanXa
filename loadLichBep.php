@@ -28,7 +28,7 @@
     $result_nv = DB_run_query($sql_nv);
     if ($result_nv->num_rows == 0){//ko co du lieu
         $sql_nv = "
-            SELECT Name,ID 
+            SELECT Name,ID ,NUll as lich_id
             FROM tb_nhanVien
             Where Role = 'Bep'
                 and Status = 1

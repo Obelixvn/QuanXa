@@ -1,0 +1,123 @@
+table#tb_orderList tr td button.pay_cash{
+    color: white;
+    background-color: springgreen;
+}
+table#tb_orderList tr td button.pay_card{
+    color: black;
+    background-color: salmon;
+}
+table#tb_orderList tr td button.pay_cash{
+    color: white;
+    background-color: cornflowerblue;
+}
+table#tb_orderList tr td button{
+    border-radius: 5px;
+}
+table#tb_orderList tr td:nth-child(1){
+    text-align: center;
+    
+}
+table#tb_orderList tr td:nth-child(2){
+    text-align: center;
+    padding-right: 10px;
+}
+table#tb_orderList td{
+    height: 25px;
+    vertical-align: middle;
+}
+div#option_penal{
+    padding: 11px 5px;
+    width: 250px;
+}
+table#tb_orderList{
+    float: left;
+}
+div#sang_chieu_toi span{
+    margin-right: 24px
+}
+input#input_range_sang_chieu_toi{
+    width : 150px;
+    margin-bottom: 10px;
+}
+table#tb_TKitems tr td:nth-child(1){
+    width: 200px;
+}
+div.del_order_item{
+    width: 60px;
+    text-align: center;
+    float: left;
+    margin: 6px 3px;
+}
+div.del_order_item .Roo{
+    background-color:darkseagreen;
+}
+div.del_order_item .Uber{
+    background-color: darkturquoise;
+}
+div#Delivery_status{
+    float: left;
+    margin-left: 10px;
+    width: 333px;
+}
+div#Delivery_status button:nth-child(2){
+    float: right;
+}
+div.detail_order_item div{
+    float: left;
+}
+div.detail_order_item div:nth-child(1){
+    width: 15px;
+    height: 15px;
+    font-size: smaller;
+    margin-left: 5px;
+}
+div.detail_order_item div:nth-child(2){
+    width: 200px;
+    font-family: monospace;
+}
+div.detail_order_item div:nth-child(3){
+    width: 35px;
+}
+div.detail_order_item{
+    margin: 5px;
+   
+}
+
+div.detail_order_item div:nth-child(4){
+    width: 5px;
+}
+div.order_sumary input{
+    margin-right: 5px;
+}
+div.order_sumary{
+    width: 280px;
+}
+div.order_sumary button{
+    float: right;
+}
+
+div.display_TMThe div:nth-child(1){
+    float: left;
+    width: 70px;
+    height: 12px;
+}
+div.display_TMThe div:nth-child(2){
+    color: red;
+    float: left;
+    width: 70px;
+}
+div.display_TMThe div:nth-child(3){
+    color: palegreen;
+    float: left;
+    width: 50px;
+}
+div.display_TMThe div:nth-child(4){
+    clear: both;
+}
+div.order_item_Search{
+    margin-top: 10px;
+}
+div.order_item_Search input {
+    width: 75px;
+    margin: 0 3px;
+}
