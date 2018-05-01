@@ -46,11 +46,11 @@ function release_DELstatus(){
 function loadTienMat(){
     var date = document.getElementById('TM_trongNgay').value;
     strajax = "load_tienMat_trongNgay.php?defferTime="+date;
-    Java_ajax('tb_tienMat',strajax);
-    strajax = "showSelect_tienMat_trongNgay.php?defferTime="+date;
-    Java_ajax('Paid_in_Full',strajax);
-    strajax = "showTM_tren_The.php?defferTime="+date;
-    Java_ajax('TM_tren_the',strajax);
+    Java_ajax('div_test',strajax);
+    //strajax = "showSelect_tienMat_trongNgay.php?defferTime="+date;
+    //Java_ajax('Paid_in_Full',strajax);
+    //strajax = "showTM_tren_The.php?defferTime="+date;
+    //Java_ajax('TM_tren_the',strajax);
     
 }
 function Xapxep(){
@@ -71,12 +71,13 @@ function show_chiTiet(x){
     Java_ajax('order_detail_'+x,strajax)
 }
 function loc_thongKe_TM(){
+    var date = document.getElementById('TM_trongNgay').value;
     var tbCheck = document.getElementsByName('tableCK');
     var tableID = document.getElementsByName('tableID');
     var tableTime = document.getElementsByName('tableTime');
     var count = tbCheck.length;
     
-    strajax = "action_locTKTM.php?test=1";
+    strajax = "action_locTKTM.php?defferTime="+date;
     for (i = 0 ; i < count ; i++){
         if (!tbCheck[i].checked){
             strajax += "&tableID[]="+tableID[i].value;
@@ -87,9 +88,40 @@ function loc_thongKe_TM(){
     
 }
 function action_Paid_in_Full(){
-    var date = document.getElementById('TM_trongNgay').value;
-    strajax = "action_Paid_in_Full.php?date="+date;
-    Java_ajax('Paid_in_Full',strajax);
+
+    if (confirm('Da loc tien mat chua?')){
+        if(confirm('Save ItemLine chua ???')){
+            var JEat = prompt('Just Eat ?');
+            if (isNaN(JEat)){
+            
+                alert('Phai nhap so');
+                return false;
+            }else{
+                document.getElementById('Jeat_input').value = JEat;
+                var tong_card = prompt('Tong the tren Card machine ?');
+                if (isNaN(tong_card)){
+            
+                    alert('Phai nhap so');
+                    return false;
+                }else{
+                    document.getElementById('tongCard_input').value = tong_card;
+                    var pass = prompt('Pass code?');
+                    if(pass == 123098){
+                        document.getElementById('paid_in_full_form').submit();
+                    }else{
+                        alert("Wrong !");
+                        return false;
+                    }
+                }
+            }
+        }
+        else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+    
 }
 function addUp_tongTien(){
     var tableCK = document.getElementsByName('tableCK');
@@ -106,6 +138,7 @@ function addUp_tongTien(){
     }
     tong = tong/100;
     var card = parseFloat(document.getElementById('fix_card').innerHTML);
+    
     var per = tong /card *100;
 
 
@@ -147,7 +180,12 @@ function refund_action(x){
 }
 function del_trongNgay(){
     var date = document.getElementById('del_trongNgay').value;
-    strajax = 'Del_trongNgay_action.php?date='+date;
+    if(date != ''){
+        strajax = "Del_trongNgay_action.php?date="+date;
+    }else{
+        strajax = "Del_trongNgay_action.php";
+    }
+    
     if (confirm('Ket thuc ngay ?')){
         if (confirm('Xoa toan bo DEL trong ngay')){
         Java_ajax('result_Del',strajax);
@@ -157,7 +195,12 @@ function del_trongNgay(){
 }
 function show_del_trongNgay(){
     var date = document.getElementById('del_trongNgay').value;
-    strajax = 'Del_trongNgay_show.php?date='+date;
+    if (date != ''){
+        strajax = "Del_trongNgay_show.php?date="+date;
+    }else{
+        strajax = "Del_trongNgay_show.php?";
+    }
+    
     Java_ajax('result_ALLDel',strajax);
     
 }

@@ -52,17 +52,9 @@
         <input type="date" name="" id="TM_trongNgay">
         <button onclick= "loadTienMat()">Load</button>
         <hr>
-        <div id = "Paid_in_Full" >
-            
+        <div id = "div_test">
         </div>
-        <div id = "TM_tren_the" >
-            
-        </div>
-        <table id = "tb_tienMat">
-
-        </table>
-        <button onclick= "Xapxep()">Xap xep</button>
-        <button onclick= "loc_thongKe_TM()">Xoa Others</button>
+        
     </div>
     <div class = "fl pad_t10" >
         Refund

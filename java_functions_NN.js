@@ -282,7 +282,7 @@ function datDoPage_onload(){
     Java_ajax('Jacky_them_do','Dat_do_hang_ngay.php?supplier=Jacky');
     Java_ajax('Meat_them_do','Dat_do_hang_ngay.php?supplier=Meat');
     //Java_ajax('thong_ke_theo_items','list_items_datDoPage.php');
-    load_thongKe_tuan();
+    //load_thongKe_tuan();
 
 }
 function them_item_datDo(index) {

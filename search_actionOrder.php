@@ -50,6 +50,7 @@ if($tien != '' & $ten != ''){
     Echo "Khong thay";
 }
 
-
+sqlsrv_free_stmt($result);
+sqlsrv_close($conn);
 
 ?>

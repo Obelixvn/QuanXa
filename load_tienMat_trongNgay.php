@@ -3,10 +3,6 @@ include "DB_POS.php";
 include "global.php";
 $money_style = '%.2n';
 
-
-
-
-
 if(isset($_GET["defferTime"])){
     
     $date = new DateTime($_GET["defferTime"]);
@@ -19,6 +15,67 @@ if(isset($_GET["defferTime"])){
     
     $date_1 = $newDate->modify(' +1 day ')->format('Y-m-d'); 
 }
+$conn = DB_POS_connect();
+
+
+
+$sql = "SELECT count(*) as sLL From OrderList 
+        WHERE OpenDateTime >= '".$date_0."' 
+        AND OpenDateTime <= '".$date_1."' 
+        AND Note = 'Paid_in_Full'";
+
+
+$result= sqlsrv_query($conn, $sql);
+
+
+if ($result === FALSE){
+    die( print_r( sqlsrv_errors(), true));
+}
+$row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
+$orderUpd = $row["sLL"];
+sqlsrv_free_stmt($result);
+
+
+
+$sql = "SELECT count(*) as sLL From OrderItems 
+        WHERE OpenDateTime >= '".$date_0."' 
+        AND OpenDateTime <= '".$date_1."' 
+        AND Note = 'Paid_in_Full'";
+
+
+$result= sqlsrv_query($conn, $sql);
+
+
+if ($result === FALSE){
+    die( print_r( sqlsrv_errors(), true));
+}
+$row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
+$itemUpd = $row["sLL"];
+
+sqlsrv_free_stmt($result);
+
+
+
+
+$sql = "SELECT sum(Cash-Change) as TongTM, sum(Card) as TongThe
+        FROM OrderList 
+        WHERE OpenDateTime >= '".$date_0."' 
+        AND OpenDateTime <= '".$date_1."' 
+        AND (TableID <236 OR TableID >245)";
+
+
+$result= sqlsrv_query($conn, $sql);
+
+if ($result === FALSE){
+    die( print_r( sqlsrv_errors(), true));
+}
+$row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
+$Card = $row["TongThe"];
+$TM = $row["TongTM"];
+$percent = $TM/$Card * 100;
+
+sqlsrv_free_stmt($result);
+
 
 $sql = "SELECT OrderList.TableID,OrderList.OpenDateTime as Time,Config_table.TableName as TenBan, OrderList.Total as Tien,
         OrderList.Change, OrderList.Tips,OrderList.Cash,OrderList.Discount,
@@ -34,15 +91,42 @@ $sql = "SELECT OrderList.TableID,OrderList.OpenDateTime as Time,Config_table.Tab
         
 
 
-$conn = DB_POS_connect();
+
 $result= sqlsrv_query($conn, $sql);
 
-if ($result == FALSE){
+if ($result === FALSE){
     die( print_r( sqlsrv_errors(), true));
 }
 $i=0;
+
+?>
+<div id = "Paid_in_Full" >
+<?php  include "display_TM_Paid_in_Full.php"; ?>
+            
+</div>
+<div id = "TM_tren_the" >
+    <div class = "display_TMThe">
+        <div id = "fix_card"> <?php echo $Card; ?></div>
+        <div><?php echo number_format($TM,2); ?></div>
+        <div><?php echo number_format($percent,2); ?></div>
+        <div class = "clear_Fix"></div>
+    </div>
+    <div class = "display_TMThe">
+        <div> </div>
+        <div id = "adj_TM"></div>
+        <div id = "adj_percent"></div>
+        <div class = "clear_Fix"></div>
+    </div>
+    <hr>
+    
+</div>
+
+<table id = "tb_tienMat">
+
+<?php
 while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
 ?>
+
     <tr>
         <td>
         <div class = "order_sumary">
@@ -72,4 +156,9 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
 <?php
     $i++;
 }
+sqlsrv_free_stmt($result);
+sqlsrv_close($conn);
 ?>
+</table>
+<button onclick= "Xapxep()">Xap xep</button>
+<button onclick= "loc_thongKe_TM()">Xoa Others</button>

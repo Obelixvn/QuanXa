@@ -30,11 +30,14 @@ $conn = DB_POS_connect();
 $result= sqlsrv_query($conn, $sql);
 
 
-if ($result == FALSE){
+if ($result === FALSE){
     die( print_r( sqlsrv_errors(), true));
 }
 $row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
 $orderUpd = $row["sLL"];
+sqlsrv_free_stmt($result);
+
+
 
 $sql = "SELECT count(*) as sLL From OrderItems 
         WHERE OpenDateTime >= '".$date_0."' 
@@ -45,12 +48,13 @@ $sql = "SELECT count(*) as sLL From OrderItems
 $result= sqlsrv_query($conn, $sql);
 
 
-if ($result == FALSE){
+if ($result === FALSE){
     die( print_r( sqlsrv_errors(), true));
 }
 $row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
 $itemUpd = $row["sLL"];
 
-
+sqlsrv_free_stmt($result);
+sqlsrv_close($conn);
 include "display_TM_Paid_in_Full.php"
 ?>

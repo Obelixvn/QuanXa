@@ -33,7 +33,7 @@ if ($result == FALSE){
 }else{
     $orderUpd += sqlsrv_rows_affected($result);
 }            
-
+sqlsrv_free_stmt($result);
 $sql = "DELETE FROM OrderItems
             WHERE TableID >=236 AND TableID <=245 
             AND OpenDateTime >= '".$date_0."' AND OpenDateTime <= '".$date_1."'";
@@ -46,5 +46,8 @@ if ($result == FALSE){
 }else{
     $ItemsUpd += sqlsrv_rows_affected($result);
 }
+
+sqlsrv_free_stmt($result);
+sqlsrv_close($conn);
 echo "Order: ".$orderUpd." - "."Items: ".$ItemsUpd;
 ?>

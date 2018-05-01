@@ -8,6 +8,19 @@ if(isset($_GET["tableID"])){
 if(isset($_GET["tableTime"])){
     $tableTime = $_GET["tableTime"];
 }
+if(isset($_GET["defferTime"])){
+    
+    $date = new DateTime($_GET["defferTime"]);
+    $date_0 = $date->format('Y-m-d');
+    $date_1 = $date->modify(' +1 day ')->format('Y-m-d'); 
+}else{
+
+    $newDate = new Datetime();
+    $date_0 = $newDate->format('Y-m-d');
+    
+    $date_1 = $newDate->modify(' +1 day ')->format('Y-m-d'); 
+}
+
 $orderUpd = 0;
 $itemUpd = 0;
 $count = count($tableID);

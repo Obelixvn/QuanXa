@@ -34,7 +34,7 @@ if ($result == FALSE){
     $row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
     $orderUpd =$row["sLL"] ;
 }            
-
+sqlsrv_free_stmt($result);
 $sql = "SELECT count(*) as sLL FROM OrderItems
             WHERE TableID >=236 AND TableID <=245 
             AND OpenDateTime >= '".$date_0."' AND OpenDateTime <= '".$date_1."'";
@@ -48,5 +48,7 @@ if ($result == FALSE){
     $row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC);
     $ItemsUpd = $row["sLL"] ;
 }
+sqlsrv_free_stmt($result);
+sqlsrv_close($conn);
 echo "Order: ".$orderUpd." - "."Items: ".$ItemsUpd;
 ?>
