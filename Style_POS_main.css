@@ -121,3 +121,24 @@ div.order_item_Search input {
     width: 75px;
     margin: 0 3px;
 }
+div#result_action_ALLDel{
+    float: left;
+    
+}
+div#result_ALLDel ul li div{
+    float: left;
+    margin-left: 5px;
+}
+div#result_ALLDel ul li div:nth-child(2){
+    width: 180px;
+}
+div#result_ALLDel ul li div:nth-child(3){
+    width: 80px;
+}
+div#result_ALLDel ul li div:nth-child(4){
+    width: 20px;
+}
+div#result_ALLDel{
+    float: left;
+    margin-left: 10px;
+}

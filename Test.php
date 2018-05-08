@@ -37,11 +37,13 @@ $tsql1 = "SELECT ID,TableName FROM Config_Table WHERE ID IN (236,238,239,240,245
 $tsql1 = "SELECT ID,TableName FROM Config_Table WHERE ID IN (237,241,242,243,244)";
 
 
-$tsql = "UPDATE OrderList  SET VAT = 0, SaleNoneVAT = 165.65,NetTotal = 0   WHERE TableID = 41 AND OpenDateTime = '2018-04-25 17:10:57' ";
+$tsql1 = "UPDATE OrderList  SET VAT = 0, SaleNoneVAT = 165.65,NetTotal = 0   WHERE TableID = 41 AND OpenDateTime = '2018-04-25 17:10:57' ";
 
-$tsql= "SELECT * From OrderList WHERE OpenDateTime = '2018-04-25 17:10:57 '";
+$tsql1= "SELECT * From OrderList WHERE OpenDateTime = '2018-04-25 17:10:57 '";
 
-$tsql = "SELECT * FROM OrderList WHERE Note = 'Paid_in_Full'";
+$tsql = "SELECT Top 10 * FROM OrderList WHERE OpenDateTime = '2018-05-04 13:22:34'";
+
+//$tsql1 = "UPDATE OrderList SET Card = 24.3 , VAT = 4.05 , SaleNoneVAT = 0 , NetTotal = 24.3 , Value = 24.3 , Cash = 0 , Change = 0 , Total = 24.3 WHERE TableID = 3 AND OpenDateTime = '2018-05-04 21:01:33'";
 
 //$tsql = "DELETE FROM OrderItems WHERE ID IN (33928,33929,33930,33934,33936,33937,33938)";
 //

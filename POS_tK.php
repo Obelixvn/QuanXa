@@ -70,18 +70,19 @@
     <div class = "fl pad_t10" >
         Delivery
         
-        <input type="date" name="" id="del_trongNgay">
+        <input type="date" name="" id="date_suaDon">
+        <input type="text" name="" id="ten_suaDon">
+        <input type="number" name="" id="tien_suaDon">
         <hr>
-        <button onclick = "show_del_trongNgay()">Show</button>
-        <span id = "result_ALLDel">
+        <button  onclick = "show_del_trongNgay()">Show</button>
+        <div id = "result_ALLDel">
 
-        </span>
-        <hr>
-        <button onclick = "del_trongNgay()">Xoa</button>
+        </div>
+        <div id = "result_action_ALLDel">
+
+        </div>
         
-        <span id = "result_Del">
-
-        </span>
+        
         
     </div>
     <div class= "clearFix" id = "test"></div>

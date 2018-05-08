@@ -194,13 +194,66 @@ function del_trongNgay(){
     }
 }
 function show_del_trongNgay(){
-    var date = document.getElementById('del_trongNgay').value;
+    var date = document.getElementById('date_suaDon').value;
     if (date != ''){
         strajax = "Del_trongNgay_show.php?date="+date;
     }else{
-        strajax = "Del_trongNgay_show.php?";
+        strajax = "Del_trongNgay_show.php?1=1";
+    }
+    var ten = document.getElementById('ten_suaDon').value;
+    var tien = document.getElementById('tien_suaDon').value;
+    if (ten != '' & tien != ''){
+        strajax += "&ten="+ten+"&tien="+tien;
+    }else{
+       alert('Nhap thieu du lieu');
+    }
+    Java_ajax('result_ALLDel',strajax);
+    
+    
+}
+function cal_totaleOrder(x){
+    var select = document.getElementsByName('items_select');
+    var price = document.getElementsByName('items_price');
+    var lenght = select.length;
+    var tong = 0;
+    var i = 0;
+    for (let index = 0; index < select.length; index++) {
+        if (select[index].checked){
+            i = parseFloat(price[index].innerHTML);
+            tong += i;
+        }
+        
+    }
+    document.getElementById('order_suaDon_'+x).innerHTML = tong.toFixed(2);
+}
+function Update_don(x){
+    
+    var tID = document.getElementsByName('tableID')[x].value;
+    var time = document.getElementsByName('openDateTime')[x].value;
+    var price = document.getElementsByName('items_price');
+    var select = document.getElementsByName('items_select');
+    var itemsID = document.getElementsByName('item_ID');
+    var tong = 0;
+    var strID = ("(");
+    var i = 0;
+    for (let index = 0; index < select.length; index++) {
+        if (select[index].checked){
+            i = parseFloat(price[index].innerHTML);
+            tong += i;
+            
+        }else{
+            strID += itemsID[index].value+",";
+        }
+        
     }
     
-    Java_ajax('result_ALLDel',strajax);
+    strID = strID.substring(0,(strID.length -1));
+    strID += ")";
+    strajax = "update_don_action.php?tableID="+tID+"&time="+time+"&tong="+tong+"&strID="+strID;
+    alert(strajax);
+    if (strID != ")"){
+        Java_ajax('result_action_ALLDel',strajax);
+    }
+    
     
 }
