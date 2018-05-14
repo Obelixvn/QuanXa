@@ -41,7 +41,8 @@
         "Quandoo"=>"55",
        
         "Other"=>"200",//Dung ten
-        "Bank Holiday" => "172"//10+42+26+35+31+28
+        "Bank Holiday" => "172",//10+42+26+35+31+28
+        "Tax" => "0"
         );
 
     $Credit_supplier = array(

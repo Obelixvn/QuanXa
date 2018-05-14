@@ -30,4 +30,21 @@ function DB_run_query($sql){
     }
     $conn->close();
 }
+function Get_insertIDQuery($sql){
+    $conn = DBConn();
+    $result =  $conn->query($sql);
+    if ($result) {
+    // output data of each row
+        
+        
+        return $conn->insert_id;
+        
+        
+    }    
+    else {
+        die ("Failed: ".$sql."<br>".$conn->error);
+        
+    }
+    $conn->close();    
+}
 ?>

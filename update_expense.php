@@ -89,7 +89,8 @@ for ($i=0; $i < count($ten); $i++) {
                         `Name`,
                         `Cat 1`,
                         `Cat 2`,
-                        `Cat 3`)
+                        `Cat 3`, 
+                        `per_week`)
                         VALUES
                         (
                         ".$amount.",
@@ -98,7 +99,8 @@ for ($i=0; $i < count($ten); $i++) {
                         '".$name."',
                         '".$c1."',
                         '".$c2."',
-                        '".$c3."'
+                        '".$c3."',
+                        ".$amount."
                         );
         
                     ";
@@ -118,7 +120,8 @@ for ($i=0; $i < count($ten); $i++) {
                         `Name`,
                         `Cat 1`,
                         `Cat 2`,
-                        `Cat 3`)
+                        `Cat 3`, 
+                        `per_week`)
                         VALUES
                         (
                         ".$fist_week.",
@@ -127,7 +130,8 @@ for ($i=0; $i < count($ten); $i++) {
                         '".$name."',
                         '".$c1."',
                         '".$c2."',
-                        '".$c3."'
+                        '".$c3."',
+                        ".$fist_week."
                         );
         
                     ";
@@ -140,7 +144,8 @@ for ($i=0; $i < count($ten); $i++) {
                         `Name`,
                         `Cat 1`,
                         `Cat 2`,
-                        `Cat 3`)
+                        `Cat 3`, 
+                        `per_week`)
                         VALUES
                         (
                         ".$second_week.",
@@ -149,7 +154,8 @@ for ($i=0; $i < count($ten); $i++) {
                         '".$name."',
                         '".$c1."',
                         '".$c2."',
-                        '".$c3."'
+                        '".$c3."',
+                        ".$second_week."
                         );
         
                     ";
@@ -173,7 +179,8 @@ for ($i=0; $i < count($ten); $i++) {
                         `Name`,
                         `Cat 1`,
                         `Cat 2`,
-                        `Cat 3`)
+                        `Cat 3`, 
+                        `per_week`)
                         VALUES
                         (
                         ".$fist_week.",
@@ -182,7 +189,8 @@ for ($i=0; $i < count($ten); $i++) {
                         '".$name."',
                         '".$c1."',
                         '".$c2."',
-                        '".$c3."'
+                        '".$c3."',
+                        ".$fist_week."
                         );
         
                     ";
@@ -195,7 +203,8 @@ for ($i=0; $i < count($ten); $i++) {
                         `Name`,
                         `Cat 1`,
                         `Cat 2`,
-                        `Cat 3`)
+                        `Cat 3`, 
+                        `per_week`)
                         VALUES
                         (
                         ".$second_week.",
@@ -204,7 +213,8 @@ for ($i=0; $i < count($ten); $i++) {
                         '".$name."',
                         '".$c1."',
                         '".$c2."',
-                        '".$c3."'
+                        '".$c3."',
+                        ".$second_week."
                         );
         
                     ";

@@ -39,6 +39,7 @@ $date->setISODate($year,$week);
     <div class = "tongItem_1">Operating Profit</div>
     <div>Salary</div>
     <div class = "mar_l_20">Boi</div>
+    <div class = "mar_l_20">&nbsp</div>
     <div class = "mar_l_20">Bep</div>
     <div class = "mar_l_20 tongItem_1">Total:</div>
     <div>Fixed Overhead Cost</div>
@@ -135,7 +136,7 @@ $sql = "SELECT * from view_tk_purchase
 
 $result = DB_run_query($sql);
 while ($row = $result->fetch_assoc()){
-    if ($roW["supplier"] == 'Jacky'){
+    if ($row["supplier"] == 'Jacky'){
         $cash_expense += $row["Cost"];
     }
     ?>
@@ -191,33 +192,44 @@ $net_taking = $Gross_Profit  - $del_charge;
 <?php
 
 //Load Luong Boi
-
+$tipBoi = 0;
 $sql_expense = "
-SELECT sum(amount) as luongBoi
+SELECT sum(amount) as luongBoi , `Cat 3`
 FROM tb_expense
 WHERE   tb_expense.`To` = '".$sunday."' and
         tb_expense.`FROM` = '".$monday."' and
         `Cat 1` = 'Luong' and 
         `Cat 2` = 'Boi'
+GROUP BY `Cat 3`        
 ";
 $result_expense = DB_run_query($sql_expense);
-$row_luongBoi = $result_expense->fetch_assoc();
+while($row_luongBoi = $result_expense->fetch_assoc()){
+    if($row_luongBoi["Cat 3"] == "Basic"){
+        $luongBoi = $row_luongBoi['luongBoi'];
+    } else{
+        $tipBoi = $row_luongBoi['luongBoi'];
+    }
+}
 
 
-$luongBoi = $row_luongBoi['luongBoi'];
+
 if($luongBoi < 1000 ){
     $sql_luongBoi = "SELECT sum(tienLuong) as luongBoi
                     FROM NN.view_luongboi
                     WHERE `year` = ".$year." AND
                     `week` = ".$week;
     $result_expense = DB_run_query($sql_luongBoi);
-    $row_luongBoi = $result_expense->fetch_assoc();                
+    $row_luongBoi = $result_expense->fetch_assoc();  
+    $luongBoi = $row_luongBoi['luongBoi'];              
 }
-$luongBoi = $row_luongBoi['luongBoi'];
+
 ?>
 <div  class = "txt_l"> <?php echo money_format('%#10n',$luongBoi);?></div>
+<div  class = "txt_l"> <?php echo money_format('%#10n',$tipBoi);?></div>
+
 
 <?php
+$luongBoi += $tipBoi;
 $luongBep = 0;
 // Load luong Bep
 $weekBep = $year*100 + $week;
@@ -239,21 +251,21 @@ $tonng_luong = $luongBep + $luongBoi;
 //Card Provider
 $tong_expense_cat1 = 0;
 $sql_expense = "
-SELECT sum(amount) as cardProvider
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Card Provider'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_cardProvider = $result_expense->fetch_assoc();
 
-$expense_cardProvider = $row_cardProvider["cardProvider"];
+$expense_cardProvider = $row_cardProvider["expense"];
 
 if (!$expense_cardProvider > 0 ){
     $expense_cardProvider = $Weekly_expense_cat1["Card Provider"];
 }
-$tong_expense_cat1 += $expense_cat1;
+$tong_expense_cat1 += $expense_cardProvider;
 
 ?>
 
@@ -262,10 +274,10 @@ $tong_expense_cat1 += $expense_cat1;
 <?php
 //Electric
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Electric'
 ";
 $result_expense = DB_run_query($sql_expense);
@@ -284,16 +296,19 @@ $tong_expense_cat1 += $expense_cat1;
 <?php
 //Gas
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Gas'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
+
+    $expense_cat1 = $row_expense["expense"];
+
+
 
 if (!$expense_cat1 > 0 ){
     $expense_cat1 = $Weekly_expense_cat1["Gas"];
@@ -304,16 +319,16 @@ $tong_expense_cat1 += $expense_cat1;
 <?php
 //Waste
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Waste'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
+$expense_cat1 = $row_expense["expense"];
 
 if (!$expense_cat1 > 0 ){
     $expense_cat1 = $Weekly_expense_cat1["Rac"];
@@ -324,16 +339,16 @@ $tong_expense_cat1 += $expense_cat1;
 <?php
 //Internet
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Internet'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
+$expense_cat1 = $row_expense["expense"];
 
 if (!$expense_cat1 > 0 ){
     $expense_cat1 = $Weekly_expense_cat1["Internet"];
@@ -344,16 +359,16 @@ $tong_expense_cat1 += $expense_cat1;
 <?php
 //Quandoo
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Quandoo'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
+$expense_cat1 = $row_expense["expense"];
 
 if (!$expense_cat1 > 0 ){
     $expense_cat1 = $Weekly_expense_cat1["Quandoo"];
@@ -364,16 +379,16 @@ $tong_expense_cat1 += $expense_cat1;
 <?php
 //POS
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Clover'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
+$expense_cat1 = $row_expense["expense"];
 
 if (!$expense_cat1 > 0 ){
     $expense_cat1 = $Weekly_expense_cat1["Clover"];
@@ -384,16 +399,16 @@ $tong_expense_cat1 += $expense_cat1;
 <?php
 //Bank Charge
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Bank chager'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
+$expense_cat1 = $row_expense["expense"];
 
 if (!$expense_cat1 > 0 ){
     $expense_cat1 = $Weekly_expense_cat1["Bank chager"];
@@ -404,16 +419,16 @@ $tong_expense_cat1 += $expense_cat1;
 <?php
 //Licenses
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Premise Lience'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
+$expense_cat1 = $row_expense["expense"];
 
 if (!$expense_cat1 > 0 ){
     $expense_cat1 = $Weekly_expense_cat1["Premise Lience"];
@@ -424,16 +439,16 @@ $tong_expense_cat1 += $expense_cat1;
 <?php
 //Issurance
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Inssuare'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
+$expense_cat1 = $row_expense["expense"];
 
 if (!$expense_cat1 > 0 ){
     $expense_cat1 = $Weekly_expense_cat1["Building Inssuare"];
@@ -444,16 +459,16 @@ $tong_expense_cat1 += $expense_cat1;
 <?php
 //Rent&Rate
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Rent_Rate'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
+$expense_cat1 = $row_expense["expense"];
 
 if (!$expense_cat1 > 0 ){
     $expense_cat1 = $Weekly_expense_cat1["Rent&Rate"];
@@ -470,16 +485,16 @@ $tong_expense_cat1 += $expense_cat1;
 $tong_expense_cat1 += $Weekly_expense_cat1["Nuoc"];
 //Other
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Other'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
+$expense_cat1 = $row_expense["expense"];
 
 if (!$expense_cat1 > 0 ){
     $expense_cat1 = $Weekly_expense_cat1["Other"];
@@ -491,17 +506,17 @@ $tong_expense_cat1 += $expense_cat1;
 
 //Tax
 $sql_expense = "
-SELECT sum(amount) as expense
+SELECT sum(per_week) as expense
 FROM tb_expense
-WHERE   tb_expense.`To` = '".$sunday."' and
-        tb_expense.`FROM` = '".$monday."' and
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
         `Cat 1` = 'Tax' 
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_cardProvider["expense"];
-
+$expense_cat1 = $row_expense["expense"];
+$Vat_card = $row_expense["expense"];
 
 $tong_expense_cat1 += $expense_cat1;
 ?>
@@ -537,7 +552,7 @@ $cashAva = $cash_sale - $cash_expense;
 <?php
 
 
-$Vat_card = $net_taking*0.2;
+$Vat_card = $net_taking*0.2 - $Vat_card;
 $prefect_income = $net_profit - $Vat_card;
 ?>
 <div class = "txt_r"> <?php echo money_format('%#10n',$prefect_income);?></div>
