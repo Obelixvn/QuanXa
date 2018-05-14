@@ -26,6 +26,8 @@ if (isset($_GET["ten"]) & isset($_GET["tien"])){
             WHERE OpenDateTime >= '".$date_0."' AND OpenDateTime <= '".$date_1."' AND 
             Config_table.TableName = '".$ten."' AND OrderList.Total = ".$tien;
 
+            
+
 }else{
     echo "Error :101";
 }
@@ -53,7 +55,7 @@ if ($result_order == FALSE){
             <ul>
                <li>
                     <?php echo $row_order["Card"]; ?>/<?php echo $tien; ?>
-                    <input type="hidden" name = "tableID" value = "<?php echo $tableID; ?>">
+                    <input type="hidden" name = "tableID_don" value = "<?php echo $tableID; ?>">
                     <input type="hidden" name = "openDateTime" value = "<?php echo $openTime; ?>">
                </li> 
                <li id = "order_suaDon_<?php echo $cout ?>"><?php echo $tien; ?></li>

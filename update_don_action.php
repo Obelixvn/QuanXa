@@ -6,6 +6,7 @@ $log = 0;
 
 
 
+
 if(isset($_GET["tableID"]) & isset($_GET["time"]) & isset($_GET["tong"]) & isset($_GET["strID"])){
     $vat = round($_GET["tong"] / 6, 2);
     $sql = "UPDATE OrderList SET Card = ".$_GET["tong"]." , VAT = ".$vat." , SaleNoneVAT = 0 ,

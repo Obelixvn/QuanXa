@@ -228,7 +228,7 @@ function cal_totaleOrder(x){
 }
 function Update_don(x){
     
-    var tID = document.getElementsByName('tableID')[x].value;
+    var tID = document.getElementsByName('tableID_don')[x].value;
     var time = document.getElementsByName('openDateTime')[x].value;
     var price = document.getElementsByName('items_price');
     var select = document.getElementsByName('items_select');
@@ -251,6 +251,7 @@ function Update_don(x){
     strID += ")";
     strajax = "update_don_action.php?tableID="+tID+"&time="+time+"&tong="+tong+"&strID="+strID;
     alert(strajax);
+    
     if (strID != ")"){
         Java_ajax('result_action_ALLDel',strajax);
     }
