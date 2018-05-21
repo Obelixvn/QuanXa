@@ -28,11 +28,13 @@ $save = false;
 if(isset($_GET["save"])){
     if($_GET["save"] == 1){
         $save = true;
+        $pre_date = "";
+        $next = false;
+        $sql_insert_all ="";
+        $log = "";
     }
 }
-$pre_date = "";
-$next = false;
-$sql_insert_all ="";
+
 while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
     ?>
     <tr>
@@ -97,6 +99,8 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
                         $log .= "Khong tao dc table tuan<br>";
                         echo $log;
                         exit;
+                    }else{
+                        $log.= "Table created : ".$table_name." <br>";
                     }
                 }
             }
@@ -107,16 +111,22 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
         //Tim item alise
         $sql_itemAlise = "Select ID_item FROM tb_alias_item Where Name = '".$row["Ten"] ."'";
         $result = DB_itemLine_run_query($sql_createTB);
-        if(mysqli_num_rows($result) > 1){
+        if(mysqli_num_rows($result) > 0){
             $row = $result_testTable->fetch_assoc();
             $itemID = $row["ID_item"];
         }else{
             //Insert tb_mon - Get ID
-            $sql_insert_mon = "INSERT INTO `nn_itemline`.`tb_mon`";
+            $log .="New item ID :";
+            $sql_insert_mon = "INSERT INTO `nn_itemline`.`tb_mon`(`Name`) VALUES ('".$row["Ten"]."')";
+            $itemID = Get_insertIDQuery($sql_insert_mon);
             //Insert tb_alias - From ID
+            $log .= $itemID."<br>";
+            $sql_insert_ali = "INSERT INTO `tb_alias_item`(`Name`, `ID_item`) VALUES ('".$row['Ten']."',".$itemID.")";
+            $r = DB_itemLine_run_query($sql_insert_ali);
+            $log.= "Alise formed<br>";
         }            
 
-        $sql_insert_all .="INSERT INTO `nn_itemline`.`tb_2018w09`
+        $sql_insert_all .="INSERT INTO `nn_itemline`.`".$table_name."`
                             (`Date`,
                             `ID_item`,
                             `Gio`,
@@ -135,9 +145,25 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
     }
 }
 
-if(isset($_GET["save"])){
-    if($_GET["save"] == 1){
-    }
+if($save){
+    $result = DB_itemLine_run_query($sql_insert_all);
+    ?>
+    <tr class= "save_itemLine_report">
+        <td colspan = "6">
+        <span>
+            Chu y:
+        </span>
+        <span>
+            Da save dc <b> <?php echo mysqli_num_rows($result); ?> </b> ban ghi.
+        </span>
+        </td>
+    </tr>
+    <tr class= "save_itemLine_report">
+        <td colspan = "6">
+            <?php echo $log; ?>
+        </td>
+    </tr>
+    <?php
 }
 
 
