@@ -34,7 +34,7 @@ $num_row = sqlsrv_rows_affected($result);
         exit;
     }else{
         $sql = "UPDATE OrderList 
-                SET Card = ".$card.", Cash = ".$cash."
+                SET Card = ".$card.", Cash = ".$cash." , CloseOrder = 3
                 WHERE OpenDateTime = '".$time."' AND TableID = ".$tableid;
         $result= sqlsrv_query($conn, $sql);
         $num_row = sqlsrv_rows_affected($result);   

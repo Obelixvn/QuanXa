@@ -39,15 +39,36 @@ $tsql1 = "SELECT ID,TableName FROM Config_Table WHERE ID IN (237,241,242,243,244
 
 $tsql1 = "UPDATE OrderList  SET VAT = Round(Total * 0.155,2), SaleNoneVAT = Round(Total * 0.07,2),NetTotal = Round(Total * 0.93,2)   WHERE  OpenDateTime <= '2018-04-23 23:59:59' ";
 
-$tsql1= "SELECT Top 10 * From OrderList WHERE OpenDateTime <= '2018-04-23 21:23:10'  AND SaleNoneVAT > 0 Order by SaleNoneVAT DESC";
+$tsql= "SELECT Top 10 * From OrderItems WHERE OpenDateTime = '2018-05-17 12:50:34'";
 
-$tsql1 = "SELECT TableName, OpenDateTime, Card FROM OrderList INNER JOIN Config_table On OrderList.TableID = Config_table.ID WHERE OpenDateTime >= '2018-05-13' AND OpenDateTime <= '2018-05-14'";
+$tsql1 = "SELECT TableName, OpenDateTime, Card, CloseDateTime FROM OrderList INNER JOIN Config_table On OrderList.TableID = Config_table.ID WHERE OpenDateTime = '2018-06-16 12:19:37' ";
 
-$tsql1 = "UPDATE OrderList SET OpenDateTime = '2018-05-09 17:42:35' WHERE TableID = 205 AND OpenDateTime = '2018-05-09 23:34:10'";
+$tsql1 = "UPDATE OrderList SET CloseOrder = 2  WHERE TableID = 210 AND OpenDateTime = '2018-05-16 12:37:19'";
 
 //$tsql = "DELETE FROM OrderItems WHERE ID IN (33928,33929,33930,33934,33936,33937,33938)";
 //
-$tsql1 = "SELECT * From SendKitchenOrderItems ORDER BY OpenDateTime DESC";
+$tsql1= "SELECT * From OrderList WHERE OpenDateTime ='2018-05-16 19:48:12' ORDER BY OpenDateTime DESC";
+
+$tsql1 = "INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Crab Summer Roll',6.5,6.5,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Vegatable Summer Roll',4.5,4.5,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Mango Chicken Salad',6.8,6.8,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Papaya Chicken Salad',6.8,6.8,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Mango Beef Salad',6.8,6.8,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Papaya Beef Salad',6.8,6.8,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Mango Carb Salad',8,8,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Papaya Crab Salad',8,8,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Mango Duck Salad',7.5,7.5,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Papaya Duck Salad',7.5,7.5,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Cold Bun With Chicken',9,9,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Cold Bun With Beef',9.5,9.5,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Cold Bun With Duck',9.5,9.5,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Cold Bun With Crab',9.5,9.5,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Cold Bun With Pork',8.5,8.5,1,1,1);
+            INSERT INTO MenuCfg (Code, Menu,TAPrice,Price,Food,DinnerHasTax,LunchHasTax) VALUES ('','Cold Bun With Mix Meat',10.5,10.5,1,1,1);             
+
+
+
+         ";
 
 $tsql998 = "CREATE VIEW view_tkDel_v11 AS
         SELECT

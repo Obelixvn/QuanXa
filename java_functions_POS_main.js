@@ -27,7 +27,14 @@ function POS_TKLoad(type){
 function loadItemLine(){
     strajax = "POS_itemLine.php?"
     var dateInput = document.getElementsByName('date_itemLine');
+    var save = document.getElementById('check_save_andLoad').checked;
     strajax +="date_0="+dateInput[0].value+"&date_1="+dateInput[1].value;
+    if(save){
+        if(confirm('Co chac chan khong')){
+            strajax +="&save=1"
+        }
+    }
+    
     
     Java_ajax('tb_itemLine',strajax);
 }
@@ -256,5 +263,27 @@ function Update_don(x){
         Java_ajax('result_action_ALLDel',strajax);
     }
     
+    
+}
+function lock_don(){
+    var ten_goc = document.getElementById("Ex_ten_goc").value;
+    var tien_goc = document.getElementById("Ex_tien_goc").value;
+    var date = document.getElementById("Ex_date_suaDon").value;
+    strajax = "lock_don_ex_step_1.php?date="+date+"&ten_goc="+ten_goc+"&tien_goc="+tien_goc;
+    
+    Java_ajax('lock_result',strajax);
+}
+function click_openTime_Ex_don(x){
+    document.getElementById('gio_den_Ex').value = x.value;
+}
+function chuyen_don(){
+    var ten_goc = document.getElementById("ten_den_Ex").value;
+    var tien_goc = document.getElementById("tien_den_Ex").value;
+    var date = document.getElementById("date_chuyen_Ex").value;
+    var time = document.getElementById('gio_den_Ex').value;
+    var tableID_goc = document.getElementById('table_goc_ID_Ex').value;
+    var time_moi_ex = document.getElementById('gio_tra_Ex').value;
+    strajax = "exchange_don_ex_step_1.php?date="+date+"&ten_den="+ten_goc+"&tien_den="+tien_goc+"&tableID_goc="+tableID_goc+"&time="+time+"&time_moi_ex="+time_moi_ex;
+    Java_ajax('test',strajax);
     
 }

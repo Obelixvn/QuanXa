@@ -86,12 +86,65 @@
         
     </div>
     <div class= "clearFix" id = "test"></div>
+    <div class = "fl pad_t10" >
+        Money exchange
+        
+        <br>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                    <input type="date" name="" id="Ex_date_suaDon">
+                    </td>
+                    <td>
+                        <input type="text" name="" id="Ex_ten_goc">
+                    </td>
+                    <td>
+                        <input type="number" name="" id="Ex_tien_goc">
+                    </td>
+                    
+                    <td>
+                    <button onclick = "lock_don()" >Lock</button>
+                    </td>
+                    <td id = "lock_result">
+                    </td> 
+                    
+                    
+                </tr>
+                <tr>
+                    <td><input type="date" name="" id="date_chuyen_Ex"></td>
+                    <td>
+                    <input type="text" name="" id="ten_den_Ex">
+                    </td>
+                    <td>
+                    <input type="number" name="" id="tien_den_Ex">
+                    </td>
+                    <td>
+                
+                    <input disabled type="text" name="" id="gio_den_Ex">
+                    <input  type="text" name="" id="gio_tra_Ex">
+                    </td>
+                    <td>
+                    <button onclick = "chuyen_don()" >TXD</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+       
+        
+        
+        
+    </div>
+    <div class= "clearFix" id = "test"></div>
 </fieldset>
 <fieldset >
     <legend>Item Line</legend>
     <input type="date" name="date_itemLine" id="">
     <input type="date" name="date_itemLine" id="">
     <button onclick = "loadItemLine()">Load</button>
+    <input type="checkbox" name="" id="check_save_andLoad">Save&Load
     <table id = "tb_itemLine">
 
     </table>
