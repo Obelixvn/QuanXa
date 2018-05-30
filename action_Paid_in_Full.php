@@ -1,5 +1,7 @@
 <?php
 
+
+
 if(isset($_POST["date"])){
     
     $date = new DateTime($_POST["date"]);
@@ -50,7 +52,30 @@ if (!$connDB) {
 
 $log .= "Connect sucessfull DB<br>";
 
+//Function cho sale_avg
 
+function DB_run_query($sql_tmp){
+    $servernameDB_tmp = "35.197.197.7";
+    $username_tmp = "root";
+    $password_tmp = "ngon123456";
+    $db_tmp = "NN";
+
+    $connDB_tmp = mysqli_connect($servernameDB_tmp, $username_tmp, $password_tmp,$db_tmp);
+    
+    $result =  $connDB_tmp->query($sql_tmp);
+    if ($result) {
+    // output data of each row
+       
+        
+        return $result;
+    }    
+    else {
+        die ("Failed: ".$sql."<br>".$conn->error);
+        
+    }
+    
+}
+include "Sale_functions_NN.php";
 
 $log .="Log Ngay: - ".$date_0."<br>";
 // Lay thong tin;
@@ -167,7 +192,7 @@ $result =  $connDB->query($sql);
         die ("Failed: ".$sql."<br>".$connDB->error);
     }
 $log .= "Save data xong<br>";
-
+Insert_Avg_diff($Card,$TM,$Roo,$Uber,$JEat,$date_0);
 
 //Pain_inFull
 

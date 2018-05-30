@@ -2,10 +2,7 @@
 include "DB_POS.php";
 include "global.php";
 include "DB_itemLine.php";
-?>
 
-
-<?php
 
 $date_0 = $_GET["date_0"];
 $date_1 = $_GET["date_1"];
@@ -21,21 +18,28 @@ if ($date_0 == $date_1 and $date_1 == ''){
 
 
 
-$sql = "SELECT * FROM view_tkItem_v11 WHERE Ngay >= '".$date_0."' AND Ngay <= '".$date_1."' ORDER BY Ngay DESC";
+$sql = "SELECT  * FROM view_tkItem_v11 WHERE Ngay >= '".$date_0."' AND Ngay <= '".$date_1."' ORDER BY Ngay DESC";
 $conn = DB_POS_connect();
 $result= sqlsrv_query($conn, $sql);
+
+
+
+$list_rows = 0;
 $save = false;
+$sql_insert_row = "";
 if(isset($_GET["save"])){
     if($_GET["save"] == 1){
         $save = true;
         $pre_date = "";
         $next = false;
-        $sql_insert_all ="";
+        
         $log = "";
+        $total_row = 0;
     }
 }
 
 while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+    $list_rows += 1;
     ?>
     <tr>
         <td><?php echo $row["Ngay"]->format('Y-d-m') ?></td>
@@ -49,15 +53,16 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
 
     if($save){
         $cur_date = $row["Ngay"];
+        
         if ($cur_date != $pre_date){
             $year = $cur_date->format('Y');
             $week = $cur_date->format('W');
             $table_name = "tb_".$year."W".$week; 
             $pre_date = $cur_date;
-            $sql_itemLine = "SELECT count(*) as test from tb_date_updated Where date = '".$cur_date->format('Y-m-d')."'";
+            $sql_itemLine = "SELECT sum(Status) as test from tb_date_updated Where date = '".$cur_date->format('Y-m-d')."'";
             $result_testDate = DB_itemLine_run_query($sql_itemLine);
-            $row = $result_testDate->fetch_assoc();
-            if($row["test"] > 0){
+            $row_ck_date= $result_testDate->fetch_assoc();
+            if($row_ck_date["test"] > 0){
                 
                 $log .= "Ngay ".$cur_date->format('d M Y')." nay da duoc nhap tu truoc<br>";
                 $next = true;
@@ -66,42 +71,45 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
                 
             }else{
                 $next = false;
-                $sql_insert_all .= "INSERT INTO `nn_itemline`.`tb_date_updated`
+                $log .= "Update ngay ".$cur_date->format('d M Y')."<br>";
+                $sql_insert_dateUpdate = "INSERT INTO `nn_itemline`.`tb_date_updated`
                                     (
                                     `Date`,
                                     `Status`)
                                     VALUES
                                     (
-                                    ".$cur_date->format('Y-m-d').",
+                                    '".$cur_date->format('Y-m-d')."',
                                     9);
                                     ";
-                                        
+                $r =  DB_itemLine_run_query($sql_insert_dateUpdate);                    
                 $sql_test_tbName = "SELECT count(*) as test
                                     FROM information_schema.TABLES
                                     WHERE (TABLE_SCHEMA = 'nn_itemline') AND (TABLE_NAME = '".$table_name."')";
                 $result_testTable = DB_itemLine_run_query($sql_test_tbName);
-                $row = $result_testTable->fetch_assoc();
-                if($row["test"] == 0){
-                    $sql_createTB .= " CREATE TABLE `".$table_name."` (
+                $row_ck_tb = $result_testTable->fetch_assoc();
+                if($row_ck_tb["test"] == 0){
+                    $sql_createTB = " CREATE TABLE `".$table_name."` (
                         `ID` smallint(6) NOT NULL AUTO_INCREMENT,
                         `Date` datetime NOT NULL,
                         `ID_item` smallint(6) NOT NULL,
                         `Gio` varchar(2) NOT NULL,
-                        `Type` varchar(6) NOT NULL
+                        `Type` varchar(6) NOT NULL,
                         `soLuong` tinyint(4) NOT NULL,
                         `tongTien` float NOT NULL,
-                        PRIMARY KEY (`ID`),
+                        PRIMARY KEY (`ID`)
                         
                         ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
                         ";
-                    $result = DB_itemLine_run_query($sql_createTB);
-                    if(!$result){
+                    $result_cr_tb = DB_itemLine_run_query($sql_createTB);
+                    if(!$result_cr_tb){
                         $log .= "Khong tao dc table tuan<br>";
                         echo $log;
                         exit;
                     }else{
                         $log.= "Table created : ".$table_name." <br>";
                     }
+                }else{
+                    $log.= "Da co table tuan <br>";
                 }
             }
         }
@@ -110,10 +118,10 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
         }
         //Tim item alise
         $sql_itemAlise = "Select ID_item FROM tb_alias_item Where Name = '".$row["Ten"] ."'";
-        $result = DB_itemLine_run_query($sql_createTB);
-        if(mysqli_num_rows($result) > 0){
-            $row = $result_testTable->fetch_assoc();
-            $itemID = $row["ID_item"];
+        $result_ck_Alise = DB_itemLine_run_query($sql_itemAlise);
+        if(mysqli_num_rows($result_ck_Alise) > 0){
+            $row_alise = $result_ck_Alise->fetch_assoc();
+            $itemID = $row_alise["ID_item"];
         }else{
             //Insert tb_mon - Get ID
             $log .="New item ID :";
@@ -126,7 +134,7 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
             $log.= "Alise formed<br>";
         }            
 
-        $sql_insert_all .="INSERT INTO `nn_itemline`.`".$table_name."`
+        $sql_insert_row = "INSERT INTO `nn_itemline`.`".$table_name."`
                             (`Date`,
                             `ID_item`,
                             `Gio`,
@@ -134,19 +142,21 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
                             `soLuong`,
                             `tongTien`)
                             VALUES
-                            ('$cur_date->format('Y-m-d')',
+                            ('".$cur_date->format('Y-m-d')."',
                             ".$itemID.",
-                            ".$row["Time"].",
-                            ".$row["OrderType"].",
+                            '".$row["Time"]."',
+                            '".$row["OrderType"]."',
                             ".$row["soLuong"].",
-                            ".$row["tongTien"].",
+                            ".$row["tongTien"]."
                             );
                             ";
+        $r =  DB_itemLine_run_query($sql_insert_row);
+        $total_row += 1;     
+                      
     }
 }
 
-if($save){
-    $result = DB_itemLine_run_query($sql_insert_all);
+
     ?>
     <tr class= "save_itemLine_report">
         <td colspan = "6">
@@ -154,7 +164,7 @@ if($save){
             Chu y:
         </span>
         <span>
-            Da save dc <b> <?php echo mysqli_num_rows($result); ?> </b> ban ghi.
+            Da save dc <b> <?php echo $total_row."/".$list_rows; ?> </b> ban ghi.
         </span>
         </td>
     </tr>
@@ -164,7 +174,7 @@ if($save){
         </td>
     </tr>
     <?php
-}
+
 
 
 

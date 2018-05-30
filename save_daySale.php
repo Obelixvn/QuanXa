@@ -4,6 +4,8 @@ $sale = $_GET["day_sale"];
 
 include "DB_functions_NN.php";
 include "global.php";
+include "Sale_functions_NN.php";
+
 $sql ="
     INSERT INTO `NN`.`tb_sale`
     (`Date`,
@@ -22,8 +24,13 @@ $sql ="
     ".$sale[4]."
     );
 ";
-
+Insert_Avg_diff($sale[0],$sale[1],$sale[4],$sale[3],$sale[2],$date);
 $result = DB_run_query($sql);
+
+// Diffences
+
+
+
 $date = new Datetime($date);
 $money_style = '%.2n';
 $eat_in = $sale[0]+$sale[1];

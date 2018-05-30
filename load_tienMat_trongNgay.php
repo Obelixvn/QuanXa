@@ -130,7 +130,14 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
     <tr>
         <td>
         <div class = "order_sumary">
-        <input onclick = "addUp_tongTien()" type="checkbox" name="tableCK" id="">
+        
+        <input onclick = "addUp_tongTien()" 
+        <?php
+            if ($row["Type"] != 'ALLTM'){
+                echo "Checked='checked'";
+            }
+        ?>
+        type="checkbox" name="tableCK" id="">
         <input type="hidden" name="tableID" value = "<?php echo $row["TableID"]; ?> ">
         <input type="hidden" name="tableTime" value = "<?php echo $row["Time"]->format('Y-m-d H:i:s'); ?> ">
         Table <?php echo $row["TenBan"]; ?> :

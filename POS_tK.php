@@ -145,7 +145,9 @@
     <input type="date" name="date_itemLine" id="">
     <button onclick = "loadItemLine()">Load</button>
     <input type="checkbox" name="" id="check_save_andLoad">Save&Load
-    <table id = "tb_itemLine">
+    <table >
+        <tbody id = "tb_itemLine" >
+        </tbody>
 
     </table>
 </fieldset>

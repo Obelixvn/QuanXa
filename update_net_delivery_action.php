@@ -62,14 +62,14 @@ for ($i=0; $i < 3; $i++) {
 </tr>
 <tr>
     <td>Uber</td>
-    <td id = "gross_2"><?php echo money_format($money_style,number_format( $row["Uber"],2));?></td>
+    <td id = "gross_2"><?php echo money_format($money_style,number_format($row["Uber"],2,'.',''));?></td>
     <td><?php echo money_format($money_style,$net[1]) ;?></td>
     <td id = "ratio_2"><?php echo number_format($net[1]/$row["Uber"]*100,2) ;?>%</td>
     
 </tr>
 <tr>
     <td>Roo</td>
-    <td id = "gross_3"><?php echo money_format($money_style,number_format( $row["Roo"],2));?></td>
+    <td id = "gross_3"><?php echo money_format($money_style,number_format($row["Roo"],2,'.',''));?></td>
     <td><?php echo money_format($money_style,$net[2]) ;?></td>
     <td id = "ratio_3"><?php echo number_format($net[2]/$row["Roo"]*100,2) ;?>%</td>
     

@@ -39,7 +39,10 @@ $tsql1 = "SELECT ID,TableName FROM Config_Table WHERE ID IN (237,241,242,243,244
 
 $tsql1 = "UPDATE OrderList  SET VAT = Round(Total * 0.155,2), SaleNoneVAT = Round(Total * 0.07,2),NetTotal = Round(Total * 0.93,2)   WHERE  OpenDateTime <= '2018-04-23 23:59:59' ";
 
-$tsql= "SELECT Top 10 * From OrderItems WHERE OpenDateTime = '2018-05-17 12:50:34'";
+
+$tsql1 = "Select Top 10 sum(Total), DATEPART( hh,OpenDateTime) as Time From OrderList GROUP BY DATEPART( hh,OpenDateTime)";
+$tsql = "SELECT Top 10 *  From OrderList WHERE SaleNoneVAT > 0 AND TableID > 200 Order By OpenDateTime Desc ";
+$tsql1= "Update OrderList SET SaleNoneVAT = 0, VAT = Round(Total / 6,2), NetTotal = Total WHERE SaleNoneVAT > 0 AND TableID > 200 AND OpenDateTime >= '2018-05-22' ";
 
 $tsql1 = "SELECT TableName, OpenDateTime, Card, CloseDateTime FROM OrderList INNER JOIN Config_table On OrderList.TableID = Config_table.ID WHERE OpenDateTime = '2018-06-16 12:19:37' ";
 
@@ -135,10 +138,10 @@ if ($getResults == FALSE){
 while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
     //var_dump ($row["COLUMN_NAME"]);
     var_dump ($row);
-    echo sqlsrv_rows_affected($getResults);
+    //echo sqlsrv_rows_affected($getResults);
     //echo $row["ID"]."  -  ";
     //echo $row["TableName"];
-    echo ("<br/>");
+    
 }
 
 sqlsrv_free_stmt($getResults);

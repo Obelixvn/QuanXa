@@ -25,8 +25,8 @@ if (isset($_GET["ten_den"]) & isset($_GET["tien_den"]) & isset($_GET["tableID_go
     $sql_order_den = "SELECT TableID, OpenDateTime FROM OrderList INNER JOIN Config_table On OrderList.TableID = Config_table.ID
             WHERE OpenDateTime >= '".$date_0."' AND OpenDateTime <= '".$date_1."' AND 
             Config_table.TableName = '".$ten."' AND OrderList.Total = ".$tien." ORDER BY OpenDateTime DESC";
-     echo $sql_order_den;       
-    $result_order_den= sqlsrv_query($conn, $sql_order_den);
+           
+    $result_order_den = sqlsrv_query($conn, $sql_order_den);
     if ($result_order_den == FALSE){
         echo "Khong tim dc don den";
         die( print_r( sqlsrv_errors(), true));
@@ -76,6 +76,7 @@ if (isset($_GET["ten_den"]) & isset($_GET["tien_den"]) & isset($_GET["tableID_go
     
     
     //$result_order= sqlsrv_query($conn, $sql_order);
+    $result_order = "";
     if($result_order === false ){
         $log.= "Ko dc - order<br>";
         echo $log;

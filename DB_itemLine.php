@@ -21,7 +21,7 @@ function DBConn_itemLine()
 }
 
 function Get_insertIDQuery($sql){
-    $conn = DBConn();
+    $conn = DBConn_itemLine();
     $result =  $conn->query($sql);
     if ($result) {
     // output data of each row
@@ -37,8 +37,8 @@ function Get_insertIDQuery($sql){
     }
     $conn->close();    
 }
-function DB_run_query($sql){
-    $conn = DBConn();
+function DB_itemLine_run_query($sql){
+    $conn = DBConn_itemLine();
     $result =  $conn->query($sql);
     if ($result) {
     // output data of each row
@@ -54,4 +54,3 @@ function DB_run_query($sql){
 }
 ?>
 
-?>
