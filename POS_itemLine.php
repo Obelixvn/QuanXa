@@ -22,7 +22,8 @@ $sql = "SELECT  * FROM view_tkItem_v11 WHERE Ngay >= '".$date_0."' AND Ngay <= '
 $conn = DB_POS_connect();
 $result= sqlsrv_query($conn, $sql);
 
-
+$total_row = 0;
+$log ='';
 
 $list_rows = 0;
 $save = false;
@@ -33,8 +34,7 @@ if(isset($_GET["save"])){
         $pre_date = "";
         $next = false;
         
-        $log = "";
-        $total_row = 0;
+        
     }
 }
 
@@ -176,7 +176,28 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
     <?php
 
 
+//Tk theo gio
+$date_tk = new DateTime($date_1);
+$date_1 = $date_tk->modify('+1 day')->format('Y-m-d');
+$sql = "Select Convert(date, OpenDateTime) as Ngay, DATEPART( hh,OpenDateTime) as Time, sum(Total) as Tien From OrderList Where OpenDateTime >= '".$date_0."' AND OpenDateTime <= '".$date_1."' GROUP BY DATEPART( hh,OpenDateTime) , Convert(date, OpenDateTime) ";
 
-
+$result= sqlsrv_query($conn, $sql);
+while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+    
+    $sql_insert_tk_theoGio = "INSERT INTO `nn_itemline`.`tb_tk_theogio`
+                                (
+                                `Ngay`,
+                                `Gio`,
+                                `soTien`)
+                                VALUES
+                                (
+                                '".$row["Ngay"]->format('Y-m-d')."',
+                                ".$row["Time"].",
+                                ".$row["Tien"]."
+                                )ON DUPLICATE KEY UPDATE Id=Id
+                                ";
+    $r =  DB_itemLine_run_query($sql_insert_tk_theoGio);
+                                    
+}
 
 ?>

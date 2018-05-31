@@ -5,7 +5,7 @@ include "global.php";
 $date = new Datetime($_POST["Date"]);
 $closing_time = $_POST["closing_time"] ;
 $time = explode(":",$_POST["closing_time"]) ;
-$hour = $time[0] + number_format($time[1]/60,1) - 6 ;
+$hour = $time[0] + number_format($time[1]/60,1) - 5 ;
 
 $sql_sel = "Select * from tb_gioLam 
         WHERE

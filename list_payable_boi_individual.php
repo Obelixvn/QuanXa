@@ -130,7 +130,7 @@ $date = new DateTime();
     
                             case 3:
                                
-                                $giolam = 1;
+                                $giolam = 0;
                                 if ($row["Sang"] == ''){
                                     $giolam += $Gio_lam_cua_quan[$thu][0];
                                 }else{

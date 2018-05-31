@@ -105,7 +105,7 @@
                     case 3 :
                         $luong_boi[$index] += $giolam_sang;
                         $luong_boi[$index] += $giolam_chieu;
-                        $luong_boi[$index] += 1;
+                        //$luong_boi[$index] += 1;
                         //$ngay_full[$index] += 1;
                         break;    
                 }

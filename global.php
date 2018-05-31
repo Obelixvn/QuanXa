@@ -7,13 +7,13 @@
     $Gio_lam_cua_quan  = array(
 
         array(),
-        array(5,4.5), //Monday
-        array(5,4.5), //Tuesday
-        array(5,4.5), //Wednesday
-        array(5,5), //Thurday
-        array(5,5), //Friday
-        array(4.5,5), //Saturday
-        array(4.5,4), //Sunday
+        array(5,5.5), //Monday
+        array(5,5.5), //Tuesday
+        array(5,5.5), //Wednesday
+        array(5,6), //Thurday
+        array(5,6), //Friday
+        array(4.5,6), //Saturday
+        array(4.5,5), //Sunday
         
     );
     $Ngay_hom_nay = new Datetime();
