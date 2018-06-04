@@ -130,6 +130,17 @@ for ($i=0; $i < 5; $i++) {
 //Load Tien Do
 $tong_do = 0;
 $cash_expense = 0;
+$sql_expense = "
+SELECT sum(per_week) as expense
+FROM tb_expense
+WHERE   tb_expense.`To` >= '".$sunday."' and
+        tb_expense.`FROM` <= '".$monday."' and
+        `Cat 1` = 'Supplier'
+";
+$result_expense = DB_run_query($sql_expense);
+$row_supplier_expense = $result_expense->fetch_assoc();
+
+$tong_do = $row_supplier_expense["expense"];
 $sql = "SELECT * from view_tk_purchase
         WHERE   Week = ".$week." AND 
                 Year = ".$year;
@@ -193,6 +204,7 @@ $net_taking = $Gross_Profit  - $del_charge;
 
 //Load Luong Boi
 $tipBoi = 0;
+$luongBoi = 0;
 $sql_expense = "
 SELECT sum(amount) as luongBoi , `Cat 3`
 FROM tb_expense
@@ -494,11 +506,9 @@ WHERE   tb_expense.`To` >= '".$sunday."' and
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
 
-$expense_cat1 = $row_expense["expense"];
+$expense_cat1 = $row_expense["expense"]+$Weekly_expense_cat1["Other"];
 
-if (!$expense_cat1 > 0 ){
-    $expense_cat1 = $Weekly_expense_cat1["Other"];
-}
+
 $tong_expense_cat1 += $expense_cat1;
 ?>
 <div class = "txt_l"> <?php echo money_format('%#10n',$expense_cat1);?></div>

@@ -34,10 +34,10 @@
                     if ($result->num_rows > 0){
                         $row = $result->fetch_assoc();
                         
-                        $time = 6 + $row["gioLam"];
+                        $time = 5 + $row["gioLam"];
                     }
                     else{
-                        $time = 6 + $Gio_lam_cua_quan[$date->format('N')][1];
+                        $time = 5 + $Gio_lam_cua_quan[$date->format('N')][1];
                         
                         
                     }
