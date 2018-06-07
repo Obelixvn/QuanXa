@@ -1,6 +1,7 @@
 <?php
 include "DB_POS.php";
 include "global.php";
+include "DB_functions_NN.php";
 $money_style = '%.2n';
 
 if(isset($_GET["defferTime"])){
@@ -10,10 +11,10 @@ if(isset($_GET["defferTime"])){
     $date_1 = $date->modify(' +1 day ')->format('Y-m-d'); 
 }else{
 
-    $newDate = new Datetime();
-    $date_0 = $newDate->format('Y-m-d');
+    $date = new Datetime();
+    $date_0 = $date->format('Y-m-d');
     
-    $date_1 = $newDate->modify(' +1 day ')->format('Y-m-d'); 
+    $date_1 = $date->modify(' +1 day ')->format('Y-m-d'); 
 }
 $conn = DB_POS_connect();
 
@@ -98,7 +99,12 @@ if ($result === FALSE){
     die( print_r( sqlsrv_errors(), true));
 }
 $i=0;
+$thu = $date->modify(' -1 day ')->format('w') +1 ;
+$sql_avg = "SELECT cash FROM NN.view_avg_sale where thu = ".$thu ;
 
+$result_avg = DB_run_query($sql_avg);
+$row_avg = $result_avg->fetch_assoc();
+$avg_cash = $row_avg["cash"];
 ?>
 <div id = "Paid_in_Full" >
 <?php  include "display_TM_Paid_in_Full.php"; ?>
@@ -108,6 +114,7 @@ $i=0;
     <div class = "display_TMThe">
         <div id = "fix_card"> <?php echo $Card; ?></div>
         <div><?php echo number_format($TM,2); ?></div>
+        <div><?php echo number_format($avg_cash,2); ?></div>
         <div><?php echo number_format($percent,2); ?></div>
         <div class = "clear_Fix"></div>
     </div>
