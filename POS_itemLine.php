@@ -177,6 +177,9 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
 
 
 //Tk theo gio
+if(!$save){
+    exit;
+}
 $date_tk = new DateTime($date_1);
 $date_1 = $date_tk->modify('+1 day')->format('Y-m-d');
 $sql = "Select Convert(date, OpenDateTime) as Ngay, DATEPART( hh,OpenDateTime) as Time, sum(Total) as Tien From OrderList Where OpenDateTime >= '".$date_0."' AND OpenDateTime <= '".$date_1."' GROUP BY DATEPART( hh,OpenDateTime) , Convert(date, OpenDateTime) ";
