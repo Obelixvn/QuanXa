@@ -81,7 +81,7 @@
 <div id = "cat_select">
         <div>
             <input onclick = "text_input_click(this)" type="text" id="ten_mon" value = "Ten mon an"> 
-            <button>Xem tat ca</button>
+            <button onclick = "check_cat_input()">Xem tat ca</button>
             <hr>
         </div>
         <div class = "fl">
@@ -128,7 +128,7 @@
                 <div name = "cat_name">Do xao</div>
                 <div name = "cat_name">Goi&nom</div>
 
-                <div class = "group_1"name = "cat_name_1">Com</div>
+                <div class = "group_1"name = "cat_name_1" value = "13">Com</div>
                 <div class = "group_1"name = "cat_name_1">My</div>
                 <div class = "group_1"name = "cat_name_1">Bun</div>
                 <div class = "group_1"name = "cat_name_1">Pho</div>

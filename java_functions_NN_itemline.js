@@ -93,3 +93,18 @@ function load_TK_top(){
     Java_ajax('tb_TK_top',str_ajax);
     
 }
+function check_cat_input(){
+    var div_cat = document.getElementById('cat_selected').childNodes;
+    var i;
+    var j = 0;
+    for (let i = 0; i < div_cat.length; i++) {
+        const element = div_cat[i];
+        if(element.nodeName === 'DIV'){
+            
+            if(element.classList.contains('show')){
+               alert(element.value);
+            }
+        }
+    }
+    
+}
