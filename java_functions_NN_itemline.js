@@ -129,5 +129,6 @@ function check_cat_input(){
         }
     }
     
-    Java_ajax('tb_result',str_ajax);
+    //Java_ajax('tb_result',str_ajax);
+    Java_ajax('tb_result','linechart.html');
 }
