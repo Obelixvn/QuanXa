@@ -94,7 +94,28 @@ function load_TK_top(){
     
 }
 function check_cat_input(){
+    var str_ajax = "";
     var div_cat = document.getElementById('cat_selected').childNodes;
+    var TOP_count = document.getElementById('TOP_count').value;
+    var sang_chieu = document.getElementById('input_range_sang_chieu_toi').value;
+    str_ajax = "loadTK_itemline.php?top_count="+TOP_count+"&sang_chieu="+sang_chieu;
+    var type_option = document.getElementsByName('type_option');
+    if (type_option[1].checked){
+        str_ajax += "&type=2";
+    }
+    var time_option = document.getElementsByName('time_option');
+    if (time_option[0].checked){
+        
+        str_ajax += "&time=0";
+       
+    }else{
+        week_0 = document.getElementById('input_week_0').value;
+        week_1 = document.getElementById('input_week_1').value;
+        str_ajax += "&time=1&week_0="+week_0+"&week_1="+week_1;
+        
+    }
+    
+   
     var i;
     var j = 0;
     for (let i = 0; i < div_cat.length; i++) {
@@ -102,9 +123,11 @@ function check_cat_input(){
         if(element.nodeName === 'DIV'){
             
             if(element.classList.contains('show')){
-               alert(element.value);
+               
+               str_ajax += "&cat_id[]="+element.id;
             }
         }
     }
     
+    Java_ajax('tb_result',str_ajax);
 }

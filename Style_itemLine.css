@@ -230,3 +230,22 @@ div#TK_top table tr:nth-of-type(even){
 div#TK_top table tr td:nth-child(1){
     display: none;
 }
+table#tb_result{
+    margin: 10px;
+    float: left;
+    border-collapse: collapse;
+    width: 400px
+}
+table#tb_result tr:nth-of-type(odd){
+   background-color: white;
+   border-bottom: 5px solid white;
+}
+table#tb_result tr:nth-of-type(even){
+    background-color: darkcyan;
+}
+table#tb_result tr {
+    height: 30px;
+}
+table#tb_result td{
+    padding: 10px;
+}

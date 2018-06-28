@@ -31,6 +31,28 @@ if (isset($_GET["week_1"])){
 if (isset($_GET["time"])){
     $time = $_GET["time"];
 }
+$sql_str_cat ="";
+if (isset($_GET["cat_id"])){
+    $cat_id = $_GET["cat_id"];
+    $sql_str_cat = " INNER JOIN tb_mon ON ID_item = tb_mon.ID WHERE ";
+    $sql_mon_cat = "SELECT  t2.ID as cat_ID, (t2.Cat_parent - 1000) as cat_name FROM `tb_mon_cat` t1 LEFT JOIN `tb_mon_cat` t2  ON t1.Combine_1 = t2.ID OR t1.Combine_2 = t2.ID OR t1.Combine_3 = t2.ID OR t1.ID = t2.ID where t1.ID in (";
+    foreach ($cat_id as $element){
+    
+        $sql_mon_cat .= $element.','; 
+        
+    }
+    $sql_mon_cat = substr($sql_mon_cat,0,-1);
+    $sql_mon_cat .=')';
+    
+    $r_temp = DB_run_query($sql_mon_cat);
+    while ($row_temp = $r_temp->fetch_assoc()){
+        $sql_str_cat .= " `Cat_".$row_temp["cat_name"]."` = ".$row_temp["cat_ID"]." OR"; 
+    }
+
+
+    $sql_str_cat =substr($sql_str_cat,0,-2);
+    
+}
 
 $sql_mon = "SELECT MAX(ID) as maxID FROM `tb_mon`";
 $result_mon = DB_run_query($sql_mon);
@@ -62,6 +84,8 @@ $result_date_updated = DB_run_query($sql_date_updated);
 while ($row_date_updated = $result_date_updated->fetch_assoc()){
     $tb_name = "tb_".$row_date_updated["y"]."w".sprintf("%02d", $row_date_updated["w"]);
     $sql = "SELECT ID_item, tongTien, soLuong, Gio FROM ".$tb_name ;
+    $sql .= $sql_str_cat ;
+    
     $result = DB_run_query($sql);
     while ($row = $result->fetch_assoc()){
        
