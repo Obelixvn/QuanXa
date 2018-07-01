@@ -129,6 +129,67 @@ function check_cat_input(){
         }
     }
     
-    //Java_ajax('tb_result',str_ajax);
-    Java_ajax('tb_result','linechart.html');
+    Java_ajax('tb_result',str_ajax);
+    
+}
+function search_mon(){
+    var ten_mon = document.getElementById('ten_mon').value;
+    str_ajax = "get_ten_mon_itemLine.php?ten="+ten_mon;
+    Java_ajax('result_search_mon',str_ajax);
+}
+function plot_a_chart(){
+    
+    
+    var type = 1;
+    var sang_chieu = document.getElementById('input_range_sang_chieu_toi').value;
+    
+    str_ajax = "loadTK_itemline.php?top_count="+TOP_count+"&sang_chieu="+sang_chieu;
+    var type_option = document.getElementsByName('type_option');
+    if (type_option[1].checked){
+        type = 2;
+    }
+    var time_option = document.getElementsByName('time_option');
+    if (time_option[0].checked){
+        
+        week_0 = 0;
+        week_1 = 0;
+    }else{
+        week_0 = document.getElementById('input_week_0').value;
+        week_1 = document.getElementById('input_week_1').value;
+        
+       
+    }
+    
+    submit_post_via_hidden_form("test_sample.php",{
+        sang_chieu: sang_chieu,
+        week_0:week_0,
+        week_1:week_1,
+        type : type,
+        item_ID: item_ID,
+        groupByDay:groupByDay,
+        cat_id :cat_id
+    })
+}
+function submit_post_via_hidden_form(url, params) {
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", url);
+    form.setAttribute("target", "_blank");
+    for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+            const element = params[key];
+            var hiddenField = document.createElement("input");      
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", element);
+            form.appendChild(hiddenField);
+            document.body.appendChild(form); 
+        }
+    }
+
+    
+               
+    form.submit();
+    
+
+    form.remove();
 }

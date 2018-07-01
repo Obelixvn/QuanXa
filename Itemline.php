@@ -81,7 +81,14 @@
 <div id = "cat_select">
         <div>
             <input onclick = "text_input_click(this)" type="text" id="ten_mon" value = "Ten mon an"> 
-            <button onclick = "check_cat_input()">Xem tat ca</button>
+            <button onclick = "search_mon()">Search Ten mon</button>
+            
+            <div id= "table_frame">
+            <table id= "result_search_mon">
+
+            </table>
+            </div>
+            
             <hr>
         </div>
         <div class = "fl">
@@ -148,6 +155,16 @@
 
         </div>
         
+</div>
+<div id = "control_button">
+    <button onclick = "check_cat_input()" >Load Top</button>
+    <div>
+        <input type="radio" name="group_by_time" value="0">Week<br>
+        <input type="radio" name="group_by_time" value="1" id = "radio_group_by_day">Day (Tu ngay 08/04/2018)
+        
+        <button onclick = "plot_a_chart()">Plot a chart</button>
+    </div>
+    
 </div>
 <table id = "tb_result"></table> 
 </body> 

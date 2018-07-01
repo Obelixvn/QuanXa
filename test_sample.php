@@ -9,211 +9,221 @@
 </head>
 <body>
 <?php
-/**
-* This example describes the X-Y chart preparation using FusionCharts PHP wrapper
-*/
-// Including the wrapper file in the page
+
+
+include "DB_functions_NN_itemline.php";
+include "global.php";
+$str_type = "soLuong";
+$group_byDay = false;
+$time = 0;
+$sang_chieu = 3;
+$item_ID = 0;
+$cat_id = 0;
+
+$categoryArray=array();
+$dateseries = array();
+$Zero_value_data = array();
+$dataseries1=array();
+$dataseries2=array();
+$dataseries3=array();
+$dataname = array();
+
+
+
+if (isset($_POST["type"])){
+    if($_GET["type"] == 2){
+        $str_type = "tongTien";
+    }
+}
+if(isset( $_POST["groupByDay"])){
+    $group_byDay = $_POST["groupByDay"];
+}
+if(isset($_POST["sang_chieu"])){
+    $sang_chieu = $_POST["sang_chieu"];
+}
+
+
+
+if(isset($_POST["cat_id"])){
+    $cat_id = $_POST["cat_id"];
+    
+}
+if(isset($_POST["item_ID"])){
+    $item_ID = $_POST["item_ID"];
+
+}
+
+if(isset($_POST["time"])){
+    $time = $_POST["time"];
+}
+
+
+
+if ($time == 1){
+    $str_date = $_POST["week_0"];
+    if($str_date != 0){
+        $time = 1;
+        $year_0 = substr($str_date,0,4);
+        $week_0 = substr($str_date,-2);
+    }
+    
+    $str_date = $_POST["week_1"];
+    if($str_date != 0){
+        $time = 1;
+        $year_1 = substr($str_date,0,4);
+        $week_1 = substr($str_date,-2);
+    }
+    $year_week_0 = $year_0 * 100 + $week_0;
+    $year_week_1 = $year_1 * 100 + $week_1;
+    $sql_date_updated = "SELECT year(Date) as y, week(Date,1) as w  FROM `tb_date_updated` 
+                        WHERE (year(Date) *100 + week(Date,1))>= ".$year_week_0." AND (year(Date) *100 + week(Date,1)) <= ".$year_week_1." GROUP BY y,w";
+    
+}else{
+    $sql_date_updated = "SELECT year(Date) as y, week(Date,1) as w FROM `tb_date_updated`  GROUP BY y,w";
+    $year_week_0 = 0;
+}
+if($year_week_0 < 201815 ){
+    $group_byDay = false;
+}
+
+
+
+
+
+if( $item_ID != 0){
+    $array_ID = $item_ID;
+    $tb_data_name = "tb_mon";
+    $col_id = "tb_mon.id";
+    
+}elseif($cat_id != 0){
+    $array_ID = $cat_id;
+    $tb_data_name = "tb_mon_cat";
+   
+}else{
+    echo "Error: 101 - input";
+    exit;
+}
+
+$str_group_ID = "("
+foreach ($array_ID as $element) {
+    $dateseries[$element] = array();
+    $Zero_value_data[$element] = false;
+    $str_group_ID .= $element.",";
+}
+$str_group_ID = substr($str_group_ID,0,-1);
+$str_group_ID .= ")";
+
+
+
+$sql_data_name = "Select * from ".$tb_data_name." where id in ".$str_group_ID;
+$result_data_name = DB_run_query($sql_data_name);
+while($row_cat_name = $result_cat_name->fetch_assoc()){
+    $dataname["ID"] = $row_cat_name["Name"];
+    
+    
+}
+if($cat_id !=0){
+    $temp_num = $row["Cat_parent"]-1000;
+    $col_id = "Cat_".$temp_num;
+}
+$sql_group_clause = " AND ".$col_id." in ".$str_group_ID;
+
+
+
+if($group_byDay){
+    $sql_group_clause.= " group by t.Ngay, ";
+    $col_name .= ", t.Ngay as Ngay";
+}
+
+$result_date_updated = DB_run_query($sql_date_updated);
+while ($row_date_updated = $result_date_updated->fetch_assoc()){
+    $weeklable = $row_date_updated["y"]."w".sprintf("%02d", $row_date_updated["w"]);
+    $tb_name = "tb_".$weeklable;
+    
+    if($group_byDay){
+
+        $sql = "SELECT ".$col_id." as ID, t.Ngay as Ngay, sum(tongTien) as tongTien, sum(soLuong) as soLuong FROM ".$tb_name." as t INNER JOIN tb_mon On tb_mon.ID = t.ID_item WHERE 1=1 ";
+        $sql .= $sql_group_clause;
+        $sql.= " ORDER BY t.Ngay ASC";
+        $result = DB_run_query($sql);
+        $pre_ngay = "";
+        while ($row = $result->fetch_assoc()){
+            
+
+            if($pre_ngay != $row["Ngay"]){
+                
+                array_push($categoryArray, array(
+                    "label" => $row["Ngay"]
+                )
+                );
+                foreach ($Zero_value_data as $key => $value) {
+                    if($value){
+                        array_push($dateseries[$key], array(
+                            "value" => "0"
+                            )
+                        );
+                    }else{
+                        $value = true;
+                    }
+
+                }
+                $pre_ngay = $row["Ngay"];
+            }
+            array_push($dateseries[$row["ID"]], array(
+                "value" => $row[$str_type]
+                )
+            );
+            $Zero_value_data[$row["ID"]] = false;
+            
+        
+            
+        }
+    }else{
+        $result = DB_run_query($sql);
+        while ($row = $result->fetch_assoc()){
+            
+            if($group_byDay){
+                
+                array_push($categoryArray, array(
+                    "label" => $row["Ngay"]
+                )
+                );
+            }else{
+                array_push($categoryArray, array(
+                    "label" => $weeklable
+                    )
+                );
+            }
+            
+            array_push($dataseries1, array(
+                "value" => $row[$str_type]
+                )
+            );
+        
+            
+        }
+    }
+    //$sql = "SELECT tb_mon.Name, sum(tongTien) as tongTien, sum(soLuong) as soLuong FROM ".$tb_name." as t INNER JOIN tb_mon On tb_mon.ID = t.ID_item WHERE t.ID_item = 33 ";
+    
+    
+}
+
 include("fusioncharts.php");
-// Preparing the object of FusionCharts with needed informations
-    /**
-    * The parameters of the constructor are as follows
-    * chartType   {String}  The type of chart that you intend to plot. e.g. Column3D, Column2D, Pie2D etc.
-    * chartId     {String}  Id for the chart, using which it will be recognized in the HTML page. Each chart on the page should have a unique Id.
-    * chartWidth  {String}  Intended width for the chart (in pixels). e.g. 400
-    * chartHeight {String}  Intended height for the chart (in pixels). e.g. 300
-    * containerId {String}  The id of the chart container. e.g. chart-1
-    * dataFormat  {String}  Type of data used to render the chart. e.g. json, jsonurl, xml, xmlurl
-    * dataSource  {String}  Actual data for the chart. e.g. {"chart":{},"data":[{"label":"Jan","value":"420000"}]}
-    */
-    
-    // Create the chart - Pie 3D Chart with data given in constructor parameter 
-    // Syntax for the constructor - new FusionCharts("type of chart", "unique chart id", "width of chart", "height of chart", "div id to render the chart", "type of data", "actual data")
-    $mscombi2dChart = new FusionCharts("mscombi2d", "ex3", "100%", 400, "chart-1", "json", '{
-        "chart": {
-            "caption": "Actual Revenues, Targeted Revenues & Profits",
-            "subcaption": "Last year",
-            "xaxisname": "Month",
-            "yaxisname": "Amount (In USD)",
-            "numberprefix": "$",
-            "theme": "ocean"
-        },
-        "categories": [
-            {
-                "category": [
-                    {
-                        "label": "Jan"
-                    },
-                    {
-                        "label": "Feb"
-                    },
-                    {
-                        "label": "Mar"
-                    },
-                    {
-                        "label": "Apr"
-                    },
-                    {
-                        "label": "May"
-                    },
-                    {
-                        "label": "Jun"
-                    },
-                    {
-                        "label": "Jul"
-                    },
-                    {
-                        "label": "Aug"
-                    },
-                    {
-                        "label": "Sep"
-                    },
-                    {
-                        "label": "Oct"
-                    },
-                    {
-                        "label": "Nov"
-                    },
-                    {
-                        "label": "Dec"
-                    }
-                ]
-            }
-        ],
-        "dataset": [
-            {
-                "seriesname": "Actual Revenue",
-                "data": [
-                    {
-                        "value": "16000"
-                    },
-                    {
-                        "value": "20000"
-                    },
-                    {
-                        "value": "18000"
-                    },
-                    {
-                        "value": "19000"
-                    },
-                    {
-                        "value": "15000"
-                    },
-                    {
-                        "value": "21000"
-                    },
-                    {
-                        "value": "16000"
-                    },
-                    {
-                        "value": "20000"
-                    },
-                    {
-                        "value": "17000"
-                    },
-                    {
-                        "value": "25000"
-                    },
-                    {
-                        "value": "19000"
-                    },
-                    {
-                        "value": "23000"
-                    }
-                ]
-            },
-            {
-                "seriesname": "Projected Revenue",
-                "renderas": "line",
-                "showvalues": "0",
-                "data": [
-                    {
-                        "value": "15000"
-                    },
-                    {
-                        "value": "16000"
-                    },
-                    {
-                        "value": "17000"
-                    },
-                    {
-                        "value": "18000"
-                    },
-                    {
-                        "value": "19000"
-                    },
-                    {
-                        "value": "19000"
-                    },
-                    {
-                        "value": "19000"
-                    },
-                    {
-                        "value": "19000"
-                    },
-                    {
-                        "value": "20000"
-                    },
-                    {
-                        "value": "21000"
-                    },
-                    {
-                        "value": "22000"
-                    },
-                    {
-                        "value": "23000"
-                    }
-                ]
-            },
-            {
-                "seriesname": "Profit",
-                "renderas": "area",
-                "showvalues": "0",
-                "data": [
-                    {
-                        "value": "4000"
-                    },
-                    {
-                        "value": "5000"
-                    },
-                    {
-                        "value": "3000"
-                    },
-                    {
-                        "value": "4000"
-                    },
-                    {
-                        "value": "1000"
-                    },
-                    {
-                        "value": "7000"
-                    },
-                    {
-                        "value": "1000"
-                    },
-                    {
-                        "value": "4000"
-                    },
-                    {
-                        "value": "1000"
-                    },
-                    {
-                        "value": "8000"
-                    },
-                    {
-                        "value": "2000"
-                    },
-                    {
-                        "value": "7000"
-                    }
-                ]
-            }
-        ]
-    }');
-    // Render the chart
-    $mscombi2dChart->render();
-    
-    
-    
+$arrData = array(
+    "chart" => array(
+        "caption"=> "Actual Revenues, Targeted Revenues & Profits",
+        "subcaption"=> "Last year",
+        "xaxisname"=> "Month",
+        "yaxisname"=> "Amount (In USD)",
+        "numberprefix"=> "$",
+        "theme"=> "ocean"
+        )
+      );
+$arrData["categories"]=array(array("category"=>$categoryArray));
+$arrData["dataset"] = array(array("seriesName"=> "Actual Revenue","renderAs"=>"line", "data"=>$dataseries1));
+$jsonEncodedData = json_encode($arrData);
+$mscombi2dChart = new FusionCharts("mscombi2d", "ex3", "100%", 400, "chart-1", "json",$jsonEncodedData);
+   
 ?>
 <div id="chart-1"><!-- Fusion Charts will render here--></div>
  
