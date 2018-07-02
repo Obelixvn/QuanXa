@@ -162,7 +162,7 @@ div.button_cat button {
     right: 0;
   }
 div#cat_selected{
-    float: left;
+    
     border-left: 1px solid black;
     width: 182px;
     height: 200px;

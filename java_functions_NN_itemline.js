@@ -212,7 +212,22 @@ function submit_post_via_hidden_form(url, params) {
                          
                     });
                 }else{
-
+                    var div_cat = document.getElementById('cat_selected').childNodes;
+                    var i;
+                    
+                    for (let i = 0; i < div_cat.length; i++) {
+                        const e = div_cat[i];
+                        if(e.nodeName === 'DIV'){
+                            
+                            if(e.classList.contains('show')){
+                                var hiddenField = document.createElement("input");      
+                                hiddenField.setAttribute("name", "cat_id[]");
+                                hiddenField.setAttribute("value", e.id);
+                                form.appendChild(hiddenField);
+                            
+                            }
+                        }
+                    }
                 }
             }
             else{
@@ -265,4 +280,69 @@ function select_itemMon(x){
 }
 function remove_selected_itemID(element){
     element.parentNode.removeChild(element);
+}
+function plot_a_chart_cat(){
+    var type = 1;
+    var sang_chieu = document.getElementById('input_range_sang_chieu_toi').value;
+    
+    str_ajax = "loadTK_itemline.php?sang_chieu="+sang_chieu;
+    var type_option = document.getElementsByName('type_option');
+    if (type_option[1].checked){
+        type = 2;
+    }
+    var time_option = document.getElementsByName('time_option');
+    if (time_option[0].checked){
+        
+        week_0 = 0;
+        week_1 = 0;
+        time = 0;
+    }else{
+        week_0 = document.getElementById('input_week_0').value;
+        week_1 = document.getElementById('input_week_1').value;
+        time = 1;
+       
+    }
+    var groupByDay = 0;
+    if(document.getElementsByName('group_by_time_cat')[0].checked){
+        groupByDay = 1;
+    }
+
+    var div_cat = document.getElementById('cat_selected').childNodes;
+    var i;
+    var index = 0;
+    for (let i = 0; i < div_cat.length; i++) {
+        const element = div_cat[i];
+        if(element.nodeName === 'DIV'){
+            
+            if(element.classList.contains('show')){
+               
+              index++
+            }
+        }
+    }
+    if(index > 0 & index <=3){
+        submit_post_via_hidden_form("test_sample.php",{
+            sang_chieu: sang_chieu,
+            week_0:week_0,
+            week_1:week_1,
+            type : type,
+            groupByDay:groupByDay,
+            id_array : "cat",
+            time:time
+        })
+    }else{
+        if(index == 0){
+            alert("Chua nhap category");
+        }else{
+            alert("Chi duoc toi da 3 loai");
+        }
+        
+    }
+    
+    
+    
+       
+        
+        
+    
 }

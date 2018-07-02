@@ -133,16 +133,14 @@ $sql_data_name = "Select * from ".$tb_data_name." where id in ".$str_group_ID;
 $result_data_name = DB_run_query($sql_data_name);
 while($row_cat_name = $result_data_name->fetch_assoc()){
     $dataname[$row_cat_name["ID"]] = $row_cat_name["Name"];
-    
+    $temp_num = $row_cat_name["Cat_parent"]-1000;
     
 }
 if($cat_id !=0){
-    $temp_num = $row["Cat_parent"]-1000;
+    
     $col_id = "Cat_".$temp_num;
 }
 $sql_group_clause = " AND ".$col_id." in ".$str_group_ID;
-
-
 
 
 $result_date_updated = DB_run_query($sql_date_updated);
@@ -157,6 +155,7 @@ while ($row_date_updated = $result_date_updated->fetch_assoc()){
                 FROM ".$tb_name." as t INNER JOIN tb_mon On tb_mon.ID = t.ID_item WHERE  ".$col_id." in ".$str_group_ID." ";
         
         $sql .= " group by t.Date, ".$col_id." ORDER BY t.Date ASC";
+        
         
        
         
@@ -204,7 +203,7 @@ while ($row_date_updated = $result_date_updated->fetch_assoc()){
 
         $sql .= " group by ".$col_id;
         
-       
+        
         $result = DB_run_query($sql);
         
         while ($row = $result->fetch_assoc()){

@@ -148,31 +148,38 @@
             </div>
             
         </div>
-        <div id = "cat_selected">
-                <div id = "10" name = "cat_name" >Do nuoc</div>
-                <div id = "12"  name = "cat_name">Do xao</div>
-                <div id = "16" name = "cat_name">Goi&nom</div>
+        <div class = "fr">
+            <div id = "cat_selected">
+                    <div id = "10" name = "cat_name" >Do nuoc</div>
+                    <div id = "12"  name = "cat_name">Do xao</div>
+                    <div id = "16" name = "cat_name">Goi&nom</div>
 
-                <div id = "31" class = "group_1"name = "cat_name_1">Com</div>
-                <div id = "65" class = "group_1"name = "cat_name_1">My</div>
-                <div id = "30" class = "group_1"name = "cat_name_1">Bun</div>
-                <div id = "29" class = "group_1"name = "cat_name_1">Pho</div>
+                    <div id = "31" class = "group_1"name = "cat_name_1">Com</div>
+                    <div id = "65" class = "group_1"name = "cat_name_1">My</div>
+                    <div id = "30" class = "group_1"name = "cat_name_1">Bun</div>
+                    <div id = "29" class = "group_1"name = "cat_name_1">Pho</div>
 
-                <div id = "7" class = "group_2"name = "cat_name_2">Soft Drink</div>
-                <div id = "9" class = "group_2"name = "cat_name_2">Wine</div>
-                <div id = "19" class = "group_2"name = "cat_name_2">Homemade</div>
-                <div id = "22" class = "group_2"name = "cat_name_2">Dessert</div>
+                    <div id = "7" class = "group_2"name = "cat_name_2">Soft Drink</div>
+                    <div id = "9" class = "group_2"name = "cat_name_2">Wine</div>
+                    <div id = "19" class = "group_2"name = "cat_name_2">Homemade</div>
+                    <div id = "22" class = "group_2"name = "cat_name_2">Dessert</div>
 
-                <div id = "35" class = "group_3"name = "cat_name_3">Thit Bo</div>
-                <div id = "34" class = "group_3"name = "cat_name_3">Thit Ga</div>
-                <div id = "41" class = "group_3"name = "cat_name_3">Tom</div>
-                <div id = "42" class = "group_3"name = "cat_name_3">Muc</div>
-                <div id = "44" class = "group_3"name = "cat_name_3">Ca</div>
-                <div id = "49" class = "group_3"name = "cat_name_3">Tofu</div>
-
+                    <div id = "35" class = "group_3"name = "cat_name_3">Thit Bo</div>
+                    <div id = "34" class = "group_3"name = "cat_name_3">Thit Ga</div>
+                    <div id = "41" class = "group_3"name = "cat_name_3">Tom</div>
+                    <div id = "42" class = "group_3"name = "cat_name_3">Muc</div>
+                    <div id = "44" class = "group_3"name = "cat_name_3">Ca</div>
+                    <div id = "49" class = "group_3"name = "cat_name_3">Tofu</div>
+            </div>
+            <div id = "button_control_itemID">
+                    <div>
+                    <input type="radio" name="group_by_time_cat" id="" value = "1"> <span>Daily</span> 
+                    <input type="radio" name="group_by_time_cat" id="" value = "0" checked = "checked"><span>Weekly</span> </div>
+                    <div><button onclick = "plot_a_chart_cat()">Plot a chart</button></div>
+            </div>
         </div>
         <div style = "clear:both"></div>
-        </div>
+    </div>
         
 </div>
 
