@@ -80,18 +80,35 @@
 </fieldset> 
 <div id = "cat_select">
         <div>
-            <input onclick = "text_input_click(this)" type="text" id="ten_mon" value = "Ten mon an"> 
-            <button onclick = "search_mon()">Search Ten mon</button>
-            
-            <div id= "table_frame">
-            <table id= "result_search_mon">
-
-            </table>
+            <div>
+                <input onclick = "text_input_click(this)" type="text" id="ten_mon" value = "Ten mon an"> 
+                <button onclick = "search_mon()">Search Ten mon</button>
+                <input type="checkbox" id = "itemMon_fullInfo">Full Info
+                
             </div>
+            <div id = "list_item_select">    
+                
+                
+                
+            </div>
+            <div class = "fr" id = "itemMon_rightPart" style = "display:none">
+                <div id = "itemMon_selected_list">
+            </div>
+                <div id = "button_control_itemID">
+                    <div>
+                    <input type="radio" name="group_by_time_item" id="" value = "1"> <span>Daily</span> 
+                    <input type="radio" name="group_by_time_item" id="" value = "0" checked = "checked"><span>Weekly</span> </div>
+                    <div><button onclick = "plot_a_chart_item()">Plot a chart</button></div>
+                    
+                    
+                </div>
+            </div>
+            <div style = "clear:both"></div>
             
             <hr>
         </div>
-        <div class = "fl">
+        <div id = "option_groupBy_cat">
+        <div class = "fl" >
             <div class = "button_cat cat_1">
                 <button onclick = "cat_select(1)"><span>Do Nuoc</span> </button>
                 <button onclick = "cat_select(2)"><span>Do xao</span> </button>
@@ -154,18 +171,11 @@
                 <div id = "49" class = "group_3"name = "cat_name_3">Tofu</div>
 
         </div>
+        <div style = "clear:both"></div>
+        </div>
         
 </div>
-<div id = "control_button">
-    <button onclick = "check_cat_input()" >Load Top</button>
-    <div>
-        <input type="radio" name="group_by_time" value="0">Week<br>
-        <input type="radio" name="group_by_time" value="1" id = "radio_group_by_day">Day (Tu ngay 08/04/2018)
-        
-        <button onclick = "plot_a_chart()">Plot a chart</button>
-    </div>
-    
-</div>
+
 <table id = "tb_result"></table> 
 </body> 
 

@@ -14,6 +14,9 @@
 include "DB_functions_NN_itemline.php";
 include "global.php";
 $str_type = "soLuong";
+$yaxisname = "So luong Order";
+$caption = "Total Number Order";
+$numberprefix = "";
 $group_byDay = false;
 $time = 0;
 $sang_chieu = 3;
@@ -28,16 +31,25 @@ $dataseries2=array();
 $dataseries3=array();
 $dataname = array();
 
+var_dump($_POST);
 
 
 if (isset($_POST["type"])){
-    if($_GET["type"] == 2){
+    if($_POST["type"] == 2){
         $str_type = "tongTien";
+        $yaxisname = "Amount in (£)";
+        $caption = "Total Sale From Order";
+        $numberprefix = "£";
     }
 }
 if(isset( $_POST["groupByDay"])){
-    $group_byDay = $_POST["groupByDay"];
+    if($_POST["groupByDay"] == 1){
+        $group_byDay = true;
+    }
+    
 }
+
+var_dump($group_byDay);
 if(isset($_POST["sang_chieu"])){
     $sang_chieu = $_POST["sang_chieu"];
 }
@@ -77,10 +89,12 @@ if ($time == 1){
     $year_week_1 = $year_1 * 100 + $week_1;
     $sql_date_updated = "SELECT year(Date) as y, week(Date,1) as w  FROM `tb_date_updated` 
                         WHERE (year(Date) *100 + week(Date,1))>= ".$year_week_0." AND (year(Date) *100 + week(Date,1)) <= ".$year_week_1." GROUP BY y,w";
+    $subcaption = "From ".$_POST["week_0"]." To ".$_POST["week_1"];
     
 }else{
     $sql_date_updated = "SELECT year(Date) as y, week(Date,1) as w FROM `tb_date_updated`  GROUP BY y,w";
     $year_week_0 = 0;
+    $subcaption = "ALL TIME";
 }
 if($year_week_0 < 201815 ){
     $group_byDay = false;
@@ -104,7 +118,7 @@ if( $item_ID != 0){
     exit;
 }
 
-$str_group_ID = "("
+$str_group_ID = "(";
 foreach ($array_ID as $element) {
     $dateseries[$element] = array();
     $Zero_value_data[$element] = false;
@@ -117,8 +131,8 @@ $str_group_ID .= ")";
 
 $sql_data_name = "Select * from ".$tb_data_name." where id in ".$str_group_ID;
 $result_data_name = DB_run_query($sql_data_name);
-while($row_cat_name = $result_cat_name->fetch_assoc()){
-    $dataname["ID"] = $row_cat_name["Name"];
+while($row_cat_name = $result_data_name->fetch_assoc()){
+    $dataname[$row_cat_name["ID"]] = $row_cat_name["Name"];
     
     
 }
@@ -130,21 +144,22 @@ $sql_group_clause = " AND ".$col_id." in ".$str_group_ID;
 
 
 
-if($group_byDay){
-    $sql_group_clause.= " group by t.Ngay, ";
-    $col_name .= ", t.Ngay as Ngay";
-}
 
 $result_date_updated = DB_run_query($sql_date_updated);
+$pre_week = "";
 while ($row_date_updated = $result_date_updated->fetch_assoc()){
     $weeklable = $row_date_updated["y"]."w".sprintf("%02d", $row_date_updated["w"]);
     $tb_name = "tb_".$weeklable;
     
     if($group_byDay){
-
-        $sql = "SELECT ".$col_id." as ID, t.Ngay as Ngay, sum(tongTien) as tongTien, sum(soLuong) as soLuong FROM ".$tb_name." as t INNER JOIN tb_mon On tb_mon.ID = t.ID_item WHERE 1=1 ";
-        $sql .= $sql_group_clause;
-        $sql.= " ORDER BY t.Ngay ASC";
+        $xaxisname = "Daily";
+        $sql = "SELECT ".$col_id." as ID, t.Date as Ngay, ROUND(sum(tongTien),2) as tongTien, sum(soLuong) as soLuong 
+                FROM ".$tb_name." as t INNER JOIN tb_mon On tb_mon.ID = t.ID_item WHERE  ".$col_id." in ".$str_group_ID." ";
+        
+        $sql .= " group by t.Date, ".$col_id." ORDER BY t.Date ASC";
+        
+       
+        
         $result = DB_run_query($sql);
         $pre_ngay = "";
         while ($row = $result->fetch_assoc()){
@@ -153,17 +168,20 @@ while ($row_date_updated = $result_date_updated->fetch_assoc()){
             if($pre_ngay != $row["Ngay"]){
                 
                 array_push($categoryArray, array(
-                    "label" => $row["Ngay"]
+                    "label" => substr($row["Ngay"],0,10)
                 )
                 );
                 foreach ($Zero_value_data as $key => $value) {
                     if($value){
+                        
                         array_push($dateseries[$key], array(
                             "value" => "0"
                             )
                         );
                     }else{
-                        $value = true;
+                        
+                        $Zero_value_data[$key] = true;
+                        
                     }
 
                 }
@@ -178,28 +196,43 @@ while ($row_date_updated = $result_date_updated->fetch_assoc()){
         
             
         }
+        
     }else{
+        $xaxisname = "Weekly";
+        $sql = "SELECT ".$col_id." as ID, ROUND(sum(tongTien),2) as tongTien, sum(soLuong) as soLuong 
+                FROM ".$tb_name." as t INNER JOIN tb_mon On tb_mon.ID = t.ID_item WHERE  ".$col_id." in ".$str_group_ID." ";
+
+        $sql .= " group by ".$col_id;
+        
+       
         $result = DB_run_query($sql);
+        
         while ($row = $result->fetch_assoc()){
-            
-            if($group_byDay){
-                
-                array_push($categoryArray, array(
-                    "label" => $row["Ngay"]
-                )
-                );
-            }else{
+            if($pre_week != $weeklable){
                 array_push($categoryArray, array(
                     "label" => $weeklable
                     )
                 );
-            }
+                foreach ($Zero_value_data as $key => $value) {
+                    if($value){
+                        array_push($dateseries[$key], array(
+                            "value" => "0"
+                            )
+                        );
+                    }else{
+                        $Zero_value_data[$key] = true;
+                    }
+
+                }
+                $pre_week = $weeklable;
             
-            array_push($dataseries1, array(
+            }
+            array_push($dateseries[$row["ID"]], array(
                 "value" => $row[$str_type]
                 )
             );
-        
+            $Zero_value_data[$row["ID"]] = false;
+            
             
         }
     }
@@ -207,23 +240,37 @@ while ($row_date_updated = $result_date_updated->fetch_assoc()){
     
     
 }
-
+var_dump($dateseries[163]);
+echo "<br>";
+var_dump($Zero_value_data[163]);
 include("fusioncharts.php");
 $arrData = array(
     "chart" => array(
-        "caption"=> "Actual Revenues, Targeted Revenues & Profits",
-        "subcaption"=> "Last year",
-        "xaxisname"=> "Month",
-        "yaxisname"=> "Amount (In USD)",
-        "numberprefix"=> "$",
+        "caption"=> $caption,
+        "subcaption"=> $subcaption,
+        "xaxisname"=> $xaxisname,
+        "yaxisname"=> $yaxisname,
+        "numberprefix"=> $numberprefix,
         "theme"=> "ocean"
         )
       );
 $arrData["categories"]=array(array("category"=>$categoryArray));
-$arrData["dataset"] = array(array("seriesName"=> "Actual Revenue","renderAs"=>"line", "data"=>$dataseries1));
+
+
+//$arrData["dataset"] = array(array("seriesName"=> "Actual Revenue","renderAs"=>"line", "data"=>$dataseries1));
+$arrData["dataset"] = array();
+foreach ($dateseries as $key => $value) {
+   array_push($arrData["dataset"], array(
+    "seriesName"=> $dataname[$key],
+    "renderAs"=>"line", 
+    "data"=>$value
+   ));
+}
+
 $jsonEncodedData = json_encode($arrData);
-$mscombi2dChart = new FusionCharts("mscombi2d", "ex3", "100%", 400, "chart-1", "json",$jsonEncodedData);
-   
+$mscombi2dChart = new FusionCharts("mscombi2d", "ex3", "100%", 600, "chart-1", "json",$jsonEncodedData);
+
+$mscombi2dChart->render();
 ?>
 <div id="chart-1"><!-- Fusion Charts will render here--></div>
  

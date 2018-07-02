@@ -134,16 +134,25 @@ function check_cat_input(){
 }
 function search_mon(){
     var ten_mon = document.getElementById('ten_mon').value;
+    var fullInfo = document.getElementById('itemMon_fullInfo')
     str_ajax = "get_ten_mon_itemLine.php?ten="+ten_mon;
-    Java_ajax('result_search_mon',str_ajax);
+    
+    if(fullInfo.checked){
+        str_ajax += "&fullInfo=1";
+        document.getElementById('list_item_select').style.width = "350px";
+        document.getElementById('list_item_select').style.overflow = "scroll";
+    }else{
+        document.getElementById('list_item_select').removeAttribute("style");
+    }
+    Java_ajax('list_item_select',str_ajax);
 }
-function plot_a_chart(){
+function plot_a_chart_item(){
     
     
     var type = 1;
     var sang_chieu = document.getElementById('input_range_sang_chieu_toi').value;
     
-    str_ajax = "loadTK_itemline.php?top_count="+TOP_count+"&sang_chieu="+sang_chieu;
+    str_ajax = "loadTK_itemline.php?sang_chieu="+sang_chieu;
     var type_option = document.getElementsByName('type_option');
     if (type_option[1].checked){
         type = 2;
@@ -153,22 +162,35 @@ function plot_a_chart(){
         
         week_0 = 0;
         week_1 = 0;
+        time = 0;
     }else{
         week_0 = document.getElementById('input_week_0').value;
         week_1 = document.getElementById('input_week_1').value;
-        
+        time = 1;
        
     }
+    var groupByDay = 0;
+    if(document.getElementsByName('group_by_time_item')[0].checked){
+        groupByDay = 1;
+    }
+
+    var id_array = document.getElementsByName('itemID_selected_chartInput');
+    if(id_array != null){
+       
+        
+        submit_post_via_hidden_form("test_sample.php",{
+            sang_chieu: sang_chieu,
+            week_0:week_0,
+            week_1:week_1,
+            type : type,
+            groupByDay:groupByDay,
+            id_array : "item",
+            time:time
+        })
+    }else{
+        alert("Chua nhap item");
+    }
     
-    submit_post_via_hidden_form("test_sample.php",{
-        sang_chieu: sang_chieu,
-        week_0:week_0,
-        week_1:week_1,
-        type : type,
-        item_ID: item_ID,
-        groupByDay:groupByDay,
-        cat_id :cat_id
-    })
 }
 function submit_post_via_hidden_form(url, params) {
     var form = document.createElement("form");
@@ -177,13 +199,32 @@ function submit_post_via_hidden_form(url, params) {
     form.setAttribute("target", "_blank");
     for (const key in params) {
         if (params.hasOwnProperty(key)) {
+            
             const element = params[key];
-            var hiddenField = document.createElement("input");      
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", element);
-            form.appendChild(hiddenField);
-            document.body.appendChild(form); 
+            if(key == "id_array"){
+                if(element == "item"){
+                    var id_array = document.getElementsByName('itemID_selected_chartInput');
+                    id_array.forEach(e => {
+                        var hiddenField = document.createElement("input");      
+                        hiddenField.setAttribute("name", "item_ID[]");
+                        hiddenField.setAttribute("value", e.value);
+                        form.appendChild(hiddenField);
+                         
+                    });
+                }else{
+
+                }
+            }
+            else{
+                var hiddenField = document.createElement("input");      
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", element);
+                form.appendChild(hiddenField);
+                
+            }
+            
         }
+        document.body.appendChild(form); 
     }
 
     
@@ -192,4 +233,36 @@ function submit_post_via_hidden_form(url, params) {
     
 
     form.remove();
+}
+function select_itemMon(x){
+    var item_ID = x.id.substring(11);
+    var check_input = document.getElementById('itemSELECTED_'+item_ID);
+    if(check_input == null){
+        var num_selected_item  = document.getElementsByName('itemID_selected_chartInput');
+        if (num_selected_item.length >= 3){
+            alert('Toi da la 3 item');
+        }else{
+            var itemName = x.innerHTML;
+            var div_item = document.createElement("div")
+            var input_hidden = document.createElement("input");
+            input_hidden.setAttribute("name", "itemID_selected_chartInput");
+            input_hidden.setAttribute("value", item_ID);
+            input_hidden.setAttribute("id", "itemSELECTED_"+item_ID);
+            input_hidden.setAttribute("type","hidden");
+            var spanTen = document.createElement("span");
+            div_item.setAttribute("onclick", "remove_selected_itemID(this)");
+            spanTen.innerHTML = itemName;
+            div_item.appendChild(input_hidden);
+            div_item.appendChild(spanTen);
+            document.getElementById('itemMon_selected_list').appendChild(div_item);
+        } 
+        
+    }else{
+        alert('Da co chon item nay roi');
+    }
+    document.getElementById('itemMon_rightPart').style.display = "block";
+    
+}
+function remove_selected_itemID(element){
+    element.parentNode.removeChild(element);
 }

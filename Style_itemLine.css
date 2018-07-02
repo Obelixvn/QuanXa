@@ -262,20 +262,46 @@ div#control_button button{
 }
 div#table_frame{
     
-    overflow: auto;
     
-    width: 200px;
     margin: 5px 0px;
     
+    
+    padding-right: 5px;
 
 }
-table#result_search_mon{
-    border-collapse: collapse;
-    width: 800px;
+
+table#result_search_mon tr td:first-child{
+    width: 180px;
+    height: 30px;
+    text-align: right;
+    background: steelblue;
+    vertical-align: middle;
+    padding-right: 8px;
 }
-table#result_search_mon tr th:first-child{
-    width: 100px;
+table#result_search_mon tr td div{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    color: white;
 }
+
+table#result_search_mon tr td div:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+table#result_search_mon tr td:hover div{
+    padding-right: 20px;
+}
+table#result_search_mon tr td:hover div:after{
+    right: 0;
+    opacity: 1;
+}
+
 button.explanning {
     border-radius: 16px;
     
@@ -290,4 +316,73 @@ button.explanning {
 button.explanning:hover {
     color: red;
     background-color: silver;
+}
+div#right_part_item_select{
+    float: left;
+}
+div#list_item_select{
+    float: left;
+}
+div#itemMon_selected_list{
+    
+    border-left: 1px solid black;
+    margin-top: 7px;
+    height: 300px;
+}
+div#itemMon_selected_list div
+{
+    background: burlywood;
+    padding: 6px;
+    margin-bottom: 2px;
+    width: 180px;
+   
+    transition: 0.5s;
+}
+div#itemMon_selected_list div span{
+    transition: 0.5s;
+    cursor: pointer;
+}
+div#itemMon_selected_list div span::after{
+    content: '\00a0\00a0\00a0Remove';
+    font-weight: bolder;
+    position: relative;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+    color: red
+}
+div#itemMon_selected_list div:hover span::after{
+    opacity: 1;
+    right: 0;
+}
+div#itemMon_selected_list div:hover span{
+    padding-right: 10px;
+}
+div#button_control_itemID button{
+    
+    height: 80px;
+    width: 130px;
+    font-family: fantasy;
+    text-decoration: underline;
+    font-size: larger;
+    color: black;
+    background: burlywood;
+    box-shadow: 7px 4px;
+    cursor: pointer; 
+}
+div#button_control_itemID button:hover{
+    background-color: white;
+    color: burlywood;
+}
+div#button_control_itemID input {
+    margin: 15px  0;
+
+}
+div#button_control_itemID span{
+    margin-right: 25px;
+} 
+div#button_control_itemID{
+    width: 180px;
+    text-align: center;
 }
