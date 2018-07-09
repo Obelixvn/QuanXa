@@ -36,6 +36,7 @@ WHERE
     `tb_nhanVien`.`Name` ='".$name."'
 
 ";
+$payByDay = false;
 $result_rate = DB_run_query($sql_rate);
 if($result_rate->num_rows > 0){
     $row_rate = $result_rate->fetch_assoc();

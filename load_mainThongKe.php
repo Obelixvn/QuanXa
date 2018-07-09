@@ -196,9 +196,10 @@ $del_charge = $row_delCharge['expense'];
 
 <?php
 
-$net_taking = $Gross_Profit  - $del_charge;
+$net_taking = $tong_sale  - $del_charge;
+$operating_profit = $Gross_Profit - $del_charge;
 ?>
-<div class = "txt_r tongItem_1"><span><?php echo money_format('%#10n',$net_taking);?></span> </div>
+<div class = "txt_r tongItem_1"><span><?php echo money_format('%#10n',$operating_profit);?></span> </div>
 <div></div>
 <?php
 
@@ -536,7 +537,7 @@ $tong_expense = $tonng_luong + $tong_expense_cat1;
 ?>
 <div class = "txt_r"> (<?php echo money_format('%#10n',$tong_expense);?>)</div>
 <?php
-$net_profit = $net_taking - $tong_expense ;
+$net_profit = $net_taking - $tong_do - $tong_expense ;
 ?>
 <div class = "txt_r tongItem_1"> <span><?php echo money_format('%#10n',$net_profit);?></span></div>
 <?php
@@ -562,7 +563,7 @@ $cashAva = $cash_sale - $cash_expense;
 <?php
 
 
-$Vat_card = $net_taking*0.2 - $Vat_card;
+$Vat_card = $net_taking/6 - $Vat_card;
 $prefect_income = $net_profit - $Vat_card;
 ?>
 <div class = "txt_r"> <?php echo money_format('%#10n',$prefect_income);?></div>
