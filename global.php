@@ -13,7 +13,7 @@
         array(5,6), //Thurday
         array(5,6), //Friday
         array(4.5,6), //Saturday
-        array(4.5,5), //Sunday
+        array(4.5,6), //Sunday
         
     );
     $Ngay_hom_nay = new Datetime();

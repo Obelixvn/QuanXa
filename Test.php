@@ -37,11 +37,13 @@ $tsql1 = "SELECT ID,TableName FROM Config_Table WHERE ID IN (236,238,239,240,245
 $tsql1 = "SELECT ID,TableName FROM Config_Table WHERE ID IN (237,241,242,243,244)";
 
 
+$tsql = "Select sum(Card) from OrderList where OpenDateTime >= '2018-06-01' AND OpenDateTime < '2018-07-01' ";
+
 $tsql1 = "UPDATE OrderList  SET VAT = Round(Total * 0.155,2), SaleNoneVAT = Round(Total * 0.07,2),NetTotal = Round(Total * 0.93,2)   WHERE  OpenDateTime <= '2018-04-23 23:59:59' ";
 
 $tsql1 = " Update OrderList Set Note = '' Where Note = 'Paid_in_Full' ";
 $tsql1 = "Select Convert(date, OpenDateTime) as Ngay, DATEPART( hh,OpenDateTime) as Time,sum(Total) From OrderList Where OpenDateTime >= '2018-05-30' AND OpenDateTime <= '2018-05-30' GROUP BY DATEPART( hh,OpenDateTime) , Convert(date, OpenDateTime) ";
-$tsql = "SELECT Top 10 *  From OrderList WHERE SaleNoneVAT > 0 AND TableID > 200 Order By OpenDateTime Desc ";
+$tsql1 = "SELECT Top 10 *  From OrderList WHERE SaleNoneVAT > 0 AND TableID > 200 Order By OpenDateTime Desc ";
 $tsql1= "Update OrderList SET SaleNoneVAT = 0, VAT = Round(Total / 6,2), NetTotal = Total WHERE SaleNoneVAT > 0 AND TableID > 200 AND OpenDateTime >= '2018-05-22' ";
 
 $tsql1 = "SELECT TableName, OpenDateTime, Card, CloseDateTime FROM OrderList INNER JOIN Config_table On OrderList.TableID = Config_table.ID WHERE OpenDateTime = '2018-06-16 12:19:37' ";

@@ -11,13 +11,13 @@ $main_cat_name = array();
 $sub_cat_value = array();
 
 while($row_main_cat = $result_main_cat->fetch_assoc()){
-    $main_cat_name[$i] = $row_main_cat["Cat_name"];
+    $main_cat_name[$i] = $row_main_cat["Name"];
     $id_main_cat = $row_main_cat["ID"];
     $sql_sub_cat = "Select * from tb_mon_cat where cat_parent = ".$id_main_cat;
     $result_sub_cat = DB_run_query($sql_sub_cat);
     $temp_a = array();
     while($row_sub_cat = $result_sub_cat->fetch_assoc()){
-        $temp_a[$row_sub_cat["ID"]] = $row_sub_cat["Cat_name"];
+        $temp_a[$row_sub_cat["ID"]] = $row_sub_cat["Name"];
     }
     $sub_cat_value[$i] = $temp_a;
     $i++;

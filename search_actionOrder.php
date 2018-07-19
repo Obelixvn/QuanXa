@@ -36,7 +36,7 @@ if($tien != '' & $ten != ''){
             
                 <input type="hidden" name="ID_ban" value = "<?php echo $row["TableID"]; ?>">
                 <input type="hidden" name="Time_ban" value = "<?php echo $row['Time']->format('Y-m-d H:i:s'); ?>">
-                <?php echo $row['Time']->format('H:i:s'); ?> - 
+                <?php echo $row['Time']->format('Y-m-d  H:i:s'); ?> - 
                 Cr<input type="number" name="card_ban" id="" value = "<?php echo $row["Card"]; ?>">
                 Cs<input type="number" name="cash_ban" id="" value = "<?php echo $row["Cash"]; ?>">
                 

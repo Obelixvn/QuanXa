@@ -30,9 +30,9 @@ if($result != ""){
             
             
             if($row_mon_cat["ID"] >= 1000){
-                $cat_parent_name[$row_mon_cat["ID"]] = $row_mon_cat["Cat_name"]; 
+                $cat_parent_name[$row_mon_cat["ID"]] = $row_mon_cat["Name"]; 
             }else{
-                $mon_cat[$row_mon_cat["ID"]] = $row_mon_cat["Cat_name"];
+                $mon_cat[$row_mon_cat["ID"]] = $row_mon_cat["Name"];
             }
         }
     }
