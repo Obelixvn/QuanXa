@@ -77,6 +77,26 @@ $percent = $TM/$Card * 100;
 
 sqlsrv_free_stmt($result);
 
+$Roo_del = "";
+$Uber_del = "";
+
+$sql_Del = "SELECT  'Uber' as Del, sum(OrderList.Total) as Total FROM OrderList WHERE TableID IN  (237,241,242,243,244) and OpenDateTime >= '".$date_0."' AND OpenDateTime < '".$date_1."' UNION " ;
+
+$sql_Del .= "SELECT  'Roo' as Del,sum(OrderList.Total) as Total FROM OrderList WHERE TableID IN (236,238,239,240,245) and OpenDateTime >= '".$date_0."' AND OpenDateTime < '".$date_1."'" ;
+
+$result= sqlsrv_query($conn, $sql_Del);
+
+if ($result === FALSE){
+    die( print_r( sqlsrv_errors(), true));
+}
+while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
+    if($row["Del"] == 'Roo'){
+        $Roo_del = $row["Total"];
+    }else{
+        $Uber_del = $row["Total"];
+    }
+};
+
 
 $sql = "SELECT OrderList.TableID,OrderList.OpenDateTime as Time,Config_table.TableName as TenBan, OrderList.Total as Tien,
         OrderList.Change, OrderList.Tips,OrderList.Cash,OrderList.Discount,
@@ -116,6 +136,8 @@ $avg_cash = $row_avg["cash"];
         <div><?php echo number_format($TM,2); ?></div>
         <div><?php echo number_format($avg_cash,2); ?></div>
         <div><?php echo number_format($percent,2); ?></div>
+        <div><?php echo number_format($Roo_del,2); ?></div>
+        <div><?php echo number_format($Uber_del,2); ?></div>
         <div class = "clear_Fix"></div>
     </div>
     <div class = "display_TMThe">
@@ -131,7 +153,9 @@ $avg_cash = $row_avg["cash"];
 <table id = "tb_tienMat">
 
 <?php
+
 while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
+    
 ?>
 
     <tr>
@@ -174,5 +198,5 @@ sqlsrv_free_stmt($result);
 sqlsrv_close($conn);
 ?>
 </table>
-<button onclick= "Xapxep()">Xap xep</button>
+<button onclick= "Xapxep()">Xap xep(<?php echo $i; ?>)</button>
 <button onclick= "loc_thongKe_TM()">Xoa Others</button>

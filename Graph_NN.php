@@ -17,7 +17,8 @@ $dataseries2=array();
 $dataseries3=array();
 $categoryArray=array();
 $sql = "Select sum(Cash+Card) as from tb_sale";
-$sql = "select DATE_FORMAT(Date, '%D %M' ) as Date, round(sum((`tb_sale`.`Card` + `tb_sale`.`Cash`)),2) AS `An_day`, round(sum(((`tb_sale`.`Roo` + `tb_sale`.`Uber`) + `tb_sale`.`JEat`)),2) AS `Extra` from `NN`.`tb_sale` where dayofweek(`NN`.`tb_sale`.`Date`) = 7 group by `tb_sale`.`Date` ";
+$sql = "select DATE_FORMAT(Date, '%D %M' ) as Date, round(sum((`tb_sale`.`Card` + `tb_sale`.`Cash`)),2) AS `An_day`, round(sum(((`tb_sale`.`Roo` + `tb_sale`.`Uber`) + `tb_sale`.`JEat`)),2) AS `Extra` from `NN`.`tb_sale` where dayofweek(`NN`.`tb_sale`.`Date`) = 6 group by `tb_sale`.`Date` ";
+$sql = "select Yearweek(Date,1) as Date, round(sum((`tb_sale`.`Card` + `tb_sale`.`Cash`)),2) AS `An_day`, round(sum(((`tb_sale`.`Roo` + `tb_sale`.`Uber`) + `tb_sale`.`JEat`)),2) AS `Extra` from `NN`.`tb_sale`  group by Yearweek(Date,1)  ";
 
 $result = DB_run_query($sql);
 while ($row = $result->fetch_assoc()){
@@ -76,7 +77,7 @@ array_push($arrData["dataset"], array(
 ));
 
 $jsonEncodedData = json_encode($arrData);
-$mscombi2dChart = new FusionCharts("mscombi2d", "ex3", "100%", 600, "chart-1", "json",$jsonEncodedData);
+$mscombi2dChart = new FusionCharts("mscombi2d", "ex3", "120%", 600, "chart-1", "json",$jsonEncodedData);
 
 $mscombi2dChart->render();
 ?>
