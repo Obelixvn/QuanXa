@@ -17,8 +17,11 @@ function them_item_expense(){
     cell1.innerHTML = '<input type ="date" name = "bat_dau">';
     cell2.innerHTML = '<input type ="date" name = "ket_thuc">';
     cell3.innerHTML = '<input type = "text" name = "ten">';
-    cell4.innerHTML = '<input type = "text" name = "cat1">';
-
+    
+    var optionCat1 = document.createElement("select");
+    optionCat1.innerHTML = document.getElementById('first_optionCat1').innerHTML;
+    optionCat1.setAttribute("name", "cat1");
+    cell4.appendChild(optionCat1);
     cell5.innerHTML = '<input type = "text" name = "cat2">';
     cell6.innerHTML = '<input type = "text" name = "cat3">';
     cell7.innerHTML = '<input type = "number" name = "tien">';

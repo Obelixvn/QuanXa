@@ -42,7 +42,7 @@
                 <td><input type ="date" name = "ket_thuc"></td>
                 <td><input type = "text" name = "ten"></td>
                 <td>
-                    <select name="cat1" id="">
+                    <select name="cat1" id="first_optionCat1">
                     <?php
                         foreach ($Weekly_expense_cat1 as $key => $value) {
                             ?>

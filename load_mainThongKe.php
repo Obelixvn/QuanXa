@@ -291,7 +291,7 @@ SELECT sum(per_week) as expense
 FROM tb_expense
 WHERE   tb_expense.`To` >= '".$sunday."' and
         tb_expense.`FROM` <= '".$monday."' and
-        `Cat 1` = 'Electric'
+        `Cat 1` = 'Dien'
 ";
 $result_expense = DB_run_query($sql_expense);
 $row_expense = $result_expense->fetch_assoc();
