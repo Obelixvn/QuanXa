@@ -84,6 +84,8 @@ $sql_Del = "SELECT  'Uber' as Del, sum(OrderList.Total) as Total FROM OrderList 
 
 $sql_Del .= "SELECT  'Roo' as Del,sum(OrderList.Total) as Total FROM OrderList WHERE TableID IN (236,238,239,240,245) and OpenDateTime >= '".$date_0."' AND OpenDateTime < '".$date_1."'" ;
 
+
+
 $result= sqlsrv_query($conn, $sql_Del);
 
 if ($result === FALSE){
@@ -200,3 +202,4 @@ sqlsrv_close($conn);
 </table>
 <button onclick= "Xapxep()">Xap xep(<?php echo $i; ?>)</button>
 <button onclick= "loc_thongKe_TM()">Xoa Others</button>
+<button onclick = "checkALL_TM()">Sel ALL</button>

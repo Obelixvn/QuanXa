@@ -9,7 +9,7 @@ $type = 0;//0 =soLuong;
 $time = 0; // 0 =S;1=C;
 $name = '';
 $listType = "('EatIn','TW','DEL')"; //1= Eat in; 2=TW; 3= DEL;
-$top = " TOP 10 ";
+$top = "";
 
 if (isset($_GET["type"])){
     $type = $_GET["type"];

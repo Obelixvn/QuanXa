@@ -30,8 +30,7 @@ WHERE OpenDateTime = '2018-04-17 18:50:21' and OrderList.TableID =213 ";
 
 $tsql1 = "Select * From OrderItems Where Note = 'Paid_in_Full'";
 
-$tsql1 = "SELECT TABLE_NAME
-FROM INFORMATION_SCHEMA.COLUMNS";
+$tsql1 = "Select total , TableName from ";
 
 $tsql1 = "SELECT 'Roo' as Del ,sum(OrderList.Total) as Roo FROM OrderList WHERE TableID IN (236,238,239,240,245) and OpenDateTime >= '2018-07-11' AND OpenDateTime < '2018-07-12' UNION ";
 $tsql1 = "SELECT 'Uber' as Del, sum(OrderList.Total) as Uber FROM OrderList WHERE TableID IN  (237,241,242,243,244) and OpenDateTime >= '2018-07-11' AND OpenDateTime < '2018-07-12'" ;
@@ -46,12 +45,15 @@ $tsql1 = "Select Convert(date, OpenDateTime) as Ngay, DATEPART( hh,OpenDateTime)
 $tsql1 = "SELECT Top 10 *  From OrderList INNER JOIN Config_table on tableID = config_table.ID WHERE SaleNoneVAT = 0 AND TableID > 200  AND tableID = 205 Order By OpenDateTime Desc ";
 
 $tsql1 = "Select top 10 * from OrderItems order by Opendatetime desc";
-
-$tsql = "Select * from OrderList WHERE SaleNoneVAT > 0 AND TableID > 200 AND OpenDateTime >= '2018-05-22' ";
+$tsql1 = "Select * from orderitems order by opendatetime desc";
+$tsql1 = "Select * from OrderList WHERE SaleNoneVAT > 0 AND TableID > 200 AND OpenDateTime >= '2018-05-22' ";
 $tsql1= "Update OrderList SET SaleNoneVAT = 0, VAT = Round(Total / 6,2), NetTotal = Total WHERE SaleNoneVAT > 0 AND TableID > 200 AND OpenDateTime >= '2018-05-22' ";
 
-$tsql1 = "SELECT TableName, OpenDateTime, Card, CloseDateTime FROM OrderList INNER JOIN Config_table On OrderList.TableID = Config_table.ID WHERE OpenDateTime = '2018-06-16 12:19:37' ";
+$tsql1 = "SELECT TableName,  Card FROM OrderList INNER JOIN Config_table On OrderList.TableID = Config_table.ID WHERE OpenDateTime >= '2018-07-28' and OpenDateTime <'2018-07-29' AND card > 0 order by TableName desc";
 
+$tsql = "SELECT 'Uber' as Del, OrderList.Total as Total FROM OrderList WHERE TableID IN (237,241,242,243,244) and OpenDateTime >= '2018-08-05' AND OpenDateTime < '2018-08-06' order by Opendatetime";
+$tsql1 = "SELECT 'Uber' as Del, sum(OrderList.Total) as Total FROM OrderList WHERE TableID IN (237,241,242,243,244) and OpenDateTime >= '2018-08-05' AND OpenDateTime < '2018-08-06' UNION SELECT 'Roo' as Del,sum(OrderList.Total) as Total FROM OrderList WHERE TableID IN (236,238,239,240,245) and OpenDateTime >= '2018-07-31' AND OpenDateTime < '2018-08-01'";
+$tsql1 = "SELECT 'Roo' as Del ,Opendatetime , OrderList.Card as Total FROM OrderList WHERE TableID Not IN (236,238,239,240,245) and OpenDateTime >= '2018-08-06' AND OpenDateTime < '2018-08-06'";
 $tsql1 = "UPDATE OrderList SET CloseOrder = 2  WHERE TableID = 210 AND OpenDateTime = '2018-05-16 12:37:19'";
 
 //$tsql = "DELETE FROM OrderItems WHERE ID IN (33928,33929,33930,33934,33936,33937,33938)";
@@ -141,14 +143,23 @@ if ($getResults == FALSE){
 <h1> Results : </h1>
 
 <?php
+
 while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
     //var_dump ($row["COLUMN_NAME"]);
+    ?>
+    <!-- <input type="checkbox" name="test" id=""> -->
+    <br>
+    <?php
     var_dump ($row);
+    
     //echo sqlsrv_rows_affected($getResults);
     //echo $row["ID"]."  -  ";
-    //echo $row["TableName"];
+    //echo $row["TableName"]." - - ";
+    //echo $row["Card"];
+    //echo "<br>";
     
 }
+
 
 sqlsrv_free_stmt($getResults);
 

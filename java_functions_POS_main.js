@@ -287,3 +287,9 @@ function chuyen_don(){
     Java_ajax('test',strajax);
     
 }
+function checkALL_TM(){
+    var checkBox = document.getElementsByName('tableCK');
+    checkBox.forEach(element => {
+        element.checked = true;
+    });
+}
