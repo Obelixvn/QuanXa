@@ -90,6 +90,7 @@
         Money exchange
         
         <br>
+        <input type="checkbox" name="" id="auto_tinh">
         <table>
             <tbody>
                 <tr>

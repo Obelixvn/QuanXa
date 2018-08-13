@@ -25,7 +25,7 @@ if (isset($_GET["ten_goc"]) & isset($_GET["tien_goc"])){
             Config_table.TableName = '".$ten."' AND OrderList.Total = ".$tien;
 
             
-
+    
 }else{
     echo "Error :101";
 }

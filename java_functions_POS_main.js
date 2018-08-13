@@ -275,15 +275,25 @@ function lock_don(){
 }
 function click_openTime_Ex_don(x){
     document.getElementById('gio_den_Ex').value = x.value;
+    document.getElementById('gio_tra_Ex').value = x.value;
 }
 function chuyen_don(){
+    
     var ten_goc = document.getElementById("ten_den_Ex").value;
     var tien_goc = document.getElementById("tien_den_Ex").value;
     var date = document.getElementById("date_chuyen_Ex").value;
     var time = document.getElementById('gio_den_Ex').value;
     var tableID_goc = document.getElementById('table_goc_ID_Ex').value;
     var time_moi_ex = document.getElementById('gio_tra_Ex').value;
-    strajax = "exchange_don_ex_step_1.php?date="+date+"&ten_den="+ten_goc+"&tien_den="+tien_goc+"&tableID_goc="+tableID_goc+"&time="+time+"&time_moi_ex="+time_moi_ex;
+    strajax = "exchange_don_ex_step_1.php?&date="+date+"&ten_den="+ten_goc+"&tien_den="+tien_goc+"&tableID_goc="+tableID_goc+"&time="+time+"&time_moi_ex="+time_moi_ex;
+    if(document.getElementById('auto_tinh').checked){
+        if (confirm("Co dinh thay doi khong")){
+            strajax += "&auto=1";
+        }else{
+            return;
+        }
+        
+    }
     Java_ajax('test',strajax);
     
 }

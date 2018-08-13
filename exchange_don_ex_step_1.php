@@ -3,6 +3,11 @@
 include "DB_POS.php";
 include "global.php";
 
+$auto = 0;
+
+if(isset($_GET["auto"])){
+    $auto = $_GET["auto"];
+}
 if(isset($_GET["date"])){
     
     $date = new DateTime($_GET["date"]);
@@ -39,11 +44,19 @@ if (isset($_GET["ten_den"]) & isset($_GET["tien_den"]) & isset($_GET["tableID_go
     }
     
     //Exchange money
-    
-    $sql_ex_order = "   UPDATE OrderList SET OpenDateTime = '".$time_moi_ex."' ,CloseDateTime = '".$time_moi_ex."' WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."';
-                        UPDATE OrderItems SET OpenDateTime = '".$time_moi_ex."'  WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."' ";
-    
+    if($auto == 0){
+        $sql_ex_order = "   UPDATE OrderList SET OpenDateTime = '".$time_moi_ex."' ,CloseDateTime = '".$time_moi_ex."' WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."';
+        UPDATE OrderItems SET OpenDateTime = '".$time_moi_ex."'  WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."' ";
+
+
+    }else{
+        $sql_ex_order = "   UPDATE OrderList SET Status = 0, CloseOrder = 2, SaleNoneVAT = Total, Card = Total, OpenDateTime = '".$time_moi_ex."' ,CloseDateTime = '".$time_moi_ex."' WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."';
+        UPDATE OrderItems SET OpenDateTime = '".$time_moi_ex."'  WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."' ";
+
+    }
+
     $result_ex_order = sqlsrv_query($conn, $sql_ex_order);
+    //$log .= $sql_ex_order."<br>";
     if ($result_order_den === FALSE){
         $log.= "Khong exchange dc <br>";
         echo $log;
@@ -62,8 +75,7 @@ if (isset($_GET["ten_den"]) & isset($_GET["tien_den"]) & isset($_GET["tableID_go
     //     die( print_r( sqlsrv_errors(), true));
     // }else{
     //     $log.= "Exchange items to:".$time_moi_ex."<br>";
-        
-        
+    
     // }
     
 
@@ -75,14 +87,16 @@ if (isset($_GET["ten_den"]) & isset($_GET["tien_den"]) & isset($_GET["tableID_go
                 ";
     
     
-    //$result_order= sqlsrv_query($conn, $sql_order);
-    $result_order = "";
-    if($result_order === false ){
-        $log.= "Ko dc - order<br>";
-        echo $log;
-        exit;
-    }else{
-        $log.= "Order xong<br>";
+    if($auto == 1){
+        $result_order= sqlsrv_query($conn, $sql_order);
+        //$log .= $sql_order."<br>";
+        if($result_order === false ){
+            $log.= "Ko dc - order<br>";
+            echo $log;
+            exit;
+        }else{
+            $log.= "Order xong<br>";
+        }
     }
 
     // $sql_item = "";
