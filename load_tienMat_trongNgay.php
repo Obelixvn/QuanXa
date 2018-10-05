@@ -102,7 +102,7 @@ while($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)){
 
 $sql = "SELECT OrderList.TableID,OrderList.OpenDateTime as Time,Config_table.TableName as TenBan, OrderList.Total as Tien,
         OrderList.Change, OrderList.Tips,OrderList.Cash,OrderList.Discount,
-        CASE WHEN OrderList.Cash >= OrderList.Total THEN 'ALLTM'
+        CASE WHEN (OrderList.Cash - OrderList.Change) >= OrderList.Total THEN 'ALLTM'
             ELSE 'SPLIT' END AS 'Type'
 
         FROM OrderList INNER JOIN Config_table ON OrderList.TableID = Config_table.ID

@@ -87,10 +87,13 @@
     </div>
     <div class= "clearFix" id = "test"></div>
     <div class = "fl pad_t10" >
-        Money exchange
+        Refund exchange
         
         <br>
-        <input type="checkbox" name="" id="auto_tinh">
+        Exchange<input type="checkbox" name="" id="auto_tinh">
+        <br>
+        Auto close<input type="checkbox" name="" id="auTocashOut">
+      
         <table>
             <tbody>
                 <tr>

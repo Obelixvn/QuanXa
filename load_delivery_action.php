@@ -58,7 +58,7 @@ $sql = "
                 $tong_net += $net_row;
 ?>
             <td><?php  echo money_format($money_style,$net_row); ?></td>
-            <td><?php echo number_format($net_row/$row["JEat"]*100,2) ;?>%</td>
+            <td><?php if($row["JEat"] > 0){echo number_format($net_row/$row["JEat"]*100,2) ;}else{echo "0";}?>%</td>
 <?php
                
             }else{

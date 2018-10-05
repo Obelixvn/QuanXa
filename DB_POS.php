@@ -1,7 +1,7 @@
 <?php 
 
 function DB_POS_connect(){
-    $serverName = "192.168.0.107\VDIT, 49277";
+    $serverName = "81.147.143.154\VDIT, 49277";
     $connectionOptions = array(
         "Database" => "NgonNgon",
         "Uid" => "sahara",

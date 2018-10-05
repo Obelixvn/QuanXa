@@ -4,9 +4,13 @@ include "DB_POS.php";
 include "global.php";
 
 $auto = 0;
+$auTocashOut = 0;
 
 if(isset($_GET["auto"])){
     $auto = $_GET["auto"];
+}
+if(isset($_GET["auTocashOut"])){
+    $auTocashOut = $_GET["auTocashOut"];
 }
 if(isset($_GET["date"])){
     
@@ -50,8 +54,14 @@ if (isset($_GET["ten_den"]) & isset($_GET["tien_den"]) & isset($_GET["tableID_go
 
 
     }else{
-        $sql_ex_order = "   UPDATE OrderList SET Status = 0, CloseOrder = 2, SaleNoneVAT = Total, Card = Total, OpenDateTime = '".$time_moi_ex."' ,CloseDateTime = '".$time_moi_ex."' WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."';
+        if($auTocashOut == 0){
+            $sql_ex_order = "   UPDATE OrderList SET OpenDateTime = '".$time_moi_ex."' ,CloseDateTime = '".$time_moi_ex."' WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."';
         UPDATE OrderItems SET OpenDateTime = '".$time_moi_ex."'  WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."' ";
+        }else{
+            $sql_ex_order = "   UPDATE OrderList SET Status = 0, CloseOrder = 2, SaleNoneVAT = Total, Card = Total, OpenDateTime = '".$time_moi_ex."' ,CloseDateTime = '".$time_moi_ex."' WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."';
+            UPDATE OrderItems SET OpenDateTime = '".$time_moi_ex."'  WHERE TableID = ".$old_tableID."  AND OpenDateTime = '".$old_openTime."' ";
+        }
+        
 
     }
 

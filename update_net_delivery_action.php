@@ -57,7 +57,7 @@ for ($i=0; $i < 3; $i++) {
     <td>Just Eat</td>
     <td ><?php echo money_format($money_style,number_format($row["JEat"],2)) ;?></td>
     <td><?php echo money_format($money_style,$net[0]) ;?></td>
-    <td ><?php echo number_format($net[0]/$row["JEat"]*100,2) ;?>%</td>
+    <td ><?php if($row["JEat"] > 0){echo number_format($net[0]/$row["JEat"]*100,2) ;}?>%</td>
     
 </tr>
 <tr>

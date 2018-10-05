@@ -289,12 +289,19 @@ function chuyen_don(){
     if(document.getElementById('auto_tinh').checked){
         if (confirm("Co dinh thay doi khong")){
             strajax += "&auto=1";
+            if (document.getElementById('auTocashOut').checked){
+                strajax += "&auTocashOut=1";    
+            }
+            
+            
         }else{
+            
             return;
         }
         
     }
     Java_ajax('test',strajax);
+   
     
 }
 function checkALL_TM(){
