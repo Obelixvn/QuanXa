@@ -31,13 +31,19 @@ include "global.php";
 for ($i=0; $i < count($ten); $i++) { 
     $date_from = $date_0[$i];
     $date_to = $date_1[$i];
+    $cungNgay = false;
+    $postFx = '';
+    if($date_to == ''){
+        $date_to = $date_from;
+        $cungNgay = true;
+    }
     $name = $ten[$i];
     $amount = $tien[$i];
     $c1 = $cat_1[$i];
     $c2 = $cat_2[$i];
     $c3 = $cat_3[$i];
     if (!in_array('',array($date_from,$date_to,$name,$amount,$c1))){
-
+        
         $day_from = new Datetime($date_from);
         $day_to = new Datetime($date_to);
 
@@ -48,6 +54,10 @@ for ($i=0; $i < count($ten); $i++) {
         $thu_1 = $day_to->format('N');
         $year_1 = $day_to->format('Y');
         $week_1 = $day_to->format('W');
+
+        if ($cungNgay){
+            $postFx = $day_from->format('_d');
+        }
 
         if($thu_0 == 1){
             $monday = $date_from;
@@ -80,6 +90,9 @@ for ($i=0; $i < count($ten); $i++) {
                     if ($total_days <= 0){
                         echo "Nhap sai ngay";
                         exit;
+                    }
+                    if($cungNgay){
+                        $name .= $postFx;
                     }
                     $sql = "
                     INSERT INTO `NN`.`tb_expense`
@@ -267,8 +280,11 @@ for ($i=0; $i < count($ten); $i++) {
                 </td>
                 <td>
                     <?php 
-                    $d = new Datetime($date_1[$i]);
+                    if($date_1[$i] <> ''){
+                        $d = new Datetime($date_1[$i]);
                     echo $d->format('d M Y');
+                    }
+                    
                     ?>
                 </td>
                 <td><?php echo $c1;?></td>
@@ -279,6 +295,9 @@ for ($i=0; $i < count($ten); $i++) {
                 
 </tr>
 <?php
+    }
+    else {
+        Echo "Nhap thieu du lieu";
     }
 }
 ?>

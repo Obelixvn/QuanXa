@@ -20,7 +20,14 @@
 <script src="java_functions_Expsense.js">
         
         
-</script>    
+</script>   
+<datalist id = "ten_thuong_dung">
+    <option value="Sainsburrys">Sainsburry</option>   
+    <option value="Lamwell">Lamwell</option>   
+    <option value="Tesco">Tesco</option> 
+    <option value="Cleanning">Cleanning</option> 
+    <option value="S&M Tools">S&M Tools</option>       
+</datalist>
 <fieldset id = "expense_field">
     <legend>Expenses </legend>
     <table id = "tb_expense" class = "tb_input_expense">
@@ -40,7 +47,7 @@
             <tr>
                 <td><input type ="date" name = "bat_dau"></td>
                 <td><input type ="date" name = "ket_thuc"></td>
-                <td><input type = "text" name = "ten"></td>
+                <td><input list = "ten_thuong_dung" name = "ten"></td>
                 <td>
                     <select name="cat1" id="first_optionCat1">
                     <?php
