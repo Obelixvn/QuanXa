@@ -98,18 +98,18 @@ div.order_sumary button{
 
 div.display_TMThe div:nth-child(1){
     float: left;
-    width: 70px;
+    width: 170px;
     height: 12px;
 }
 div.display_TMThe div:nth-child(2){
     color: red;
     float: left;
-    width: 70px;
+    width: 170px;
 }
 div.display_TMThe div:nth-child(3){
-    color: palegreen;
+    color: blue;
     float: left;
-    width: 50px;
+    width: 250px;
 }
 div.display_TMThe div:nth-child(4){
     clear: both;

@@ -16,14 +16,14 @@ function them_item_expense(){
     var cell7 = row.insertCell(6);
     cell1.innerHTML = '<input type ="date" name = "bat_dau">';
     cell2.innerHTML = '<input type ="date" name = "ket_thuc">';
-    cell3.innerHTML = '<input type = "text" name = "ten">';
+    cell3.innerHTML = '<input list = "ten_thuong_dung" name = "ten">';
     
     var optionCat1 = document.createElement("select");
     optionCat1.innerHTML = document.getElementById('first_optionCat1').innerHTML;
     optionCat1.setAttribute("name", "cat1");
     cell4.appendChild(optionCat1);
     cell5.innerHTML = '<input type = "text" name = "cat2">';
-    cell6.innerHTML = '<input type = "text" name = "cat3">';
+    cell6.innerHTML = '<input type = "text" name = "cat3" value = "Cash">';
     cell7.innerHTML = '<input type = "number" name = "tien">';
 }
 function update_expense(){
@@ -201,4 +201,13 @@ function pay_supplier(sup){
     Java_ajax('supplier_payable_tb',str_ajax);
     
 }
-    
+
+function chi_tieu_tien_mat_theo_thang(){
+    var thang = document.getElementById('chon_thang_chi_tieu_tien_mat').value;
+    if (thang >= 1 & thang <=12){
+        var str_ajax = 'chi_tieu_tien_mat.php?thang='+thang;
+        Java_ajax('ketqua_chi_tieu_tien_mat',str_ajax);
+    }else{
+        alert('Nhap thang ko hop ly');
+    }
+}

@@ -1,12 +1,7 @@
 <?php 
 
 function DB_POS_connect(){
-    $serverName = "81.147.143.154\VDIT, 49277";
-    $connectionOptions = array(
-        "Database" => "NgonNgon",
-        "Uid" => "sahara",
-        "PWD" => "Tony0186"
-    );
+    include "Server_name.php";
     
     //Establishes the connection
     $conn = sqlsrv_connect($serverName, $connectionOptions);

@@ -1,10 +1,5 @@
 <?php 
- $serverName = "192.168.0.107\VDIT, 49277";
- $connectionOptions = array(
-     "Database" => "NgonNgon",
-     "Uid" => "sahara",
-     "PWD" => "Tony0186"
- );
+include "Server_name.php";
  
  //Establishes the connection
  $conn = sqlsrv_connect($serverName, $connectionOptions);
@@ -40,16 +35,17 @@ $tsql1 = "Select sum(Card) from OrderList where OpenDateTime >= '2018-06-01' AND
 
 $tsql1 = "UPDATE OrderList  SET VAT = Round(Total * 0.155,2), SaleNoneVAT = Round(Total * 0.07,2),NetTotal = Round(Total * 0.93,2)   WHERE  OpenDateTime <= '2018-04-23 23:59:59' ";
 
-$tsql1 = " Update OrderItems Set Note = '' Where Note = 'Paid_in_Full' ";
+$tsql1 = " Update OrderList Set Note = '' Where Note = 'Paid_in_Full' ";
+$tsql = " Update OrderItems Set Note = '' Where Note = 'Paid_in_Full' ";
 $tsql1 = "Select Convert(date, OpenDateTime) as Ngay, DATEPART( hh,OpenDateTime) as Time,sum(Total) From OrderList Where OpenDateTime >= '2018-05-30' AND OpenDateTime <= '2018-05-30' GROUP BY DATEPART( hh,OpenDateTime) , Convert(date, OpenDateTime) ";
 $tsql1 = "SELECT Top 10 *  From OrderList INNER JOIN Config_table on tableID = config_table.ID WHERE SaleNoneVAT = 0 AND TableID > 200  AND tableID = 205 Order By OpenDateTime Desc ";
 
 $tsql1 = "Select top 10 * from OrderItems order by Opendatetime desc";
 $tsql1 = "Select * from orderitems order by opendatetime desc";
-$tsql = "Select * from Orderitems WHERE  TableID = 15 AND OpenDateTime >= '2018-09-19' ";
+$tsql1 = "Select * from Orderitems WHERE  TableID = 15 AND OpenDateTime >= '2018-09-19' ";
 $tsql1 = "Update OrderList SET SaleNoneVAT = 0, VAT = Round(Total / 6,2), NetTotal = Total WHERE SaleNoneVAT > 0 AND TableID > 200 AND OpenDateTime >= '2018-05-22' ";
 
-$tsql = "SELECT TableName,  Card FROM OrderList INNER JOIN Config_table On OrderList.TableID = Config_table.ID WHERE OpenDateTime >= '2018-09-27' and OpenDateTime <'2018-09-29' AND card > 0 order by TableName desc";
+$tsql1 = "SELECT TableName,  Card FROM OrderList INNER JOIN Config_table On OrderList.TableID = Config_table.ID WHERE OpenDateTime >= '2018-09-27' and OpenDateTime <'2018-09-29' AND card > 0 order by TableName desc";
 
 $tsql1 = "SELECT 'Uber' as Del, OrderList.Total as Total FROM OrderList WHERE TableID IN (237,241,242,243,244) and OpenDateTime >= '2018-08-05' AND OpenDateTime < '2018-08-06' order by Opendatetime";
 $tsql1 = "SELECT 'Uber' as Del, sum(OrderList.Total) as Total FROM OrderList WHERE TableID IN (237,241,242,243,244) and OpenDateTime >= '2018-08-05' AND OpenDateTime < '2018-08-06' UNION SELECT 'Roo' as Del,sum(OrderList.Total) as Total FROM OrderList WHERE TableID IN (236,238,239,240,245) and OpenDateTime >= '2018-07-31' AND OpenDateTime < '2018-08-01'";
@@ -148,21 +144,22 @@ if ($getResults == FALSE){
 <h1> Results : </h1>
 
 <?php
+echo $tsql."<br>";
 
 while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
     //var_dump ($row["COLUMN_NAME"]);
     ?>
-    <input type="checkbox" name="test" id="">
+    <!-- <input type="checkbox" name="test" id=""> -->
     
     <?php
-    //  echo "<pre>";
-    // print_r ($row);
-    // echo "</pre>";
+    echo "<pre>";
+    print_r ($row);
+    echo "</pre>";
     //echo sqlsrv_rows_affected($getResults);
     //echo $row["ID"]."  -  ";
-    echo $row["TableName"]." - - ";
-    echo $row["Card"];
-    echo "<br>";
+    // echo $row["TableName"]." - - ";
+    // echo $row["Card"];
+    // echo "<br>";
     
 }
 

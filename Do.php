@@ -33,16 +33,16 @@
      
         <input type="week" id="week_datDoPage" value="<?php echo($Ngay_hom_nay->format('Y-\WW')); ?>">
         <select name = "chon_thu_dat_do" onchange = "change_date_datDoPage()" >
-        <option value ="0"/> Mon </option>
-        <option value ="1"/>Tue </option>
-        <option value ="2"/>Wed </option>
-        <option value ="3"/>Thur </option>
-        <option value ="4"/>Fri </option>
-        <option value ="5"/>Sat </option>
-        <option value ="6"/>Sun </option>
+        <option value ="0"/> Thu 2 </option>
+        <option value ="1"/>Thu 3 </option>
+        <option value ="2"/>Thu 4 </option>
+        <option value ="3"/>Thu 5 </option>
+        <option value ="4"/>Thu 6 </option>
+        <option value ="5"/>Thu 7 </option>
+        <option value ="6"/>CN </option>
         
     </select>
-    <button type = "button" onclick = "change_date_datDoPage()">Load</button>
+    <button type = "button" onclick = "change_date_datDoPage()">Chọn ngày</button>
      
 </div>
 
@@ -52,9 +52,9 @@
                         <th colspan = '2'><input type = "hidden" id = "Ngay_dat_do" value = "<?php echo($Ngay_hom_nay->format('Y-m-d')); ?>"><span id = 'date_datDoPage'><?php echo($Ngay_hom_nay->format('d/M/Y')); ?></span></th>
                 </tr>
                 <tr>
-                        <td id = "Thit_supplier">Thit
+                        <td id = "Thit_supplier">Catering Meats
                         </td>
-                        <td id = "Rau_supplier">Rau</td>    
+                        <td id = "Rau_supplier">Fruit StaLL</td>    
                 </tr>
                
                  <tr>
@@ -75,7 +75,7 @@
                         </tr>
                 <tr>
                         <td id = "Cook_Delight_supplier">Cook Delight</td>
-                        <td id = "Hung_Nghia_supplier">Hung Nghia</td>
+                        <td id = "Hung_Nghia_supplier">Fusian</td>
                 </tr>
                 <tr>
                         <td id = "Cook Delight_dat_do"> </td>
@@ -90,7 +90,7 @@
                         <td id = "Hung Nghia_them_do"></td>
                 </tr>
                 <tr>
-                        <td colspan = "2" class = "pad_20 txt_c">Other Supplier: <select name ="supplier_sel_datdoPage">
+                        <td colspan = "2" class = "pad_20 txt_c">Khach hang khac: <select name ="supplier_sel_datdoPage">
                                         <option value = ''>--Select--</option>
 
                                 <?php

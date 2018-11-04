@@ -24,13 +24,10 @@ if(!isset($_POST["Tong_Card"])){
 
 
 //Connect POS
- $serverNamePOS = "192.168.0.107\VDIT, 49277";
- $connectionOptions = array(
-     "Database" => "NgonNgon",
-     "Uid" => "sahara",
-     "PWD" => "Tony0186"
- );
- 
+include "Server_name.php";
+$serverNamePOS = $serverName;
+
+
 //Establishes the connection
 $connPOS = sqlsrv_connect($serverNamePOS, $connectionOptions);
 if( $connPOS === false ) {

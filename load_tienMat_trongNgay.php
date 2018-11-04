@@ -134,18 +134,20 @@ $avg_cash = $row_avg["cash"];
 </div>
 <div id = "TM_tren_the" >
     <div class = "display_TMThe">
-        <div id = "fix_card"> <?php echo $Card; ?></div>
-        <div><?php echo number_format($TM,2); ?></div>
-        <div><?php echo number_format($avg_cash,2); ?></div>
-        <div><?php echo number_format($percent,2); ?></div>
-        <div><?php echo number_format($Roo_del,2); ?></div>
-        <div><?php echo number_format($Uber_del,2); ?></div>
+        <div>Tiền Thẻ <br><span  id = "fix_card"><?php echo $Card; ?></span> </div>
+        <div>Tiền mặt <br><?php echo number_format($TM,2); ?></div>
+        <div>Tiền mặt Bình Quân <br><?php echo number_format($avg_cash,2); ?></div>
+        <div class = "clear_Fix"></div>
+        <br>
+        <div>Phầm trăm tiền mặt trên tiền thẻ: <?php echo number_format($percent,2); ?>%</div>
+        <div>Tiền Roo: <?php echo number_format($Roo_del,2); ?></div>
+        <div>Tiền Uber: <?php echo number_format($Uber_del,2); ?></div>
         <div class = "clear_Fix"></div>
     </div>
     <div class = "display_TMThe">
         <div> </div>
-        <div id = "adj_TM"></div>
-        <div id = "adj_percent"></div>
+        <div>Tổng tiền mặt đã chọn: <br><span id = "adj_TM"></span></div>
+        <div>Phần trăm tiền mặt trên tiền thẻ<br><span id = "adj_percent"></span>%</div>
         <div class = "clear_Fix"></div>
     </div>
     <hr>
@@ -155,7 +157,7 @@ $avg_cash = $row_avg["cash"];
 <table id = "tb_tienMat">
 
 <?php
-
+$don_tra_toanTM = 0;
 while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
     
 ?>
@@ -176,6 +178,7 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
         Table <?php echo $row["TenBan"]; ?> :
         <?php 
         if ($row["Type"] == 'ALLTM'){
+            $don_tra_toanTM +=1;
             echo "<span name = \"TM_addUp\">".number_format($row["Tien"],2). "</span>"; 
         }else{
             echo "<span name = \"TM_addUp\">".number_format($row["Cash"]-$row["Change"],2)."</span>,(".number_format($row["Tien"],2).")"; 
@@ -200,6 +203,9 @@ sqlsrv_free_stmt($result);
 sqlsrv_close($conn);
 ?>
 </table>
-<button onclick= "Xapxep()">Xap xep(<?php echo $i; ?>)</button>
-<button onclick= "loc_thongKe_TM()">Xoa Others</button>
-<button onclick = "checkALL_TM()">Sel ALL</button>
+<br>
+<div>Tổng số đơn có trả tất bằng tiền mặt là: <?php echo $don_tra_toanTM; ?> </div>
+<br>
+<button class = "mar_r_15" onclick= "Xapxep()">Xap xep</button>
+<button class = "mar_r_15" onclick= "loc_thongKe_TM()">Xóa đơn không được tick </button>
+<button onclick = "checkALL_TM()">Chọn tất cả</button>

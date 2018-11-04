@@ -26,7 +26,8 @@
     <option value="Lamwell">Lamwell</option>   
     <option value="Tesco">Tesco</option> 
     <option value="Cleanning">Cleanning</option> 
-    <option value="S&M Tools">S&M Tools</option>       
+    <option value="S&M Tools">S&M Tools</option> 
+    <option value="Asha Brother">Asha Brother</option>      
 </datalist>
 <fieldset id = "expense_field">
     <legend>Expenses </legend>
@@ -60,13 +61,13 @@
                     </select>
                 </td>
                 <td><input type = "text" name = "cat2"></td>
-                <td><input type = "text" name = "cat3"></td>
+                <td><input type = "text" name = "cat3" value = "Cash"></td>
                 <td><input type = "number" name = "tien"></td>
             </tr>
         </tbody>
     </table>    
     <button type = "button" onclick = "them_item_expense()">Them</button>
-    <button type = "button" onclick = "update_expense()">Confirm</button>
+    <button type = "button" onclick = "update_expense()">Luu du lieu </button>
 </fieldset>
 
 <fieldset >
@@ -90,7 +91,16 @@
 <div id = "select_contain"></div>
 
 
+<fieldset>
+<legend>Chi tieu tien mat</legend>
+<div>
+Chon thang: <input type="number" name="" id="chon_thang_chi_tieu_tien_mat">
+<Button onclick = "chi_tieu_tien_mat_theo_thang()">Chon</Button>
+</div>
+<br>
 
+<div id = "ketqua_chi_tieu_tien_mat"></div>
+</fieldset>
 
 </body>
 </html>

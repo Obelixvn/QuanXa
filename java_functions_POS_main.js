@@ -310,3 +310,8 @@ function checkALL_TM(){
         element.checked = true;
     });
 }
+function pos_check_don(){
+    var date = document.getElementById('TM_trongNgay').value;
+    strajax = "pos_check_don.php?ngay="+date;
+    Java_ajax('ket_qua_check_don',strajax);
+}

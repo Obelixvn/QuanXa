@@ -48,13 +48,16 @@
     
     </div>
     <div class = "fl pad_t10" >
-        TM
+        Chọn ngày Sale
         <input type="date" name="" id="TM_trongNgay">
-        <button onclick= "loadTienMat()">Load</button>
+        <button onclick= "loadTienMat()">Chọn</button>
+        <button onclick= "pos_check_don()">Check don</button>
         <hr>
         <div id = "div_test">
         </div>
         
+    </div>
+    <div  id = "ket_qua_check_don" class = "fl pad_10" >
     </div>
     <div class = "fl pad_t10" >
         Refund
