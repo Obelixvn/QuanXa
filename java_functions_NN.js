@@ -468,8 +468,19 @@ function change_date_datDoPage(){
     var year = str_tuan[0];
     thu = parseInt(thu);
     tuan = parseInt(str_tuan[1].substr(1));
+
+    var firstdayofYear = new Date (year,0,1);
+    var dayofWeek_firstdayofYear = firstdayofYear.getDay()+6;
     
-    var day = parseInt(tuan*7 + thu - 6);
+    if(dayofWeek_firstdayofYear > 7){
+        dayofWeek_firstdayofYear = dayofWeek_firstdayofYear -7;
+    }
+    if(dayofWeek_firstdayofYear >= 4){
+        var mondayofFirstWeek = 7 - dayofWeek_firstdayofYear;
+    }else{
+        var mondayofFirstWeek = 0 - dayofWeek_firstdayofYear;
+    }
+    var day = parseInt(tuan*7 + thu - 6 + mondayofFirstWeek);
     var d = new Date(year,0,day);
     dd = d.getDate();
     mm = d.getMonth()+1;

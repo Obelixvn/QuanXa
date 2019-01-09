@@ -12,7 +12,7 @@ if(isset($_GET['thang'])){
                         WHERE tb_expense.`Cat 3` = 'Cash' 
                         AND tb_expense.from >= '".$date_0."'
                         AND tb_expense.from < '".$date_1."' 
-                        Order by `From`, Ngay DESC" ;
+                        Order by `From`, Ngay ASC" ;
         $sql_veg = "SELECT Date_format(date , '%e %b %Y') as date, sum(tb_purchase.cost) as tongtien
                     from tb_purchase INNER JOIN tb_items ON item_id = id_item 
                     WHERE supplier = 'Jacky' AND 

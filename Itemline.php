@@ -142,8 +142,8 @@
                 <button onclick = "cat_select(33)"><span>Tom</span></button>
                 <button onclick = "cat_select(34)"><span>Muc</span></button>
                 <button onclick = "cat_select(35)"><span>Ca</span></button>
-                <button onclick = "cat_select(36)"><span>Diep</span></button>
                 <button onclick = "cat_select(36)"><span>Tofu</span></button>
+                <button onclick = "cat_select(37)"><span>Diep</span></button>
                 
             </div>
             
@@ -170,6 +170,7 @@
                     <div id = "42" class = "group_3"name = "cat_name_3">Muc</div>
                     <div id = "44" class = "group_3"name = "cat_name_3">Ca</div>
                     <div id = "49" class = "group_3"name = "cat_name_3">Tofu</div>
+                    <div id = "43" class = "group_3"name = "cat_name_3">Diep</div>
             </div>
             <div id = "button_control_itemID">
                     <div>

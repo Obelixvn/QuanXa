@@ -17,8 +17,13 @@ function onloadBepPage(){
     
 }
 function loadLichBep(){
-    var date = get_monday_from_inputWeek('week_bepPage');
-    str_ajax = 'loadLichBep.php?Date='+date;
+    str_tuan = document.getElementById('week_bepPage').value;
+    str_tuan = str_tuan.split("-");
+    tuan = parseInt(str_tuan[1].substr(1));
+    year = parseInt(str_tuan[0]);
+    tuan = year *100 + tuan;
+    
+    str_ajax = 'loadLichBep.php?Date='+tuan;
     Java_ajax('lich_bep',str_ajax);
 }
 function save_lichBep(){

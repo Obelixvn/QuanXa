@@ -84,6 +84,13 @@ $JEat = 0;
 $Uber = 0;
 $POS = 0;
 $tips_onCard = 0;
+$TW_Cash_S = 0;
+$TW_Card_S = 0;
+
+$TW_Card_T = 0;
+$TW_Cash_T = 0;
+$Cash_S = 0;
+$Card_S = 0;
 
 if(isset($_POST["JEat"])){
     $JEat = $_POST["JEat"];
@@ -92,11 +99,37 @@ if(isset($_POST["JEat"])){
     exit;
 }
 
-$sql = "SELECT sum(Cash-Change) as TongTM, sum(Card) as TongThe
+$sql = "SELECT sum(Cash-Change) as TongTM, 
+                sum(Card) as TongThe,
+                CASE 
+                    WHEN TableID <=200
+                    THEN 'TW'
+                    WHEN TableID >=236 AND TableID <=245
+                    THEN 'DEL' 
+                    ELSE 'EatIn' 
+                END AS [OrderType],
+                CASE 
+                    WHEN DATEPART(hh,OpenDateTime) < 17 
+                    THEN 'S' 
+                    ELSE 'C' 
+                END AS [Time]
         FROM OrderList 
         WHERE OpenDateTime >= '".$date_0."' 
         AND OpenDateTime <= '".$date_1."' 
-        AND (TableID <236 OR TableID >245)";
+        AND (TableID <236 OR TableID >245)
+        GROUP BY
+        CASE 
+            WHEN DATEPART(hh,OpenDateTime) < 17 
+            THEN 'S' 
+            ELSE 'C' 
+        END,
+        CASE 
+            WHEN TableID <=200
+            THEN 'TW'
+            WHEN TableID >=236 AND TableID <=245
+            THEN 'DEL' 
+            ELSE 'EatIn' 
+        END" ;
 
 
 $resultPOS= sqlsrv_query($connPOS, $sql);
@@ -106,9 +139,27 @@ if ($resultPOS === FALSE){
     echo $log;
     die( print_r( sqlsrv_errors(), true));
 }
-$row = sqlsrv_fetch_array($resultPOS, SQLSRV_FETCH_ASSOC);
-$Card = $row["TongThe"];
-$TM = $row["TongTM"];
+while($row = sqlsrv_fetch_array($resultPOS, SQLSRV_FETCH_ASSOC)){
+    $Card += $row["TongThe"];
+    $TM += $row["TongTM"];
+    if($row["Time"]== 'S'){
+        if($row["OrderType"]== 'TW'){
+            $TW_Cash_S = $row["TongTM"];
+            $TW_Card_S = $row["TongThe"];
+        }
+        $Card_S += $row["TongThe"];
+        $Cash_S += $row["TongTM"];
+    }
+    if($row["Time"]== 'C'){
+        if($row["OrderType"]== 'TW'){
+            $TW_Cash_T = $row["TongTM"];
+            $TW_Card_T = $row["TongThe"];
+        }
+    }
+}
+
+
+
 $log .= "Lay xong tien the<br>";
 sqlsrv_free_stmt($resultPOS);
 
@@ -117,7 +168,7 @@ $sql = "SELECT sum(Cash-Change+Card) as TongPOS
         WHERE OpenDateTime >= '".$date_0."' 
         AND OpenDateTime <= '".$date_1."' 
         AND Note <> 'Paid_in_Full'
-        AND (TableID <=236 OR TableID >=245)";
+        AND (TableID <236 OR TableID >245)";
 
 
 $resultPOS= sqlsrv_query($connPOS, $sql);
@@ -163,6 +214,12 @@ $sql ="
     (`Date`,
     `Card`,
     `Cash`,
+    `Card_S`, 
+    `Cash_S`, 
+    `TW_Cash_S`, 
+    `TW_Card_S`, 
+    `TW_Cash_T`, 
+    `TW_Card_T`,
     `POS`,
     `JEat`,
     `Uber`,
@@ -173,6 +230,12 @@ $sql ="
     '".$date_0."',
     ".$Card.",
     ".$TM.",
+    ".$Card_S.",
+    ".$Cash_S.",
+    ".$TW_Cash_S.",
+    ".$TW_Card_S.",
+    ".$TW_Cash_T.",
+    ".$TW_Card_T.",
     ".$POS.",
     ".$JEat.",
     ".$Uber.",
@@ -218,44 +281,48 @@ $log.= "Update xong DEL <br>";
 sqlsrv_free_stmt($resultPOS);
 
 
-$orderUpd = 0;
-$ItemsUpd = 0;
-$sql = "DELETE OrderList
-        WHERE OpenDateTime >= '".$date_0."' 
-        AND OpenDateTime <= '".$date_1."' 
-        AND Note = 'Paid_in_Full'";
+// $orderUpd = 0;
+// $ItemsUpd = 0;
+
+
+// $sql = "DELETE OrderList
+//         WHERE OpenDateTime >= '".$date_0."' 
+//         AND OpenDateTime <= '".$date_1."' 
+//         AND Note = 'Paid_in_Full'";
 
 
 
-$resultPOS= sqlsrv_query($connPOS, $sql);
-if ($resultPOS == FALSE){
-    $log.= "Order List - Update faile";
-    echo $log;
-    die( print_r( sqlsrv_errors(), true));
-}else{
-    $orderUpd += sqlsrv_rows_affected($resultPOS);
-}
+// $resultPOS= sqlsrv_query($connPOS, $sql);
+// if ($resultPOS == FALSE){
+//     $log.= "Order List - Update faile";
+//     echo $log;
+//     die( print_r( sqlsrv_errors(), true));
+// }else{
+//     $orderUpd += sqlsrv_rows_affected($resultPOS);
+// }
 
-sqlsrv_free_stmt($resultPOS);
-$sql = "DELETE OrderItems
-        WHERE OpenDateTime >= '".$date_0."' 
-        AND OpenDateTime <= '".$date_1."' 
-        AND Note = 'Paid_in_Full'";
+// sqlsrv_free_stmt($resultPOS);
 
 
+// $sql = "DELETE OrderItems
+//         WHERE OpenDateTime >= '".$date_0."' 
+//         AND OpenDateTime <= '".$date_1."' 
+//         AND Note = 'Paid_in_Full'";
 
-$resultPOS= sqlsrv_query($connPOS, $sql);
 
-if ($resultPOS == FALSE){
-    $log.= "Order Item - Update faile";
-    echo $log;
-    die( print_r( sqlsrv_errors(), true));
-}else{
-    $ItemsUpd += sqlsrv_rows_affected($resultPOS);
-}
 
-$log.= "Update xong !! - ".$orderUpd." - ".$ItemsUpd;
-sqlsrv_free_stmt($resultPOS);
+// $resultPOS= sqlsrv_query($connPOS, $sql);
+
+// if ($resultPOS == FALSE){
+//     $log.= "Order Item - Update faile";
+//     echo $log;
+//     die( print_r( sqlsrv_errors(), true));
+// }else{
+//     $ItemsUpd += sqlsrv_rows_affected($resultPOS);
+// }
+
+// $log.= "Update xong !! - ".$orderUpd." - ".$ItemsUpd;
+// sqlsrv_free_stmt($resultPOS);
 $connDB->close();
 sqlsrv_close($connPOS);
 

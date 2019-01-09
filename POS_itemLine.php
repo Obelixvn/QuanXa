@@ -14,12 +14,8 @@ if ($date_0 == $date_1 and $date_1 == ''){
     $date = new DateTime($_GET["date_0"]);
 }
 
-
-
-
-
-$sql = "SELECT  * FROM view_tkItem_v11 WHERE Ngay >= '".$date_0."' AND Ngay <= '".$date_1."' ORDER BY Ngay DESC";
 $conn = DB_POS_connect();
+$sql = "SELECT * FROM view_tkItem_v11 WHERE Ngay >= '".$date_0."' AND Ngay <= '".$date_1."' ORDER BY Ngay DESC";
 $result= sqlsrv_query($conn, $sql);
 
 $total_row = 0;
@@ -50,7 +46,7 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
         <td><?php echo $row["soLuong"] ?></td>
     </tr>
     <?php
-
+    $row["Ten"] = trim($row["Ten"]);
     if($save){
         $cur_date = $row["Ngay"];
         
@@ -130,7 +126,9 @@ while ($row = sqlsrv_fetch_array($result, SQLSRV_FETCH_ASSOC)) {
             //Insert tb_alias - From ID
             $log .= $itemID."<br>";
             $sql_insert_ali = "INSERT INTO `tb_alias_item`(`Name`, `ID_item`) VALUES ('".$row['Ten']."',".$itemID.")";
-            $r = DB_itemLine_run_query($sql_insert_ali);
+            $newAliasID = Get_insertIDQuery($sql_insert_ali );
+            $sql_insertLogTB = "INSERT INTO `tb_newitem_itemline_log`(`Ngay`,`Name`, `Alise_id`, `Mon_id`) VALUES ('".$cur_date->format('Y-m-d')."','".$row['Ten']."',".$newAliasID.",".$itemID.")";
+            $r = DB_itemLine_run_query($sql_insertLogTB);
             $log.= "Alise formed<br>";
         }            
 

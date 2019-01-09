@@ -16,15 +16,15 @@
     include "DB_functions_NN.php";
     include "Global.php";
     $date = new Datetime($_GET["Date"]);
-    $week = $date->format("W");
-    $year = $date->format("Y");
-    $week = $year *100 + $week;
+    
+    $week = $_GET["Date"];
     $sql_nv = "
         SELECT d_o_w, Name, nv_ID as ID,tb_bep.ID as lich_id
         FROM `tb_bep` 
         INNER JOIN tb_nhanVien ON tb_bep.nv_ID = tb_nhanVien.ID 
         WHERE tb_bep.Week = ".$week."
     ";
+   
     $result_nv = DB_run_query($sql_nv);
     if ($result_nv->num_rows == 0){//ko co du lieu
         $sql_nv = "
